@@ -112,6 +112,9 @@ export class Lifecycle {
     @query("#constants")
     constants_screen!: HTMLElement;
 
+    @query("#minimize-button")
+    minimize_screen!: HTMLDivElement;
+
     currently_demoing: Boolean = false;
 
     state: State = State.Stopped;
@@ -210,6 +213,21 @@ export class Lifecycle {
             this.help_screen.style.visibility = "hidden";
             this.constants_screen.style.visibility = "visible";
         })
+
+        this.minimize_screen.addEventListener("click", _ => {
+            let img = this.minimize_screen.querySelector("img")!;
+            let user_control = document.querySelector("#user-control")! as HTMLDivElement;
+
+            if (img.style.rotate == "180deg") {
+                this.machine.style.minWidth = "0%";
+                user_control.style.left = "0%";
+                img.style.rotate = "0deg";
+            } else {
+                this.machine.style.minWidth = "100%";
+                user_control.style.left = "100%";
+                img.style.rotate = "180deg";
+            }
+        });
 
         document.querySelectorAll("#fullscreen .center").forEach(x => x.addEventListener("click", e => e.stopImmediatePropagation()));
 
