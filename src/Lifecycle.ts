@@ -4,7 +4,7 @@ import { query, queryAll } from "./decorators";
 import { SPRING_EXAMPLE, LINEAR_INTEGRATION_EXAMPLE, GAMMA_FUNCTION_EXAMPLE, WEIERSTRAUSS_FUNCTION_EXAMPLE, GEAR_PAIR_EXAMPLE, EPICYCLOID_EXAMPLE, EXTREME_EPICYCLOID_EXAMPLE, FREE_FALL_EXAMPLE, DUFFING_EQUATION_EXAMPLE, POPULATION_GROWTH_EXAMPLE, SIMPLE_PENDULUM_EXAMPLE, DOUBLE_PENDULUM_EXAMPLE } from "./examples";
 import { setupDragHooks } from "./UI/Drag";
 import { DraggableComponentElement } from "./UI/DraggableElement";
-import { GRID_SIZE, resetScreenOffset, setCells, setScreenOffset, setupScreenHooks } from "./UI/Grid";
+import { getScreenOffset, GRID_SIZE, resetScreenOffset, setCells, setScreenOffset, setupScreenHooks } from "./UI/Grid";
 import { setupSelectHooks } from "./UI/SelectShaft.ts";
 import { setupPopups } from "./UI/Popups";
 import Vector2 from "./UI/Vector2";
@@ -218,14 +218,20 @@ export class Lifecycle {
             let img = this.minimize_screen.querySelector("img")!;
             let user_control = document.querySelector("#user-control")! as HTMLDivElement;
 
+            let current_offset = getScreenOffset();
+            let size = user_control.clientWidth / 2;
+
+
             if (img.style.rotate == "180deg") {
                 this.machine.style.minWidth = "0%";
                 user_control.style.left = "0%";
                 img.style.rotate = "0deg";
+                setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
             } else {
                 this.machine.style.minWidth = "100%";
                 user_control.style.left = "100%";
                 img.style.rotate = "180deg";
+                setScreenOffset({ x: current_offset.x + size, y: current_offset.y });
             }
         });
 
@@ -269,6 +275,10 @@ export class Lifecycle {
                     e.preventDefault();
                 }
                 break;
+            case 'r':
+            case 'R':
+                this.fitMachine();
+                break;
             case 'S':
             case 's':
                 if (e.ctrlKey) {
@@ -303,6 +313,10 @@ export class Lifecycle {
 
         loadConfig(config);
 
+        this.fitMachine();
+    }
+
+    fitMachine(): void {
         if (this.placedComponents.length > 0) {
             let top = Number.POSITIVE_INFINITY;
             let left = Number.POSITIVE_INFINITY;
