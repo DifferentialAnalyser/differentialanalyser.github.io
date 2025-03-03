@@ -79,6 +79,10 @@ html {
     width: calc(4 * var(--unit));
 }
 
+#user-control-parent {
+    position: relative;
+}
+
 #user-control {
     margin: 0;
     display: flex;
@@ -98,6 +102,30 @@ html {
     gap: var(--gap-size);
 
     z-index: 6;
+}
+
+#minimize-button {
+    position: absolute;
+    background: var(--colour-accent2);
+    width: calc(3 * var(--unit));
+    height: auto;
+    display: block;
+
+    left: 0;
+    top: 50%;
+    transform: translate(-60%, -50%);
+    z-index: 20;
+
+    border-radius: calc(var(--border-radius) * 2);
+}
+
+#minimize-button:hover {
+    cursor: pointer;
+}
+
+#minimize-button img {
+    width: 100%;
+    height: 100%;
 }
 
 #configuration {
