@@ -113,7 +113,7 @@ html {
 
     left: 0;
     top: 50%;
-    transform: translate(-60%, -50%);
+    transform: translate(-70%, -50%);
     z-index: 20;
 
     border-radius: calc(var(--border-radius) * 2);
