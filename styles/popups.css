@@ -37,11 +37,13 @@
 
 #integrator-popup {
   display: flex;
+  width: auto;
   flex-direction: column;
 }
 
 #integrator-popup textarea {
-  resize: vertical;
+  min-width: 10vw;
+  min-height: 3rem;
 }
 
 #cross-connect-popup {
@@ -51,11 +53,13 @@
 
 #multiplier-popup {
   display: flex;
+  width: auto;
   flex-direction: column;
 }
 
 #multiplier-popup textarea {
-  resize: vertical;
+  min-width: 10vw;
+  min-height: 3rem;
 }
 
 #multiplier-popup>label {
@@ -143,7 +147,6 @@
 }
 
 #function-table-fn {
-  max-width: 97%;
-  width: 97%;
-  resize: vertical;
+  min-width: 97%;
+  min-height: 3rem;
 }

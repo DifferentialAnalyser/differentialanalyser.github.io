@@ -3,6 +3,7 @@ import { updateArrows } from "./SelectShaft";
 import { machine } from "./Constants.ts"
 import Vector2 from "./Vector2";
 import { startedDragging } from "./Drag.ts";
+import { closeAllPopups } from "./Popups.ts";
 
 export let GRID_SIZE: number = 50;
 
@@ -214,6 +215,7 @@ function dragScreen(x: number, y: number): void {
   if (!canStartScreenDragging) return;
 
   updateArrows();
+  closeAllPopups();
 
   if (!screenDragging) {
     let dragDistance = Math.pow(x - initialDragLocation.x, 2.) + Math.pow(y - initialDragLocation.y, 2.);
