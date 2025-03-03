@@ -239,7 +239,7 @@ function mouseWithin(popup: HTMLDivElement, e: MouseEvent): boolean {
   return false;
 }
 
-function closeAllPopups(): void {
+export function closeAllPopups(): void {
   (document.querySelectorAll(".popup")! as NodeListOf<HTMLDivElement>).forEach((x: HTMLDivElement) => x.style.visibility = "hidden");
 }
 
