@@ -17,6 +17,8 @@ import { DialComponentElement } from "./UI/DialComponentElement.ts";
 import { CustomVariablesElement } from "./UI/CustomVariablesElement.ts";
 import { ConfigError } from "./ConfigError.ts";
 import { resetIDs } from "./UI/Components.ts";
+import { IntegratorComponentElement } from "./UI/IntegratorComponent.ts";
+import { Integrator } from "./core/Integrator.ts";
 
 enum State {
     Paused,
@@ -559,23 +561,14 @@ export class Lifecycle {
             }
             
             for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
-                console.log(corecomp);
                 let pointpos = corecomp.accumulator;
-                console.log(corecomp.accumulator);
-                const integrators = document.querySelectorAll(".integrator") as NodeListOf<DraggableComponentElement>;
-                console.log(integrators);
-                for (let intgtr of integrators) {
-                    if (Number(intgtr.id.slice(10)) == corecomp.id) {
-                        const uicomp = intgtr.querySelector("integrator-component")! as IntegratorComponentElement;
-                        uicomp.theta = 2 * Math.PI * pointpos;
-                        console.log(uicomp.theta);
-                        uicomp.x = uicomp.centre_x + uicomp.radius * Math.cos(uicomp.theta);
-                        uicomp.y = uicomp.centre_y + uicomp.radius * Math.sin(uicomp.theta);
-                        // check if that angle is actually right
-                    }
-                } 
+                const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
+                const uicomp = integrator.querySelector("integrator-component")! as IntegratorComponentElement;
+                uicomp.theta = 2 * Math.PI * pointpos;
+                uicomp.x = uicomp.centre_x + uicomp.radius * Math.cos(uicomp.theta);
+                uicomp.y = uicomp.centre_y + uicomp.radius * Math.sin(uicomp.theta);
+                // check if that angle is actually right
             }
-
 
             for (let comp of simulator.components.filter(x => x instanceof FunctionTable)) {
                 const table = document.querySelector(`#component-${comp.id} > graph-table`)! as GraphElement;
