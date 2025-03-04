@@ -2,30 +2,231 @@
 <html>
 <head>
     <title>Differential Analyser</title>
-    <title>Differential Analyser</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simulation of Vannevar Bush's Differentials Analyser (Differential Analyzer in American English), later consturcted out of Macano by Dr Maurice Wilkes at the University of Cambridge">
 
     <script type="module" src="src/index.ts"></script>
-    <script type="module" src="src/index.ts"></script>
 
-    <link rel="stylesheet" href="styles/popups.css">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/fullscreen.css">
     <link rel="stylesheet" href="styles/grid.css">
     <link rel="stylesheet" href="styles/popups.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/components.css">
-    <link rel="stylesheet" href="styles/grid.css">
+    <link rel="stylesheet" href="styles/tooltip.css">
 </head>
 <body>
+    <div id="fullscreen">
+        <div id="about">
+            <div class="center">
+                <div class="content-background">
+                    <div class="content">
+                        <label>About</label>
+                        <span>
+                            This website was designed to be a simulation of a differential analyser,
+                            mechanical machines that were designed to solve differential equations
+                            through integration. The components implemented in this simulation are
+                            based on the original paper by Vannevar Bush, released in 1931. All components
+                            are implemented to be similar to how the physical machines would have functioned.
+                        </span>
+
+                        <span>
+                            More information can be found  <a href="https://en.wikipedia.org/wiki/Differential_analyser" target="_blank">here</a>
+                        </span>
+
+                        <span>
+                            This website was constructed over 7 weeks, between the dates of 23/01/25 and 13/03/25, by Aaron Danton,
+                            Andy Zhu, Hanzhang Shen, Joseph Hunt, Simon Solca, and Sophie Ring as part of Cambridge's
+                            Computer Science IB group project for the client, Richard Pawson.
+                        </span>
+
+                        <span>
+                            The source code can be found <a href="https://github.com/DifferentialAnalyser/differentialanalyser.github.io" target="_blank">here</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="help">
+            <div class="center">
+                <div class="content-background">
+                    <div class="content">
+                        <label>Help</label>
+                        <div style="display:flex;flex-direction: column;gap:var(--gap-size)">
+                            <p>Basic controls</p>
+                            <span>
+                                The machine can be zoomed by scrolling and panned by pressing and holding any mouse button
+                            </span>
+                            <span>
+                                Components can be dragged from the side panel into the "machine". While in the machine
+                                every component can be dragged.
+                            </span>
+
+                            <span>
+                                Some components feature a right click popup menu allowing the configuration to be changed.
+                            </span>
+
+                            <span>
+                                Shafts can be selected and resized using the arrows
+                            </span>
+
+                            <span>
+                                If a component is transparent/yellow, then it is not yet fully configured, and
+                                is missing atleast one of its required inputs.
+                                If the machine turns red, then there are some conflicting components that need to be resolved
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="constants">
+            <div class="center">
+                <div class="content-background">
+                    <div class="content">
+                        <label>Shared constants</label>
+                        <span>constants written here are accessible in all input fields</span>
+                        <div class="custom-variables">
+                            <custom-variables></custom-variables>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div id="content">
-        <div id="machine">
+        <div id="machine" style="cursor:grab">
+            <div id="info_buttons">
+                <div id="about_button" class="tooltip" style="cursor:pointer">
+                    <img src="icons/Info.svg" class="nodrag" alt="Info" style="rotate: 180deg;"/>
+                    <span class="tooltiptext">About</span>
+                </div>
+                <div id="help_button" class="tooltip" style="cursor:pointer">
+                    <img src="icons/Help.svg" class="nodrag" alt="Help"/>
+                    <span class="tooltiptext">Help</span>
+                </div>
+                <div id="constants_button" class="tooltip" style="cursor:pointer">
+                    <img src="icons/Constants.svg" class="nodrag" alt="Constants"/>
+                    <span class="tooltiptext">Shared constants</span>
+                </div>
+            </div>
             <div id="grid"></div>
+
+            <span id="component-tooltip" class="tooltiptext">Temp</span>
         </div>
 
-        <div id="user-control">
-            <div id="demo-area">
-                <label>Examples</label>
+        <div id="user-control-parent">
+            <div id="minimize-button">
                 <div>
+                    <img src="icons/Minimize.svg" class="nodrag" alt="Minimize Arrow"/>
+                </div>
+            </div>
+            <div id="user-control">
+                <div id="components-area">
+                    <p>Components</p>
+                    <div id="components-list">
+                        <div data-type="VShaft" class="component">
+                            <div class="component-label"><span>V shaft</span></div>
+                            <div class="component-img">
+                                <img src="icons/Line.svg" alt="Vertical Shaft" style="rotate: 90deg"/>
+                            </div>
+                        </div>
+
+                        <div data-type="HShaft" class="component">
+                            <div class="component-label"><span>H shaft</span></div>
+                            <div class="component-img">
+                                <img src="icons/Line.svg" alt="Horizontal shaft"/>
+                            </div>
+                        </div>
+
+                        <div data-type="CrossConnect" class="component">
+                            <div class="component-label"><span>X-Conn.</span></div>
+                            <div class="component-img">
+                                <img scale="1.5" src="icons/CrossConnect.svg" alt="Cross connect"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Integrator" class="component">
+                            <div class="component-label"><span>Integ.</span></div>
+                            <div class="component-img">
+                                <img src="icons/Integrator.svg" alt="Integrator"/>
+                            </div>
+                        </div>
+
+                        <div data-type="FunctionTable" class="component">
+                            <div class="component-label"><span>Fn. Table</span></div>
+                            <div class="component-img">
+                                <img src="icons/FunctionTable.svg" alt="Function Table"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Differential" class="component">
+                            <div class="component-label"><span>Sum</span></div>
+                            <div class="component-img">
+                                <img src="icons/Differential.svg" alt="Differential"/>
+                            </div>
+                        </div>
+
+                        <div data-type="OutputTable" class="component">
+                            <div class="component-label"><span>Out. Table</span></div>
+                            <div class="component-img">
+                                <img src="icons/OutputTable.svg" alt="Output table"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Motor" class="component">
+                            <div class="component-label"><span>Motor</span></div>
+                            <div class="component-img">
+                                <img src="icons/Motor.svg" alt="Motor"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Multiplier" class="component">
+                            <div class="component-label"><span>Multi.</span></div>
+                            <div class="component-img">
+                                <img src="icons/Multiplier.svg" alt="Multiplier"/>
+                            </div>
+                        </div>
+
+                        <div data-type="GearPair" class="component">
+                            <div class="component-label"><span>Gear Pair</span></div>
+                            <div class="component-img">
+                                <img src="icons/GearPair.svg" alt="Gear Pair"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Dial" class="component">
+                            <div class="component-label"><span>Dial</span></div>
+                            <div class="component-img">
+                                <img src="icons/Dial.svg" alt="Dial"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Label" class="component">
+                            <div class="component-label"><span>Label</span></div>
+                            <div class="component-img">
+                                <img src="icons/Label.svg" alt="Label"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="configuration">
+                    <p style="margin: 0;">Configuration</p>
+
+                    <div id="control_buttons">
+                        <div style="padding:calc(2*var(--gap-size))" id="config_buttons">
+                            <button id="import-button">Load</button>
+                            <button id="export-button">Save</button>
+                            <button id="clear-button">Clear Screen</button>
+                        </div>
+                        <button id="clear-tables-button">Clear Output Tables</button>
+                    </div>
+
+                    <label>Examples</label>
                     <select name="examples" id="examples-list">
                         <option value="LinearIntegration">Linear Integration</option>
                         <option value="Spring">Damped Oscillation</option>
@@ -41,127 +242,30 @@
                         <option value="DoublePendulum">Double pendulum</option>
                     </select>
 
-                    <button id="demo-button">Start Demo</button>
-                </div>
-            </div>
+                    <label for="simulation-step-period">Step period (s)</label>
+                    <input id="simulation-step-period" type="number" value="0.005"/>
 
-            <div id="components-area">
-                <p>Components</p>
-                <div id="components-list">
-                    <div data-type="VShaft" class="component">
-                        <div class="component-label"><span>V shaft</span></div>
-                        <div class="component-img">
-                            <img src="icons/Line.svg" alt="Vertical Shaft" style="rotate: 90deg"/>
-                        </div>
-                    </div>
-
-                    <div data-type="HShaft" class="component">
-                        <div class="component-label"><span>H shaft</span></div>
-                        <div class="component-img">
-                            <img src="icons/Line.svg" alt="Horizontal shaft"/>
-                        </div>
-                    </div>
-
-                    <div data-type="CrossConnect" class="component">
-                        <div class="component-label"><span>X-Conn.</span></div>
-                        <div class="component-img">
-                            <img scale="1.5" src="icons/CrossConnect.svg" alt="Cross connect"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Integrator" class="component">
-                        <div class="component-label"><span>Integ.</span></div>
-                        <div class="component-img">
-                            <img src="icons/Integrator.svg" alt="Integrator"/>
-                        </div>
-                    </div>
-
-                    <div data-type="FunctionTable" class="component">
-                        <div class="component-label"><span>Fn. Table</span></div>
-                        <div class="component-img">
-                            <img src="icons/FunctionTable.svg" alt="Function Table"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Differential" class="component">
-                        <div class="component-label"><span>Sum</span></div>
-                        <div class="component-img">
-                            <img src="icons/Differential.svg" alt="Differential"/>
-                        </div>
-                    </div>
-
-                    <div data-type="OutputTable" class="component">
-                        <div class="component-label"><span>Out. Table</span></div>
-                        <div class="component-img">
-                            <img src="icons/OutputTable.svg" alt="Output table"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Motor" class="component">
-                        <div class="component-label"><span>Motor</span></div>
-                        <div class="component-img">
-                            <img src="icons/Motor.svg" alt="Motor"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Multiplier" class="component">
-                        <div class="component-label"><span>Multi.</span></div>
-                        <div class="component-img">
-                            <img src="icons/Multiplier.svg" alt="Multiplier"/>
-                        </div>
-                    </div>
-
-                    <div data-type="GearPair" class="component">
-                        <div class="component-label"><span>Gear Pair</span></div>
-                        <div class="component-img">
-                            <img src="icons/GearPair.svg" alt="Gear Pair"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Dial" class="component">
-                        <div class="component-label"><span>Dial</span></div>
-                        <div class="component-img">
-                            <img src="icons/Dial.svg" alt="Dial"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Label" class="component">
-                        <div class="component-label"><span>Label</span></div>
-                        <div class="component-img">
-                            <img src="icons/Label.svg" alt="Label"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="configuration">
-                <p>Configuration</p>
-                <div id="control_buttons">
-                    <div id="config_buttons">
-                        <button id="import-button">Load</button>
-                        <button id="export-button">Save</button>
-                        <button id="clear-button">Clear Screen</button>
-                    </div>
-                    <button id="clear-tables-button">Clear Output Tables</button>
-                </div>
-
-                <label for="simulation-step-period">Step period (s)</label>
-                <input id="simulation-step-period" type="number" value="0.005"/>
-
-                <div class="TimeButtons">
-                    <button class="TimeButton" id="play-button">
+                    <div class="TimeButtons">
+                        <button class="TimeButton" id="play-button">
                             <img src="icons/Play.svg" alt="Play"/>
-                    </button>
-                    <button class="TimeButton" id="pause-button" disabled>
+                        </button>
+                        <button class="TimeButton" id="pause-button" disabled>
                             <img src="icons/Pause.svg" alt="Pause"/>
-                    </button>
-                    <button class="TimeButton" id="stop-button" disabled>
+                        </button>
+                        <button class="TimeButton" id="stop-button" disabled>
                             <img src="icons/Stop.svg" alt="Stop"/>
-                    </button>
-                </div>
+                        </button>
+                    </div>
 
-                <label for="motor-speed">Motor speed</label>
-                <input id="motor-speed" type="range" min="0.0" max="2" step="0.01" value="0.5" />
+                    <div class="tooltip" style="display: flex; flex-direction: row; justify-content: center;margin: 0;">
+                        <input type="checkbox" id="loop-check"/>
+                        <p style="margin: 0;">Loop</p>
+                        <span class="tooltiptext">Loop the simulation instead of ending</span>
+                    </div>
+
+                    <label for="motor-speed">Motor speed</label>
+                    <input id="motor-speed" type="range" min="0.0" max="2" step="0.01" value="0.5" />
+                </div>
             </div>
         </div>
 
@@ -170,88 +274,103 @@
             <img id="positiveArrow" class="arrow" src="icons/Arrow.svg" alt="PosArrow"/>
         </div>
 
-        <div id="popups">
-            <div class="popup" id="cross-connect-popup" position="absolute" >
+        <div id="popups" style="visibility: hidden;position:absolute;">
+            <div class="popup" id="cross-connect-popup">
                 <label>Reverse</label>
                 <input id="cross-connect-reversed" type="checkbox">
             </div>
 
-            <div class="popup" id="integrator-popup" position="absolute" >
+            <div class="popup" id="integrator-popup">
                 <label>Initial offset</label>
-                <textarea id="integrator-initial-offset"></textarea>
+                <div class="tooltip top">
+                    <textarea id="integrator-initial-offset"></textarea>
+                    <span class="tooltiptext"></span>
+                </div>
             </div>
 
-            <div class="popup" id="motor-popup" position="absolute" >
-                <label>Reverse</label>
-                <input id="motor-reverse" type="checkbox">
-            </div>
-
-            <div class="popup" id="multiplier-popup" position="absolute" >
+            <div class="popup" id="multiplier-popup">
                 <label>Factor</label>
-                <textarea id="multiplier-input-factor"></textarea>
+                <div class="tooltip top">
+                    <textarea id="multiplier-input-factor"></textarea>
+                    <span class="tooltiptext"></span>
+                </div>
             </div>
 
-            <div class="popup" id="gear-pair-popup" position="absolute" >
+            <div class="popup" id="gear-pair-popup">
                 <label>Top Ratio</label>
                 <input id="gear-pair-top-ratio" type="number" min="-9" max="9" value="1">
                 <label>Bottom Ratio</label>
                 <input id="gear-pair-bottom-ratio" type="number" min="-9" max="9" value="1">
             </div>
 
-            <div class="popup" id="function-table-popup" position="absolute" >
-                <div>
+            <div class="popup" id="function-table-popup">
+                <div style="white-space: wrap">
                     <label>f(x)=</label>
                     <textarea rows="3" cols="25" id="function-table-fn"></textarea>
                 </div>
-                <div>
+                <div class="tooltip top">
                     <label>x Min</label>
                     <input step="any" id="function-table-x-min" />
+                    <span class="tooltiptext"></span>
                 </div>
-                <div>
+                <div class="tooltip top">
                     <label>x Max</label>
                     <input step="any" id="function-table-x-max" />
+                    <span class="tooltiptext"></span>
                 </div>
-                <div>
+                <div class="tooltip top">
                     <label>y Min</label>
                     <input step="any" id="function-table-y-min" />
+                    <span class="tooltiptext"></span>
                 </div>
-                <div>
+                <div class="tooltip top">
                     <label>y Max</label>
                     <input step="any" id="function-table-y-max" />
+                    <span class="tooltiptext"></span>
                 </div>
-                <div>
+                <div class="tooltip">
                     <input type="checkbox" id="function-table-lookup">Lookup Table</input>
+                    <span class="tooltiptext">Disable boundary checks</span>
                 </div>
             </div>
 
-            <div class="popup" id="output-table-popup" position="absolute" >
-                <div>
+            <div class="popup" id="output-table-popup">
+                <div class="tooltip top">
                     <label>Initial y (blue)</label>
                     <input step="any" id="output-table-initial-1" />
+                    <span class="tooltiptext"></span>
                 </div>
-                <div>
+                <div class="tooltip top">
                     <label>Initial y (red)</label>
                     <input step="any" id="output-table-initial-2" />
+                    <span class="tooltiptext"></span>
                 </div>
-                <div>
+                <div class="tooltip top">
                     <label>x Min</label>
                     <input step="any" id="output-table-x-min" />
+                    <span class="tooltiptext"></span>
                 </div>
-                <div>
+                <div class="tooltip top">
                     <label>x Max</label>
                     <input step="any" id="output-table-x-max" />
+                    <span class="tooltiptext"></span>
                 </div>
-                <div>
+                <div class="tooltip top">
                     <label>y Min</label>
                     <input step="any" id="output-table-y-min" />
+                    <span class="tooltiptext"></span>
                 </div>
-                <div>
+                <div class="tooltip top">
                     <label>y Max</label>
                     <input step="any" id="output-table-y-max" />
+                    <span class="tooltiptext"></span>
+                </div>
+                <div>
+                    <button>Export data as CSV</button>
                 </div>
             </div>
 
-            <div class="popup" id="label-popup" position = "absolute">
+            <div class="popup" id="label-popup">
                 <div>
                     <label>Text</label>
                     <input type="Text" id="label-popup-text"/>
@@ -270,12 +389,12 @@
                     <label>Text Alignment</label>
                     <div id="label-popup-buttons">
                         <div>
-                            <input type="radio" name="label-popup-button" id="label-popup-align-left" class="label-popup-align" checked/>
+                            <input type="radio" name="label-popup-button" id="label-popup-align-left" class="label-popup-align"/>
                             <label for="label-popup-align-left">Left</label>
                         </div>
 
                         <div>
-                            <input type="radio" name="label-popup-button" id="label-popup-align-center" class="label-popup-align"/>
+                            <input type="radio" name="label-popup-button" id="label-popup-align-center" class="label-popup-align" checked/>
                             <label for="label-popup-align-center">Center</label>
                         </div>
 

@@ -2,13 +2,17 @@ import { css, html, LitElement, PropertyValues, unsafeCSS, svg } from "lit";
 import { customElement, property, query, queryAsync } from "lit/decorators.js";
 
 import styles from "../../styles/GraphElement.css?inline";
+import svgstyles from "../../styles/SVGElement.css?inline";
 import Vector2 from "./Vector2";
 
 const SQRT_3_2 = Math.sqrt(3) / 2;
 
 @customElement("graph-table")
 export class GraphElement extends LitElement {
-    static styles = css`${unsafeCSS(styles)}`;
+    static styles = css`
+        ${unsafeCSS(styles)}
+        ${unsafeCSS(svgstyles)}
+    `;
 
     @query("#graph")
     _canvas_graph!: HTMLCanvasElement;
@@ -120,7 +124,7 @@ export class GraphElement extends LitElement {
         this.requestUpdate();
     }
 
-    mutate_data_set(key: string, callback: (points: Vector2[]) => void): boolean {
+    mutate_data_set(key: string, callback: (points: Vector2[]) => void, complete_redraw: boolean = false): boolean {
         if (!(key in this.data_sets)) {
             return false;
         }
@@ -129,7 +133,7 @@ export class GraphElement extends LitElement {
 
         callback(this.data_sets[key].points);
 
-        this._draw_graph(points_length);
+        this._draw_graph(complete_redraw ? 0 : points_length);
         return true;
     }
 
@@ -217,7 +221,7 @@ export class GraphElement extends LitElement {
 
         let ctx = this._canvas_graph.getContext("2d");
         if (ctx === null) {
-            console.log("Failed to get canvas 2d context");
+            console.error("Failed to get canvas 2d context");
             return;
         }
 
@@ -227,7 +231,6 @@ export class GraphElement extends LitElement {
 
         ctx.lineWidth = 1;
         for (let data of Object.values(this.data_sets)) {
-
             ctx.strokeStyle = data.style;
             this._draw_points(ctx, data.points, start_index);
         }
@@ -236,7 +239,7 @@ export class GraphElement extends LitElement {
     private _draw_axis() {
         let ctx = this._canvas_axis.getContext("2d");
         if (ctx === null) {
-            console.log("Failed to get canvas 2d context");
+            console.error("Failed to get canvas 2d context");
             return;
         }
 
@@ -334,8 +337,7 @@ export class GraphElement extends LitElement {
 
     private _draw_points(ctx: CanvasRenderingContext2D, points: Vector2[], start_index: number = 0) {
         ctx.beginPath();
-        console.log(points.slice(Math.max(start_index - 1, 0)));
-        for (let point of points.slice(Math.max(start_index - 1, 0))) {
+        for (let point of points.slice(Math.max(start_index - 1, 1))) {
             if (point.x < this.x_min || point.x > this.x_max) {
                 continue;
             }

@@ -8,14 +8,14 @@
     --colour-highlight2: #D48C35;
     --colour-highlight3: #364D1A;
     --text-colour: #FCFCFC;
-    --unit: calc(max(1vw, 1vh));
-    --text-size: 1.1rem;
-    --text-button-size: 1.1rem;
-    --text-header-size: 2rem;
+    --unit: 0.5rem;
+    --text-size: 1.2rem;
+    --text-button-size: 1.0rem;
+    --text-header-size: 1.5rem;
     --border-radius: calc(0.5 * var(--unit));
     --gap-size: calc(0.5 * var(--unit));
 
-    font-family: monospace;
+    font-family: Arial, Helvetica, sans-serif;
     color: var(--text-colour);
     background: var(--colour-background);
 }
@@ -53,6 +53,36 @@ html {
     height: 100%;
 }
 
+#info_buttons {
+    display: flex;
+    flex-direction: row;
+    float: right;
+}
+
+#about_button {
+    z-index: 100;
+}
+
+#help_button {
+    z-index: 100;
+}
+
+#constants_button {
+    z-index: 100;
+}
+
+#info_buttons img {
+    aspect-ratio: 1;
+    opacity: 70%;
+    z-index: 100;
+    width: calc(6 * var(--unit));
+}
+
+#user-control-parent {
+    position: relative;
+    z-index: 6;
+}
+
 #user-control {
     margin: 0;
     display: flex;
@@ -62,7 +92,7 @@ html {
     min-width: 24rem;
     max-width: 28rem;
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
     overflow-x: hidden;
 
     background: var(--colour-accent1);
@@ -72,53 +102,66 @@ html {
     gap: var(--gap-size);
 
     z-index: 6;
-
-    font-family: "Arial, Helvetica, sans-serif";
 }
 
-#demo-area {
-    display: flex;
-    flex-direction: column;
-    background: var(--colour-accent2);
-    border-radius: var(--border-radius);
-    padding: var(--gap-size);
-    gap: var(--gap-size);
+#minimize-button {
+    position: absolute;
+    background: var(--colour-accent1);
+    width: calc(4 * var(--unit));
+    height: calc(6 * var(--unit));
+
+
+    left: 0;
+    top: 50%;
+    transform: translate(calc(-4 * var(--unit)), -50%);
+    z-index: 20;
+
+    padding: calc(0.5 * var(--gap-size));
+
+    border-radius: calc(var(--border-radius) * 2);
 }
 
-#demo-area>div {
+#minimize-button:hover {
+    padding: calc(var(--gap-size));
+    transform: translate(calc(-4 * var(--unit) - 0.5 * var(--gap-size)), -50%);
+    cursor: pointer;
+}
+
+#minimize-button div {
     display: flex;
-    flex-direction: row;
+    border-radius: calc(var(--border-radius) * 2);
+    background-color: var(--colour-accent2);
     justify-content: center;
-    gap: var(--gap-size);
+    align-items: center;
     width: 100%;
-    font-size: var(--text-button-size);
+    height: 100%;
 }
 
-#demo-area>label {
-    text-align: center;
-    font-size: var(--text-header-size);
-    font-weight: bold;
-    margin: 0 0 -5px 0;
-}
-
-#demo-area>select {
-    font-size: var(--text-button-size);
-}
-
-#demo-area>button {
-    font-size: var(--text-button-size);
+#minimize-button img {
+    margin: var(--gap-size) 0 var(--gap-size) 0;
+    width: calc(3 * var(--unit));
 }
 
 #configuration {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-size);
+    gap: calc(2 * var(--gap-size));
     padding: var(--gap-size);
     background: var(--colour-accent2);
     border-radius: var(--border-radius);
     font-size: var(--text-size);
+}
 
-    overflow-y: hidden;
+.custom-variables {
+    display: flex;
+    padding: var(--gap-size);
+    background: var(--colour-accent2);
+    border-radius: var(--border-radius);
+    font-size: var(--text-size);
+}
+
+.custom-variables>custom-variables {
+    width: 100%;
 }
 
 #configuration>p {
@@ -170,11 +213,12 @@ html {
 }
 
 .TimeButton {
-    display: block;
+    display: flex;
     font-size: var(--text-button-size);
-    max-height: calc(2*var(--unit));
+    max-height: calc(4*var(--unit));
     justify-content: center;
-    width: auto;
+    align-items: center;
+    width: 100%;
 }
 
 .TimeButton>img {
@@ -206,4 +250,12 @@ html {
 
 .arrow:hover {
     cursor: pointer;
+}
+
+.nodrag {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
 }
