@@ -15,9 +15,7 @@ for (let a = 10; a < 20; a++)
 test("Testing the example from slides", () => {
     let simulator = new Simulator(SPRING_EXAMPLE, 0.01, 0, testFunction);
 
-    for (let i = 0; i < 30; i++){
+    for (let i = 0; i < 30; i++) {
         simulator.step();
     }
-    
-    //console.log(simulator.outputTables[0].y2History);
 });

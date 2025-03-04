@@ -2,6 +2,7 @@ import { css, LitElement, svg, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 import styles from "../../styles/IntegratorComponent.css?inline";
+import svgstyles from "../../styles/SVGElement.css?inline";
 
 @customElement("integrator-component")
 export class IntegratorComponentElement extends LitElement {
@@ -43,15 +44,15 @@ export class IntegratorComponentElement extends LitElement {
         <line x1="125" y1="30" x2="125" y2="0" stroke="black" stroke-width="2" stroke-linecap="round" />
         <line x1="175" y1="30" x2="175" y2="0" stroke="black" stroke-width="2" stroke-linecap="round"/>
 
-        <polygon fill="black" stroke="black" stroke-width="2" stroke-linejoin="round" points="170,20 175,30 180,20" />
+        <polygon class="fill-fg stroke-fg" stroke-width="2" stroke-linejoin="round" points="170,20 175,30 180,20" />
 
         ${[-2, -1, 0, 1, 2].map(i => svg`
           <line
+            class="stroke-fg"
             x1="115"
             y1="${52 + i * 7}"
             x2="135"
             y2="${48 + i * 7}"
-            stroke="black"
             stroke-width="2"
             stroke-linecap="round"
           />

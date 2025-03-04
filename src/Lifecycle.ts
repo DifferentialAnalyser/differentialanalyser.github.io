@@ -4,7 +4,7 @@ import { query, queryAll } from "./decorators";
 import { SPRING_EXAMPLE, LINEAR_INTEGRATION_EXAMPLE, GAMMA_FUNCTION_EXAMPLE, WEIERSTRAUSS_FUNCTION_EXAMPLE, GEAR_PAIR_EXAMPLE, EPICYCLOID_EXAMPLE, EXTREME_EPICYCLOID_EXAMPLE, FREE_FALL_EXAMPLE, DUFFING_EQUATION_EXAMPLE, POPULATION_GROWTH_EXAMPLE, SIMPLE_PENDULUM_EXAMPLE, DOUBLE_PENDULUM_EXAMPLE } from "./examples";
 import { setupDragHooks } from "./UI/Drag";
 import { DraggableComponentElement } from "./UI/DraggableElement";
-import { GRID_SIZE, resetScreenOffset, setCells, setScreenOffset, setupScreenHooks } from "./UI/Grid";
+import { getScreenOffset, GRID_SIZE, resetScreenOffset, setCells, setScreenOffset, setupScreenHooks } from "./UI/Grid";
 import { setupSelectHooks } from "./UI/SelectShaft.ts";
 import { setupPopups } from "./UI/Popups";
 import Vector2 from "./UI/Vector2";
@@ -14,13 +14,21 @@ import { Simulator } from "./core/Main";
 import { FunctionTable } from "./core/FunctionTable";
 import Expression from "./expr/Expression";
 import { DialComponentElement } from "./UI/DialComponentElement.ts";
-import { IntegratorComponentElement } from "./UI/IntegratorComponent.ts";
-import { Integrator } from "./core/Integrator.ts";
+import { CustomVariablesElement } from "./UI/CustomVariablesElement.ts";
+import { ConfigError } from "./ConfigError.ts";
+import { resetIDs } from "./UI/Components.ts";
 
 enum State {
     Paused,
     Running,
     Stopped,
+}
+
+export function get_global_ctx(): { [k: string]: number } {
+    const custom_variables = document.querySelector("custom-variables") as CustomVariablesElement;
+    if (!custom_variables) return {}
+
+    return custom_variables.getValues();
 }
 
 /**
@@ -41,9 +49,6 @@ export class Lifecycle {
 
     @queryAll(".placed-component")
     private placedComponents!: NodeListOf<DraggableComponentElement>;
-
-    @query("#demo-button")
-    demo_button!: HTMLButtonElement
 
     @query("#examples-list")
     examples_select!: HTMLSelectElement;
@@ -69,6 +74,9 @@ export class Lifecycle {
     @query("#pause-button")
     pause_button!: HTMLButtonElement
 
+    @query("#loop-check")
+    loop_check!: HTMLInputElement;
+
     config_file_input!: HTMLInputElement;
 
     @query("#simulation-step-period")
@@ -82,6 +90,30 @@ export class Lifecycle {
 
     @query("#machine")
     machine!: HTMLElement;
+
+    @query("#fullscreen")
+    fullscreen!: HTMLElement;
+
+    @query("#about_button")
+    about_button!: HTMLElement;
+
+    @query("#about")
+    about_screen!: HTMLElement;
+
+    @query("#help_button")
+    help_button!: HTMLElement;
+
+    @query("#help")
+    help_screen!: HTMLElement;
+
+    @query("#constants_button")
+    constants_button!: HTMLElement;
+
+    @query("#constants")
+    constants_screen!: HTMLElement;
+
+    @query("#minimize-button")
+    minimize_screen!: HTMLDivElement;
 
     currently_demoing: Boolean = false;
 
@@ -127,7 +159,6 @@ export class Lifecycle {
 
         this.examples_select.addEventListener("change", e => this.change_example(e));
         this.examples_select.selectedIndex = 0;
-        this.demo_button.addEventListener("click", _ => this.toggle_demo());
 
         this.import_button.addEventListener("click", _ => this.config_file_input.click());
         this.config_file_input.addEventListener("change", _ => this._handle_import_file());
@@ -135,11 +166,13 @@ export class Lifecycle {
         this.clear_button.addEventListener("click", _ => this._clear_components());
 
         this.clear_output_tables_button.addEventListener("click", _ => {
-            const output_tables = document.querySelectorAll(".outputTable > graph-table")! as NodeListOf<GraphElement>;
-            output_tables.forEach(x => {
+            (document.querySelectorAll(".outputTable > graph-table")! as NodeListOf<GraphElement>).forEach((x: GraphElement) => {
                 this.reset_output_table(x);
-                x.redraw();
-            })
+            });
+
+            (document.querySelectorAll(".functionTable > graph-table")! as NodeListOf<GraphElement>).forEach((x: GraphElement) => {
+                x.gantry_x = 0;
+            });
         });
 
         this.play_button.addEventListener("click", _ => {
@@ -149,10 +182,62 @@ export class Lifecycle {
                 this.unpause();
             }
         });
-        this.stop_button.addEventListener("click", _ => {
-            if (this.currently_demoing) { this.stop_demo(); } else { this.stop(); }
-        });
+
         this.pause_button.addEventListener("click", _ => this.pause());
+        this.stop_button.addEventListener("click", _ => this.stop());
+
+        this.fullscreen.addEventListener("click", _ => {
+            this.fullscreen.style.visibility = "hidden";
+            this.about_screen.style.visibility = "hidden";
+            this.help_screen.style.visibility = "hidden";
+            this.constants_screen.style.visibility = "hidden";
+        });
+
+        this.about_button.addEventListener("click", _ => {
+            this.fullscreen.style.visibility = "visible";
+            this.about_screen.style.visibility = "visible";
+            this.help_screen.style.visibility = "hidden";
+            this.constants_screen.style.visibility = "hidden";
+        })
+
+        this.help_button.addEventListener("click", _ => {
+            this.fullscreen.style.visibility = "visible";
+            this.about_screen.style.visibility = "hidden";
+            this.help_screen.style.visibility = "visible";
+            this.constants_screen.style.visibility = "hidden";
+        })
+
+        this.constants_button.addEventListener("click", _ => {
+            this.fullscreen.style.visibility = "visible";
+            this.about_screen.style.visibility = "hidden";
+            this.help_screen.style.visibility = "hidden";
+            this.constants_screen.style.visibility = "visible";
+        })
+
+        this.minimize_screen.addEventListener("click", _ => {
+            let img = this.minimize_screen.querySelector("img")!;
+            console.log(img);
+            let user_control = document.querySelector("#user-control")! as HTMLDivElement;
+
+            let current_offset = getScreenOffset();
+            let size = user_control.clientWidth / 2;
+
+            if (img.src.includes("Maximize.svg")) {
+                this.machine.style.minWidth = "0%";
+                user_control.style.left = "0%";
+                img.src = "icons/Minimize.svg";
+                setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
+            } else {
+                this.machine.style.minWidth = "100%";
+                user_control.style.left = "100%";
+                img.src = "icons/Maximize.svg";
+                setScreenOffset({ x: current_offset.x + size, y: current_offset.y });
+            }
+        });
+
+        document.querySelectorAll("#fullscreen .center").forEach(x => x.addEventListener("click", e => e.stopImmediatePropagation()));
+
+        document.addEventListener("placecomponent", () => this.check_da());
 
         window.addEventListener("keydown", e => {
             if (e.defaultPrevented) {
@@ -190,6 +275,10 @@ export class Lifecycle {
                     e.preventDefault();
                 }
                 break;
+            case 'r':
+            case 'R':
+                this.fitMachine();
+                break;
             case 'S':
             case 's':
                 if (e.ctrlKey) {
@@ -224,6 +313,10 @@ export class Lifecycle {
 
         loadConfig(config);
 
+        this.fitMachine();
+    }
+
+    fitMachine(): void {
         if (this.placedComponents.length > 0) {
             let top = Number.POSITIVE_INFINITY;
             let left = Number.POSITIVE_INFINITY;
@@ -245,11 +338,12 @@ export class Lifecycle {
     }
 
     public exportState(): Config {
-        return toConfig();
+        return toConfig()[0];
     }
 
     private _clear_components(): void {
         UNDO_SINGLETON.push();
+        resetIDs();
         for (let component of this.placedComponents) {
             let { top, left, width, height } = component;
             component.remove();
@@ -309,33 +403,10 @@ export class Lifecycle {
         this.stop();
     }
 
-    // Put the simulation into a demo mode
-    stop_demo(): void {
-        this.currently_demoing = false;
-        this.demo_button.textContent = "Start Demo";
-        this.examples_select.disabled = false;
-        this.stop();
-    }
-
-    start_demo(): void {
-        this.currently_demoing = true;
-        this.demo_button.textContent = "Stop Demo";
-        this.examples_select.disabled = true;
-        this.run();
-    }
-
-    toggle_demo(): void {
-        if (this.currently_demoing) {
-            this.stop_demo();
-        } else {
-            this.start_demo();
-        }
-    }
-
     stop(): void {
         this.state = State.Stopped;
 
-        if (this.currently_demoing) {
+        if (this.loop_check.checked) {
             this.run();
             return;
         }
@@ -348,6 +419,7 @@ export class Lifecycle {
         this.pause_button.disabled = true;
         this.stop_button.disabled = true;
         this.clear_output_tables_button.disabled = false;
+        this.examples_select.disabled = false;
     }
 
     pause(): void {
@@ -361,6 +433,7 @@ export class Lifecycle {
         this.pause_button.disabled = true;
         this.stop_button.disabled = false;
         this.clear_output_tables_button.disabled = true;
+        this.examples_select.disabled = false;
     }
 
     unpause(): void {
@@ -373,12 +446,22 @@ export class Lifecycle {
         this.pause_button.disabled = false;
         this.stop_button.disabled = false;
         this.clear_output_tables_button.disabled = true;
+        this.examples_select.disabled = true;
     }
 
     run(): void {
         if (this.state !== State.Stopped) {
             console.warn(`Tried to run application when it was not stopped.\nState was ${this.state}`);
         }
+
+        const simulator = new Simulator(this.exportState())
+        let result = [...simulator.check_config().entries()].map(x => x[1]).find(x => x === ConfigError.FATAL_ERROR);
+
+        // let components = document.querySelectorAll(".placed-component") as NodeListOf<DraggableComponentElement>;
+        if (result === ConfigError.FATAL_ERROR) {
+            return;
+        }
+
         this.state = State.Running;
 
         this.step_period_input.disabled = true;
@@ -389,24 +472,27 @@ export class Lifecycle {
         this.pause_button.disabled = false;
         this.stop_button.disabled = false;
         this.clear_output_tables_button.disabled = true;
+        this.examples_select.disabled = true;
 
-        const simulator = new Simulator(this.exportState())
         const step_period = Number(this.step_period_input.value);
         const get_motor_speed = () => Number(this.motor_speed_input.value);
-
-        const output_tables = document.querySelectorAll(".outputTable > graph-table")! as NodeListOf<GraphElement>;
-        // const function_tables = document.querySelectorAll(".functionTable > graph-table")! as NodeListOf<GraphElement>;
 
         simulator.components.filter(x => x instanceof FunctionTable).forEach((x: FunctionTable) => {
             const function_table_element = document.querySelector(`#component-${x.id} > graph-table`) as GraphElement;
 
-            let compiled_expr = Expression.compile(function_table_element.data_sets["d1"]?.fn ?? "");
+            let compiled_expr = Expression.compile(function_table_element.data_sets["d1"]?.fn ?? "", get_global_ctx());
             x.fun = x => compiled_expr({ x });
             x.x_position = 0;
         });
 
-        output_tables.forEach(x => {
-            this.reset_output_table(x);
+        simulator.outputTables.forEach(x => {
+            const table = document.querySelector(`#component-${x.id} > graph-table`) as GraphElement;
+            table.gantry_x = 0;
+            table.data_sets = {};
+            table.set_data_set(x.swap ? "d2" : "d1", [], x.swap ? "red" : "blue", x.swap);
+            if (x.y2 !== undefined) {
+                table.set_data_set("d2", [], "red", true);
+            }
         })
 
         const dials = document.querySelectorAll(".dial") as NodeListOf<DraggableComponentElement>;
@@ -494,13 +580,61 @@ export class Lifecycle {
             for (let comp of simulator.components.filter(x => x instanceof FunctionTable)) {
                 const table = document.querySelector(`#component-${comp.id} > graph-table`)! as GraphElement;
                 table.gantry_x = comp.x_position;
-                if (next_steps !== 0 && comp.x_position >= table.x_max && table.parentElement?.dataset.lookup == "0") {
+                if (next_steps !== 0 && (comp.x_position >= table.x_max || comp.x_position < table.x_min) && table.parentElement?.dataset.lookup == "0") {
                     this.pause();
                     this.stop();
                     return;
                 }
             }
         };
+    }
+
+    public check_da(): void {
+        let [config, unfinished_components] = toConfig();
+        let no_motor = false;
+        let components = document.querySelectorAll(".placed-component") as NodeListOf<DraggableComponentElement>;
+        components.forEach(x => x.classList.remove("warning"));
+        unfinished_components.forEach(x => {
+            const component = document.querySelector(`#component-${x}`) as DraggableComponentElement;
+            if (component.componentType === "motor") {
+                no_motor = true;
+            }
+            component.classList.add("unconnected");
+            component.classList.add("warning");
+        });
+
+        if (no_motor) {
+            components.forEach(x => x.componentType === "motor" || x.componentType === "label" || x.classList.add("unconnected"));
+            return;
+        }
+
+        const simulator = new Simulator(config)
+        let result = simulator.check_config();
+        let joined_components = new Set([
+            ...simulator.components.map(x => x.getID()),
+            ...simulator.outputTables.map(x => x.getID()),
+            ...simulator.shafts.filter(x => x.ready_flag).map(x => x.id),
+        ]);
+        let unused_components = new Set([...components.entries()].filter(([_, v]) => {
+            return v.componentType !== "label" && !joined_components.has(v.componentID)
+        }).map(x => x[1].componentID));
+        let unfinished_components_set = new Set([...unfinished_components]);
+
+        let error = ![...result.entries()].every(x => x[1] !== ConfigError.FATAL_ERROR);
+        components.forEach(x => {
+            // console.log(unused_components, unfinished_components_set, result);
+            if (unused_components.has(x.componentID) || unfinished_components_set.has(x.componentID) || (result.get(x.componentID) ?? ConfigError.NO_ERROR) === ConfigError.NOT_SET_UP) {
+                x.classList.add("unconnected");
+                x.classList.remove("error");
+            } else {
+                x.classList.remove("unconnected");
+                if (error) {
+                    x.classList.add("error");
+                } else {
+                    x.classList.remove("error");
+                }
+            }
+        });
     }
 
     private _frame(delta: number): void {
@@ -514,8 +648,9 @@ export class Lifecycle {
     }
 
     private reset_output_table(table: GraphElement): void {
-        table.set_data_set("d1", []);
-        table.set_data_set("d2", [], "red", true);
+        table.mutate_data_set("d1", points => { points = [] }, true);
+        table.mutate_data_set("d2", points => { points = [] }, true);
+        table._canvas_graph.getContext("2d")!.clearRect(1, 0, table._canvas_graph.width, table._canvas_graph.height);
         table.gantry_x = 0;
     }
 }
