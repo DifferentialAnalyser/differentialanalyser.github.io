@@ -216,6 +216,7 @@ export class Lifecycle {
 
         this.minimize_screen.addEventListener("click", _ => {
             let img = this.minimize_screen.querySelector("img")!;
+            console.log(img);
             let user_control = document.querySelector("#user-control")! as HTMLDivElement;
 
             let current_offset = getScreenOffset();
