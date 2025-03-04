@@ -1,7 +1,7 @@
 import { Config, loadConfig } from "./config";
 import { getHShaftID, getVShaftID, toConfig } from "./GenerateConfigFromUI";
 import { query, queryAll } from "./decorators";
-import { SPRING_EXAMPLE, LINEAR_INTEGRATION_EXAMPLE, GAMMA_FUNCTION_EXAMPLE, WEIERSTRAUSS_FUNCTION_EXAMPLE, GEAR_PAIR_EXAMPLE, EPICYCLOID_EXAMPLE, EXTREME_EPICYCLOID_EXAMPLE, FREE_FALL_EXAMPLE, DUFFING_EQUATION_EXAMPLE, POPULATION_GROWTH_EXAMPLE, SIMPLE_PENDULUM_EXAMPLE, DOUBLE_PENDULUM_EXAMPLE } from "./examples";
+import { DAMPED_OSCILLATION_EXAMPLE, LINEAR_INTEGRATION_EXAMPLE, WEIERSTRAUSS_FUNCTION_EXAMPLE, GEAR_PAIR_EXAMPLE, EPICYCLOID_EXAMPLE, FREE_FALL_EXAMPLE, DUFFING_EQUATION_EXAMPLE, SIMPLE_PENDULUM_EXAMPLE, DOUBLE_PENDULUM_EXAMPLE } from "./examples";
 import { setupDragHooks } from "./UI/Drag";
 import { DraggableComponentElement } from "./UI/DraggableElement";
 import { getScreenOffset, GRID_SIZE, resetScreenOffset, setCells, setScreenOffset, setupScreenHooks } from "./UI/Grid";
@@ -25,6 +25,18 @@ enum State {
     Running,
     Stopped,
 }
+
+const EXAMPLES_MAP: { [k: string]: Config } = {
+    damped_oscillation: DAMPED_OSCILLATION_EXAMPLE,
+    freefall: FREE_FALL_EXAMPLE,
+    linear_integration: LINEAR_INTEGRATION_EXAMPLE,
+    gear_pair: GEAR_PAIR_EXAMPLE,
+    weierstrauss_function: WEIERSTRAUSS_FUNCTION_EXAMPLE,
+    epicycloid: EPICYCLOID_EXAMPLE,
+    duffing_equation: DUFFING_EQUATION_EXAMPLE,
+    simple_pendulum: SIMPLE_PENDULUM_EXAMPLE,
+    double_pendulum: DOUBLE_PENDULUM_EXAMPLE,
+};
 
 export function get_global_ctx(): { [k: string]: number } {
     const custom_variables = document.querySelector("custom-variables") as CustomVariablesElement;
@@ -296,7 +308,8 @@ export class Lifecycle {
      * is never run.
      */
     public initialLoad(): void {
-        this.loadState(LINEAR_INTEGRATION_EXAMPLE);
+        const example = document.querySelector("#examples-list > *") as HTMLOptionElement;
+        this.loadState(EXAMPLES_MAP[example?.value ?? ""] ?? DAMPED_OSCILLATION_EXAMPLE);
         UNDO_SINGLETON.remove();
     }
 
@@ -388,20 +401,9 @@ export class Lifecycle {
 
     change_example(e: Event): void {
         const option = e.target as HTMLOptionElement;
-        switch (option.value) {
-            case "LinearIntegration": this.loadState(LINEAR_INTEGRATION_EXAMPLE); break;
-            case "Spring": this.loadState(SPRING_EXAMPLE); break;;
-            case "GammaFunction": this.loadState(GAMMA_FUNCTION_EXAMPLE); break;
-            case "WeierstraussFunction": this.loadState(WEIERSTRAUSS_FUNCTION_EXAMPLE); break;
-            case "GearPair": this.loadState(GEAR_PAIR_EXAMPLE); break;
-            case "Epicycloid": this.loadState(EPICYCLOID_EXAMPLE); break;
-            case "ExtremeEpicycloid": this.loadState(EXTREME_EPICYCLOID_EXAMPLE); break;
-            case "Freefall": this.loadState(FREE_FALL_EXAMPLE); break;
-            case "DuffingEquation": this.loadState(DUFFING_EQUATION_EXAMPLE); break;
-            case "PopulationGrowth": this.loadState(POPULATION_GROWTH_EXAMPLE); break;
-            case "SimplePendulum": this.loadState(SIMPLE_PENDULUM_EXAMPLE); break;
-            case "DoublePendulum": this.loadState(DOUBLE_PENDULUM_EXAMPLE); break;
-        }
+        const config = EXAMPLES_MAP[option.value]!;
+
+        this.loadState(config);
         this.stop();
     }
 
@@ -641,8 +643,8 @@ export class Lifecycle {
     }
 
     private reset_output_table(table: GraphElement): void {
-        table.mutate_data_set("d1", points => { points = [] }, true);
-        table.mutate_data_set("d2", points => { points = [] }, true);
+        table.mutate_data_set("d1", points => { points.splice(0, points.length); }, true);
+        table.mutate_data_set("d2", points => { points.splice(0, points.length); }, true);
         table._canvas_graph.getContext("2d")!.clearRect(1, 0, table._canvas_graph.width, table._canvas_graph.height);
         table.gantry_x = 0;
     }
