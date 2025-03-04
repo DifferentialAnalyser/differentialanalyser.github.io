@@ -61,7 +61,12 @@ export class CustomVariablesElement extends LitElement {
       }
 
       this.values[parsed_expression.ident] = result.value;
-      this._outputs.value += `${parsed_expression.ident}: ${result.value.toPrecision(8)}\n`;
+      let value = result.value;
+      if (Number.isInteger(value)) {
+        this._outputs.value += `${parsed_expression.ident} = ${value}\n`;
+      } else {
+        this._outputs.value += `${parsed_expression.ident} ≈ ${value.toPrecision(8)}\n`;
+      }
       parsed_expression = parsed_expression.cons;
     } while (parsed_expression._type === "let");
 

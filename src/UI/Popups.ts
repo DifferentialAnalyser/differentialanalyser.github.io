@@ -59,7 +59,13 @@ function openPopup(e: MouseEvent, popup: HTMLDivElement): void {
 }
 
 function updateTooltip(input: HTMLInputElement | HTMLTextAreaElement): void {
-  input.parentElement!.querySelector("span")!.textContent = `Eval: ${Expression.eval(input.value, get_global_ctx())}`;
+  let value = Expression.eval(input.value, get_global_ctx());
+
+  if (Number.isInteger(value)) {
+    input.parentElement!.querySelector("span")!.textContent = `= ${value}`;
+  } else {
+    input.parentElement!.querySelector("span")!.textContent = `≈ ${value}`;
+  }
 }
 
 export function openCrossConnectPopup(e: MouseEvent): void {
