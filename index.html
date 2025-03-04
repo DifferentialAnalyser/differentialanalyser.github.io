@@ -3,6 +3,9 @@
 <head>
     <title>Differential Analyser</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simulation of Vannevar Bush's Differentials Analyser (Differential Analyzer in American English), later consturcted out of Macano by Dr Maurice Wilkes at the University of Cambridge">
+
     <script type="module" src="src/index.ts"></script>
 
     <link rel="stylesheet" href="styles/style.css">
@@ -115,148 +118,153 @@
             <span id="component-tooltip" class="tooltiptext">Temp</span>
         </div>
 
-        <div id="user-control">
-
-            <div id="components-area">
-                <p>Components</p>
-                <div id="components-list">
-                    <div data-type="VShaft" class="component">
-                        <div class="component-label"><span>V shaft</span></div>
-                        <div class="component-img">
-                            <img src="icons/Line.svg" alt="Vertical Shaft" style="rotate: 90deg"/>
-                        </div>
-                    </div>
-
-                    <div data-type="HShaft" class="component">
-                        <div class="component-label"><span>H shaft</span></div>
-                        <div class="component-img">
-                            <img src="icons/Line.svg" alt="Horizontal shaft"/>
-                        </div>
-                    </div>
-
-                    <div data-type="CrossConnect" class="component">
-                        <div class="component-label"><span>X-Conn.</span></div>
-                        <div class="component-img">
-                            <img scale="1.5" src="icons/CrossConnect.svg" alt="Cross connect"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Integrator" class="component">
-                        <div class="component-label"><span>Integ.</span></div>
-                        <div class="component-img">
-                            <img src="icons/Integrator.svg" alt="Integrator"/>
-                        </div>
-                    </div>
-
-                    <div data-type="FunctionTable" class="component">
-                        <div class="component-label"><span>Fn. Table</span></div>
-                        <div class="component-img">
-                            <img src="icons/FunctionTable.svg" alt="Function Table"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Differential" class="component">
-                        <div class="component-label"><span>Sum</span></div>
-                        <div class="component-img">
-                            <img src="icons/Differential.svg" alt="Differential"/>
-                        </div>
-                    </div>
-
-                    <div data-type="OutputTable" class="component">
-                        <div class="component-label"><span>Out. Table</span></div>
-                        <div class="component-img">
-                            <img src="icons/OutputTable.svg" alt="Output table"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Motor" class="component">
-                        <div class="component-label"><span>Motor</span></div>
-                        <div class="component-img">
-                            <img src="icons/Motor.svg" alt="Motor"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Multiplier" class="component">
-                        <div class="component-label"><span>Multi.</span></div>
-                        <div class="component-img">
-                            <img src="icons/Multiplier.svg" alt="Multiplier"/>
-                        </div>
-                    </div>
-
-                    <div data-type="GearPair" class="component">
-                        <div class="component-label"><span>Gear Pair</span></div>
-                        <div class="component-img">
-                            <img src="icons/GearPair.svg" alt="Gear Pair"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Dial" class="component">
-                        <div class="component-label"><span>Dial</span></div>
-                        <div class="component-img">
-                            <img src="icons/Dial.svg" alt="Dial"/>
-                        </div>
-                    </div>
-
-                    <div data-type="Label" class="component">
-                        <div class="component-label"><span>Label</span></div>
-                        <div class="component-img">
-                            <img src="icons/Label.svg" alt="Label"/>
-                        </div>
-                    </div>
+        <div id="user-control-parent">
+            <div id="minimize-button">
+                <div>
+                    <img src="icons/Minimize.svg" class="nodrag" alt="Minimize Arrow"/>
                 </div>
             </div>
+            <div id="user-control">
+                <div id="components-area">
+                    <p>Components</p>
+                    <div id="components-list">
+                        <div data-type="VShaft" class="component">
+                            <div class="component-label"><span>V shaft</span></div>
+                            <div class="component-img">
+                                <img src="icons/Line.svg" alt="Vertical Shaft" style="rotate: 90deg"/>
+                            </div>
+                        </div>
 
-            <div id="configuration">
-                <p style="margin: 0;">Configuration</p>
+                        <div data-type="HShaft" class="component">
+                            <div class="component-label"><span>H shaft</span></div>
+                            <div class="component-img">
+                                <img src="icons/Line.svg" alt="Horizontal shaft"/>
+                            </div>
+                        </div>
 
-                <div id="control_buttons">
-                    <div style="padding: 0;" id="config_buttons">
-                        <button id="import-button">Load</button>
-                        <button id="export-button">Save</button>
-                        <button id="clear-button">Clear Screen</button>
+                        <div data-type="CrossConnect" class="component">
+                            <div class="component-label"><span>X-Conn.</span></div>
+                            <div class="component-img">
+                                <img scale="1.5" src="icons/CrossConnect.svg" alt="Cross connect"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Integrator" class="component">
+                            <div class="component-label"><span>Integ.</span></div>
+                            <div class="component-img">
+                                <img src="icons/Integrator.svg" alt="Integrator"/>
+                            </div>
+                        </div>
+
+                        <div data-type="FunctionTable" class="component">
+                            <div class="component-label"><span>Fn. Table</span></div>
+                            <div class="component-img">
+                                <img src="icons/FunctionTable.svg" alt="Function Table"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Differential" class="component">
+                            <div class="component-label"><span>Sum</span></div>
+                            <div class="component-img">
+                                <img src="icons/Differential.svg" alt="Differential"/>
+                            </div>
+                        </div>
+
+                        <div data-type="OutputTable" class="component">
+                            <div class="component-label"><span>Out. Table</span></div>
+                            <div class="component-img">
+                                <img src="icons/OutputTable.svg" alt="Output table"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Motor" class="component">
+                            <div class="component-label"><span>Motor</span></div>
+                            <div class="component-img">
+                                <img src="icons/Motor.svg" alt="Motor"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Multiplier" class="component">
+                            <div class="component-label"><span>Multi.</span></div>
+                            <div class="component-img">
+                                <img src="icons/Multiplier.svg" alt="Multiplier"/>
+                            </div>
+                        </div>
+
+                        <div data-type="GearPair" class="component">
+                            <div class="component-label"><span>Gear Pair</span></div>
+                            <div class="component-img">
+                                <img src="icons/GearPair.svg" alt="Gear Pair"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Dial" class="component">
+                            <div class="component-label"><span>Dial</span></div>
+                            <div class="component-img">
+                                <img src="icons/Dial.svg" alt="Dial"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Label" class="component">
+                            <div class="component-label"><span>Label</span></div>
+                            <div class="component-img">
+                                <img src="icons/Label.svg" alt="Label"/>
+                            </div>
+                        </div>
                     </div>
-                    <button id="clear-tables-button">Clear Output Tables</button>
                 </div>
 
-                <label>Examples</label>
-                <select name="examples" id="examples-list">
-                    <option value="LinearIntegration">Linear Integration</option>
-                    <option value="Spring">Damped Oscillation</option>
-                    <option value="GammaFunction">Gamma Function</option>
-                    <option value="WeierstraussFunction">Weierstrauss Function</option>
-                    <option value="GearPair">Gear pair usage</option>
-                    <option value="Epicycloid">Epicycloid</option>
-                    <option value="ExtremeEpicycloid">Extreme Epicycloid</option>
-                    <option value="Freefall">Body in free fall</option>
-                    <option value="DuffingEquation">Duffing equation</option>
-                    <option value="PopulationGrowth">Population Growth</option>
-                    <option value="SimplePendulum">Simple pendulum</option>
-                    <option value="DoublePendulum">Double pendulum</option>
-                </select>
+                <div id="configuration">
+                    <p style="margin: 0;">Configuration</p>
 
-                <label for="simulation-step-period">Step period (s)</label>
-                <input id="simulation-step-period" type="number" value="0.005"/>
+                    <div id="control_buttons">
+                        <div style="padding:calc(2*var(--gap-size))" id="config_buttons">
+                            <button id="import-button">Load</button>
+                            <button id="export-button">Save</button>
+                            <button id="clear-button">Clear Screen</button>
+                        </div>
+                        <button id="clear-tables-button">Clear Output Tables</button>
+                    </div>
 
-                <div class="TimeButtons">
-                    <button class="TimeButton" id="play-button">
+                    <label>Examples</label>
+                    <select name="examples" id="examples-list">
+                        <option value="damped_oscillation">Damped Oscillation</option>
+                        <option value="freefall">Body in free fall</option>
+
+                        <option value="linear_integration">Linear Integration</option>
+                        <option value="gear_pair">Gear pair usage</option>
+                        <option value="weierstrauss_function">Weierstrauss Function</option>
+                        
+                        <option value="epicycloid">Epicycloid</option>
+                        <option value="duffing_equation">Duffing equation</option>
+                        <option value="simple_pendulum">Simple pendulum</option>
+                        <option value="double_pendulum">Double pendulum</option>
+                    </select>
+
+                    <label for="simulation-step-period">Step period (s)</label>
+                    <input id="simulation-step-period" type="number" value="0.005"/>
+
+                    <div class="TimeButtons">
+                        <button class="TimeButton" id="play-button">
                             <img src="icons/Play.svg" alt="Play"/>
-                    </button>
-                    <button class="TimeButton" id="pause-button" disabled>
+                        </button>
+                        <button class="TimeButton" id="pause-button" disabled>
                             <img src="icons/Pause.svg" alt="Pause"/>
-                    </button>
-                    <button class="TimeButton" id="stop-button" disabled>
+                        </button>
+                        <button class="TimeButton" id="stop-button" disabled>
                             <img src="icons/Stop.svg" alt="Stop"/>
-                    </button>
-                </div>
+                        </button>
+                    </div>
 
-                <div class="tooltip" style="display: flex; flex-direction: row; justify-content: center;margin: 0;">
-                    <input type="checkbox" id="loop-check"/>
-                    <p style="margin: 0;">Loop</p>
-                    <span class="tooltiptext">Loop the simulation instead of ending</span>
-                </div>
+                    <div class="tooltip" style="display: flex; flex-direction: row; justify-content: center;margin: 0;">
+                        <input type="checkbox" id="loop-check"/>
+                        <label for="loop-check" style="margin: 0;">Loop</label>
+                        <span class="tooltiptext">Loop the simulation instead of ending</span>
+                    </div>
 
-                <label for="motor-speed">Motor speed</label>
-                <input id="motor-speed" type="range" min="0.0" max="2" step="0.01" value="0.5" />
+                    <label for="motor-speed">Motor speed</label>
+                    <input id="motor-speed" type="range" min="0.0" max="2" step="0.01" value="0.5" />
+                </div>
             </div>
         </div>
 
@@ -320,7 +328,8 @@
                     <span class="tooltiptext"></span>
                 </div>
                 <div class="tooltip">
-                    <input type="checkbox" id="function-table-lookup">Lookup Table</input>
+                    <input type="checkbox" id="function-table-lookup" />
+                    <label for="function-table-lookup">Lookup Table</label>
                     <span class="tooltiptext">Disable boundary checks</span>
                 </div>
             </div>

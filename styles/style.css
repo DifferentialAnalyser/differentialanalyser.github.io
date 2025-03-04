@@ -8,7 +8,7 @@
     --colour-highlight2: #D48C35;
     --colour-highlight3: #364D1A;
     --text-colour: #FCFCFC;
-    --unit: calc(max(1vw, 1vh));
+    --unit: 0.5rem;
     --text-size: 1.2rem;
     --text-button-size: 1.0rem;
     --text-header-size: 1.5rem;
@@ -72,11 +72,15 @@ html {
 }
 
 #info_buttons img {
-    width: 100%;
     aspect-ratio: 1;
     opacity: 70%;
     z-index: 100;
-    width: calc(4 * var(--unit));
+    width: calc(6 * var(--unit));
+}
+
+#user-control-parent {
+    position: relative;
+    z-index: 6;
 }
 
 #user-control {
@@ -100,10 +104,48 @@ html {
     z-index: 6;
 }
 
+#minimize-button {
+    position: absolute;
+    background: var(--colour-accent1);
+    width: calc(4 * var(--unit));
+    height: calc(6 * var(--unit));
+
+
+    left: 0;
+    top: 50%;
+    transform: translate(calc(-4 * var(--unit)), -50%);
+    z-index: 20;
+
+    padding: calc(0.5 * var(--gap-size));
+
+    border-radius: calc(var(--border-radius) * 2);
+}
+
+#minimize-button:hover {
+    padding: calc(var(--gap-size));
+    transform: translate(calc(-4 * var(--unit) - 0.5 * var(--gap-size)), -50%);
+    cursor: pointer;
+}
+
+#minimize-button div {
+    display: flex;
+    border-radius: calc(var(--border-radius) * 2);
+    background-color: var(--colour-accent2);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#minimize-button img {
+    margin: var(--gap-size) 0 var(--gap-size) 0;
+    width: calc(3 * var(--unit));
+}
+
 #configuration {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-size);
+    gap: calc(2 * var(--gap-size));
     padding: var(--gap-size);
     background: var(--colour-accent2);
     border-radius: var(--border-radius);
@@ -173,7 +215,7 @@ html {
 .TimeButton {
     display: flex;
     font-size: var(--text-button-size);
-    max-height: calc(2*var(--unit));
+    max-height: calc(4*var(--unit));
     justify-content: center;
     align-items: center;
     width: 100%;

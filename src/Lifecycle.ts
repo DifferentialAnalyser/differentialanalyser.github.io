@@ -1,10 +1,10 @@
 import { Config, loadConfig } from "./config";
 import { getHShaftID, getVShaftID, toConfig } from "./GenerateConfigFromUI";
 import { query, queryAll } from "./decorators";
-import { SPRING_EXAMPLE, LINEAR_INTEGRATION_EXAMPLE, GAMMA_FUNCTION_EXAMPLE, WEIERSTRAUSS_FUNCTION_EXAMPLE, GEAR_PAIR_EXAMPLE, EPICYCLOID_EXAMPLE, EXTREME_EPICYCLOID_EXAMPLE, FREE_FALL_EXAMPLE, DUFFING_EQUATION_EXAMPLE, POPULATION_GROWTH_EXAMPLE, SIMPLE_PENDULUM_EXAMPLE, DOUBLE_PENDULUM_EXAMPLE } from "./examples";
+import { DAMPED_OSCILLATION_EXAMPLE, LINEAR_INTEGRATION_EXAMPLE, WEIERSTRAUSS_FUNCTION_EXAMPLE, GEAR_PAIR_EXAMPLE, EPICYCLOID_EXAMPLE, FREE_FALL_EXAMPLE, DUFFING_EQUATION_EXAMPLE, SIMPLE_PENDULUM_EXAMPLE, DOUBLE_PENDULUM_EXAMPLE } from "./examples";
 import { setupDragHooks } from "./UI/Drag";
 import { DraggableComponentElement } from "./UI/DraggableElement";
-import { GRID_SIZE, resetScreenOffset, setCells, setScreenOffset, setupScreenHooks } from "./UI/Grid";
+import { getScreenOffset, GRID_SIZE, resetScreenOffset, setCells, setScreenOffset, setupScreenHooks } from "./UI/Grid";
 import { setupSelectHooks } from "./UI/SelectShaft.ts";
 import { setupPopups } from "./UI/Popups";
 import Vector2 from "./UI/Vector2";
@@ -17,12 +17,26 @@ import { DialComponentElement } from "./UI/DialComponentElement.ts";
 import { CustomVariablesElement } from "./UI/CustomVariablesElement.ts";
 import { ConfigError } from "./ConfigError.ts";
 import { resetIDs } from "./UI/Components.ts";
+import { IntegratorComponentElement } from "./UI/IntegratorComponent.ts";
+import { Integrator } from "./core/Integrator.ts";
 
 enum State {
     Paused,
     Running,
     Stopped,
 }
+
+const EXAMPLES_MAP: { [k: string]: Config } = {
+    damped_oscillation: DAMPED_OSCILLATION_EXAMPLE,
+    freefall: FREE_FALL_EXAMPLE,
+    linear_integration: LINEAR_INTEGRATION_EXAMPLE,
+    gear_pair: GEAR_PAIR_EXAMPLE,
+    weierstrauss_function: WEIERSTRAUSS_FUNCTION_EXAMPLE,
+    epicycloid: EPICYCLOID_EXAMPLE,
+    duffing_equation: DUFFING_EQUATION_EXAMPLE,
+    simple_pendulum: SIMPLE_PENDULUM_EXAMPLE,
+    double_pendulum: DOUBLE_PENDULUM_EXAMPLE,
+};
 
 export function get_global_ctx(): { [k: string]: number } {
     const custom_variables = document.querySelector("custom-variables") as CustomVariablesElement;
@@ -111,6 +125,9 @@ export class Lifecycle {
 
     @query("#constants")
     constants_screen!: HTMLElement;
+
+    @query("#minimize-button")
+    minimize_screen!: HTMLDivElement;
 
     currently_demoing: Boolean = false;
 
@@ -211,6 +228,27 @@ export class Lifecycle {
             this.constants_screen.style.visibility = "visible";
         })
 
+        this.minimize_screen.addEventListener("click", _ => {
+            let img = this.minimize_screen.querySelector("img")!;
+            console.log(img);
+            let user_control = document.querySelector("#user-control")! as HTMLDivElement;
+
+            let current_offset = getScreenOffset();
+            let size = user_control.clientWidth / 2;
+
+            if (img.src.includes("Maximize.svg")) {
+                this.machine.style.minWidth = "0%";
+                user_control.style.left = "0%";
+                img.src = "icons/Minimize.svg";
+                setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
+            } else {
+                this.machine.style.minWidth = "100%";
+                user_control.style.left = "100%";
+                img.src = "icons/Maximize.svg";
+                setScreenOffset({ x: current_offset.x + size, y: current_offset.y });
+            }
+        });
+
         document.querySelectorAll("#fullscreen .center").forEach(x => x.addEventListener("click", e => e.stopImmediatePropagation()));
 
         document.addEventListener("placecomponent", () => this.check_da());
@@ -251,6 +289,10 @@ export class Lifecycle {
                     e.preventDefault();
                 }
                 break;
+            case 'r':
+            case 'R':
+                this.fitMachine();
+                break;
             case 'S':
             case 's':
                 if (e.ctrlKey) {
@@ -266,7 +308,8 @@ export class Lifecycle {
      * is never run.
      */
     public initialLoad(): void {
-        this.loadState(LINEAR_INTEGRATION_EXAMPLE);
+        const example = document.querySelector("#examples-list > *") as HTMLOptionElement;
+        this.loadState(EXAMPLES_MAP[example?.value ?? ""] ?? DAMPED_OSCILLATION_EXAMPLE);
         UNDO_SINGLETON.remove();
     }
 
@@ -285,6 +328,10 @@ export class Lifecycle {
 
         loadConfig(config);
 
+        this.fitMachine();
+    }
+
+    fitMachine(): void {
         if (this.placedComponents.length > 0) {
             let top = Number.POSITIVE_INFINITY;
             let left = Number.POSITIVE_INFINITY;
@@ -354,20 +401,9 @@ export class Lifecycle {
 
     change_example(e: Event): void {
         const option = e.target as HTMLOptionElement;
-        switch (option.value) {
-            case "LinearIntegration": this.loadState(LINEAR_INTEGRATION_EXAMPLE); break;
-            case "Spring": this.loadState(SPRING_EXAMPLE); break;;
-            case "GammaFunction": this.loadState(GAMMA_FUNCTION_EXAMPLE); break;
-            case "WeierstraussFunction": this.loadState(WEIERSTRAUSS_FUNCTION_EXAMPLE); break;
-            case "GearPair": this.loadState(GEAR_PAIR_EXAMPLE); break;
-            case "Epicycloid": this.loadState(EPICYCLOID_EXAMPLE); break;
-            case "ExtremeEpicycloid": this.loadState(EXTREME_EPICYCLOID_EXAMPLE); break;
-            case "Freefall": this.loadState(FREE_FALL_EXAMPLE); break;
-            case "DuffingEquation": this.loadState(DUFFING_EQUATION_EXAMPLE); break;
-            case "PopulationGrowth": this.loadState(POPULATION_GROWTH_EXAMPLE); break;
-            case "SimplePendulum": this.loadState(SIMPLE_PENDULUM_EXAMPLE); break;
-            case "DoublePendulum": this.loadState(DOUBLE_PENDULUM_EXAMPLE); break;
-        }
+        const config = EXAMPLES_MAP[option.value]!;
+
+        this.loadState(config);
         this.stop();
     }
 
@@ -525,6 +561,16 @@ export class Lifecycle {
                     comp.count = simulator.shafts.filter(p => { return p.id == shaft_id })[0].rotation;
                 }
             }
+            
+            for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
+                let pointpos = corecomp.accumulator;
+                const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
+                const uicomp = integrator.querySelector("integrator-component")! as IntegratorComponentElement;
+                uicomp.theta = 2 * Math.PI * pointpos;
+                uicomp.x = uicomp.centre_x + uicomp.radius * Math.cos(uicomp.theta);
+                uicomp.y = uicomp.centre_y + uicomp.radius * Math.sin(uicomp.theta);
+                // check if that angle is actually right
+            }
 
             for (let comp of simulator.components.filter(x => x instanceof FunctionTable)) {
                 const table = document.querySelector(`#component-${comp.id} > graph-table`)! as GraphElement;
@@ -597,8 +643,8 @@ export class Lifecycle {
     }
 
     private reset_output_table(table: GraphElement): void {
-        table.mutate_data_set("d1", points => { points = [] }, true);
-        table.mutate_data_set("d2", points => { points = [] }, true);
+        table.mutate_data_set("d1", points => { points.splice(0, points.length); }, true);
+        table.mutate_data_set("d2", points => { points.splice(0, points.length); }, true);
         table._canvas_graph.getContext("2d")!.clearRect(1, 0, table._canvas_graph.width, table._canvas_graph.height);
         table.gantry_x = 0;
     }

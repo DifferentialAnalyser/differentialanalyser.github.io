@@ -221,7 +221,7 @@ export class GraphElement extends LitElement {
 
         let ctx = this._canvas_graph.getContext("2d");
         if (ctx === null) {
-            console.log("Failed to get canvas 2d context");
+            console.error("Failed to get canvas 2d context");
             return;
         }
 
@@ -239,7 +239,7 @@ export class GraphElement extends LitElement {
     private _draw_axis() {
         let ctx = this._canvas_axis.getContext("2d");
         if (ctx === null) {
-            console.log("Failed to get canvas 2d context");
+            console.error("Failed to get canvas 2d context");
             return;
         }
 

@@ -34,7 +34,7 @@ export function getHShaftID(x: number, y: number): number | null {
 // take a component, get it's name, location/position, 
 export function toConfig(): [Config, number[]] {
   //  iterate through
-  const elements = document.querySelectorAll(".placed-component") as NodeListOf<DraggableComponentElement>;
+  const elements = document.querySelectorAll(".placed-component:not(.dragged)") as NodeListOf<DraggableComponentElement>;
   const shaftElements = Array.from(elements).filter(element => element.componentType.endsWith("Shaft"));
   const config1 = Array.from(shaftElements).map((thisComponent) => {
     // for shafts

@@ -52,9 +52,6 @@ function openPopup(e: MouseEvent, popup: HTMLDivElement): void {
   popup.style.top = `${top}px`;
   popup.style.zIndex = "10";
 
-  console.log(e);
-  console.log(`${top}`);
-
   const target: DraggableComponentElement = e.currentTarget as DraggableComponentElement;
   popup.dataset.id = target.id;
 
@@ -62,7 +59,13 @@ function openPopup(e: MouseEvent, popup: HTMLDivElement): void {
 }
 
 function updateTooltip(input: HTMLInputElement | HTMLTextAreaElement): void {
-  input.parentElement!.querySelector("span")!.textContent = `Eval: ${Expression.eval(input.value, get_global_ctx())}`;
+  let value = Expression.eval(input.value, get_global_ctx());
+
+  if (Number.isInteger(value)) {
+    input.parentElement!.querySelector("span")!.textContent = `= ${value}`;
+  } else {
+    input.parentElement!.querySelector("span")!.textContent = `≈ ${value}`;
+  }
 }
 
 export function openCrossConnectPopup(e: MouseEvent): void {
@@ -239,7 +242,7 @@ function mouseWithin(popup: HTMLDivElement, e: MouseEvent): boolean {
   return false;
 }
 
-function closeAllPopups(): void {
+export function closeAllPopups(): void {
   (document.querySelectorAll(".popup")! as NodeListOf<HTMLDivElement>).forEach((x: HTMLDivElement) => x.style.visibility = "hidden");
 }
 
@@ -273,7 +276,7 @@ function setupIntegratorPopup(): void {
   const input = integratorPopup.querySelector("textarea")! as HTMLTextAreaElement;
   input.addEventListener("change", (e) => {
     const input: HTMLTextAreaElement = e.currentTarget as HTMLTextAreaElement;
-    const component = document.getElementById(input.parentElement!.dataset.id!) as DraggableComponentElement;
+    const component = document.getElementById(input.parentElement!.parentElement!.dataset.id!) as DraggableComponentElement;
 
     updateTextAreaLines(input);
     updateTooltip(input);
@@ -291,7 +294,7 @@ function setupMultiplierPopup(): void {
   const inputs = multiplierPopup.getElementsByTagName("textarea");
   inputs[0].addEventListener("change", (e) => {
     const input: HTMLTextAreaElement = e.currentTarget as HTMLTextAreaElement;
-    const component = document.getElementById(input.parentElement!.dataset.id!) as DraggableComponentElement;
+    const component = document.getElementById(input.parentElement!.parentElement!.dataset.id!) as DraggableComponentElement;
 
     updateTextAreaLines(input);
     updateTooltip(input);

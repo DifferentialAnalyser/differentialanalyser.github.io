@@ -56,7 +56,9 @@ export class Multiplier implements Device {
         if (!this.multiplicand_shaft) {
             this.output.set_rotation_rate(this.input.get_rotation_rate() * this.factor);
         } else {
-            this.output.set_rotation_rate(this.input.rotation * this.multiplicand_shaft.get_rotation_rate() + this.multiplicand_shaft.rotation * this.input.get_rotation_rate());
+            let rotation_rate = this.input.rotation * this.multiplicand_shaft.get_rotation_rate()
+                + this.multiplicand_shaft.rotation * this.input.get_rotation_rate();
+            this.output.set_rotation_rate(rotation_rate);
         }
 
     }
