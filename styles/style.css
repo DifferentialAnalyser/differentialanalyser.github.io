@@ -72,11 +72,10 @@ html {
 }
 
 #info_buttons img {
-    width: 100%;
     aspect-ratio: 1;
     opacity: 70%;
     z-index: 100;
-    width: calc(4 * var(--unit));
+    width: calc(6 * var(--unit));
 }
 
 #user-control-parent {
@@ -114,7 +113,7 @@ html {
 
     left: 0;
     top: 50%;
-    transform: translate(calc(-3 * var(--unit)), -50%);
+    transform: translate(calc(-4 * var(--unit)), -50%);
     z-index: 20;
 
     padding: calc(0.5 * var(--gap-size));
@@ -124,7 +123,7 @@ html {
 
 #minimize-button:hover {
     padding: calc(var(--gap-size));
-    transform: translate(calc(-3 * var(--unit) - 0.5 * var(--gap-size)), -50%);
+    transform: translate(calc(-4 * var(--unit) - 0.5 * var(--gap-size)), -50%);
     cursor: pointer;
 }
 
