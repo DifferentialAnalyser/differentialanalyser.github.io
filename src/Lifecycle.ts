@@ -14,6 +14,8 @@ import { Simulator } from "./core/Main";
 import { FunctionTable } from "./core/FunctionTable";
 import Expression from "./expr/Expression";
 import { DialComponentElement } from "./UI/DialComponentElement.ts";
+import { IntegratorComponentElement } from "./UI/IntegratorComponent.ts";
+import { Integrator } from "./core/Integrator.ts";
 
 enum State {
     Paused,
@@ -469,6 +471,25 @@ export class Lifecycle {
                     comp.count = simulator.shafts.filter(p => { return p.id == shaft_id })[0].rotation;
                 }
             }
+            
+            for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
+                console.log(corecomp);
+                let pointpos = corecomp.accumulator;
+                console.log(corecomp.accumulator);
+                const integrators = document.querySelectorAll(".integrator") as NodeListOf<DraggableComponentElement>;
+                console.log(integrators);
+                for (let intgtr of integrators) {
+                    if (Number(intgtr.id.slice(10)) == corecomp.id) {
+                        const uicomp = intgtr.querySelector("integrator-component")! as IntegratorComponentElement;
+                        uicomp.theta = 2 * Math.PI * pointpos;
+                        console.log(uicomp.theta);
+                        uicomp.x = uicomp.centre_x + uicomp.radius * Math.cos(uicomp.theta);
+                        uicomp.y = uicomp.centre_y + uicomp.radius * Math.sin(uicomp.theta);
+                        // check if that angle is actually right
+                    }
+                } 
+            }
+
 
             for (let comp of simulator.components.filter(x => x instanceof FunctionTable)) {
                 const table = document.querySelector(`#component-${comp.id} > graph-table`)! as GraphElement;
