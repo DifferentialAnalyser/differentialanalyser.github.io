@@ -104,7 +104,7 @@ html {
     z-index: 6;
 }
 
-#minimize-button {
+#side-pannel-buttons {
     position: absolute;
     background: var(--colour-accent1);
     width: calc(4 * var(--unit));
@@ -121,13 +121,13 @@ html {
     border-radius: calc(var(--border-radius) * 2);
 }
 
-#minimize-button:hover {
+#side-pannel-buttons:hover {
     padding: calc(var(--gap-size));
     transform: translate(calc(-4 * var(--unit) - 0.5 * var(--gap-size)), -50%);
     cursor: pointer;
 }
 
-#minimize-button div {
+#side-pannel-buttons div {
     display: flex;
     border-radius: calc(var(--border-radius) * 2);
     background-color: var(--colour-accent2);
@@ -137,7 +137,7 @@ html {
     height: 100%;
 }
 
-#minimize-button img {
+#side-pannel-buttons img {
     margin: var(--gap-size) 0 var(--gap-size) 0;
     width: calc(3 * var(--unit));
 }

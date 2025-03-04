@@ -126,8 +126,14 @@ export class Lifecycle {
     @query("#constants")
     constants_screen!: HTMLElement;
 
-    @query("#minimize-button")
-    minimize_screen!: HTMLDivElement;
+    @query("#side-pannel-buttons")
+    side_pannel_buttons!: HTMLDivElement;
+
+    @query("#minimize")
+    minimize_button!: HTMLDivElement;
+
+    @query("#maximize")
+    maximize_button!: HTMLDivElement;
 
     currently_demoing: Boolean = false;
 
@@ -228,25 +234,32 @@ export class Lifecycle {
             this.constants_screen.style.visibility = "visible";
         })
 
-        this.minimize_screen.addEventListener("click", _ => {
-            let img = this.minimize_screen.querySelector("img")!;
-            console.log(img);
+
+        this.maximize_button.addEventListener("click", _ => {
             let user_control = document.querySelector("#user-control")! as HTMLDivElement;
 
             let current_offset = getScreenOffset();
             let size = user_control.clientWidth / 2;
 
-            if (img.src.includes("Maximize.svg")) {
-                this.machine.style.minWidth = "0%";
-                user_control.style.left = "0%";
-                img.src = "icons/Minimize.svg";
-                setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
-            } else {
-                this.machine.style.minWidth = "100%";
-                user_control.style.left = "100%";
-                img.src = "icons/Maximize.svg";
-                setScreenOffset({ x: current_offset.x + size, y: current_offset.y });
-            }
+            this.machine.style.minWidth = "0%";
+            user_control.style.left = "0%";
+            this.maximize_button.style.display = "none";
+            this.minimize_button.style.display = "flex";
+
+            setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
+        });
+        this.minimize_button.addEventListener("click", _ => {
+            let user_control = document.querySelector("#user-control")! as HTMLDivElement;
+
+            let current_offset = getScreenOffset();
+            let size = user_control.clientWidth / 2;
+
+            this.machine.style.minWidth = "100%";
+            user_control.style.left = "100%";
+            this.maximize_button.style.display = "flex";
+            this.minimize_button.style.display = "none";
+
+            setScreenOffset({ x: current_offset.x + size, y: current_offset.y });
         });
 
         document.querySelectorAll("#fullscreen .center").forEach(x => x.addEventListener("click", e => e.stopImmediatePropagation()));
@@ -561,7 +574,7 @@ export class Lifecycle {
                     comp.count = simulator.shafts.filter(p => { return p.id == shaft_id })[0].rotation;
                 }
             }
-            
+
             for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
                 let pointpos = corecomp.accumulator;
                 const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
