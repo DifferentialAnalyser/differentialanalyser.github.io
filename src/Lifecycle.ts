@@ -45,6 +45,8 @@ export function get_global_ctx(): { [k: string]: number } {
     return custom_variables.getValues();
 }
 
+export let isRunning: Boolean = false;
+
 /**
  * represents the lifecycle of the application and when certain code should be called.
  */
@@ -135,8 +137,6 @@ export class Lifecycle {
     @query("#maximize")
     maximize_button!: HTMLDivElement;
 
-    currently_demoing: Boolean = false;
-
     state: State = State.Stopped;
 
     private _on_frame: undefined | ((delta: number) => void);
@@ -204,7 +204,7 @@ export class Lifecycle {
         });
 
         this.pause_button.addEventListener("click", _ => this.pause());
-        this.stop_button.addEventListener("click", _ => this.stop());
+        this.stop_button.addEventListener("click", _ => { this.loop_check.checked = false; this.stop() });
 
         this.fullscreen.addEventListener("click", _ => {
             this.fullscreen.style.visibility = "hidden";
@@ -333,6 +333,8 @@ export class Lifecycle {
     public loadState(config: Config): void {
         UNDO_SINGLETON.push();
 
+        this.loop_check.checked = false;
+
         // Remove any components placed in the scene.
         this._clear_components();
 
@@ -437,6 +439,8 @@ export class Lifecycle {
         this.stop_button.disabled = true;
         this.clear_output_tables_button.disabled = false;
         this.examples_select.disabled = false;
+
+        isRunning = false;
     }
 
     pause(): void {
@@ -490,6 +494,8 @@ export class Lifecycle {
         this.stop_button.disabled = false;
         this.clear_output_tables_button.disabled = true;
         this.examples_select.disabled = true;
+
+        isRunning = true;
 
         const step_period = Number(this.step_period_input.value);
         const get_motor_speed = () => Number(this.motor_speed_input.value);

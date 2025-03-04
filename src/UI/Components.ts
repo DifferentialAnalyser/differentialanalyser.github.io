@@ -11,7 +11,7 @@ import { GearPairComponentElement } from "./GearPairComponentElement.ts";
 import { CrossConnectComponentElement } from "./CrossConnectComponentElement.ts";
 import Expression from "@src/expr/Expression.ts";
 import { machine } from "./Constants.ts";
-import { get_global_ctx } from "@src/Lifecycle.ts";
+import { get_global_ctx, isRunning } from "@src/Lifecycle.ts";
 import { DialComponentElement } from "./DialComponentElement.ts";
 
 export enum ComponentType {
@@ -292,16 +292,18 @@ function createFunctionTable(div: DraggableComponentElement): void {
     graph.set_data_set("d1", []);
 
     div.addEventListener("constantschanged", _ => {
-        graph.x_min = Expression.eval(div.dataset.x_min ?? `${graph.x_min}`, get_global_ctx());
-        graph.x_max = Expression.eval(div.dataset.x_max ?? `${graph.x_max}`, get_global_ctx());
-        graph.y_min = Expression.eval(div.dataset.y_min ?? `${graph.y_min}`, get_global_ctx());
-        graph.y_max = Expression.eval(div.dataset.y_max ?? `${graph.y_max}`, get_global_ctx());
+        if (!isRunning) {
+            graph.x_min = Expression.eval(div.dataset.x_min ?? `${graph.x_min}`, get_global_ctx());
+            graph.x_max = Expression.eval(div.dataset.x_max ?? `${graph.x_max}`, get_global_ctx());
+            graph.y_min = Expression.eval(div.dataset.y_min ?? `${graph.y_min}`, get_global_ctx());
+            graph.y_max = Expression.eval(div.dataset.y_max ?? `${graph.y_max}`, get_global_ctx());
 
-        let compiled_expr = Expression.compile(graph.data_sets["d1"].fn ?? "0", get_global_ctx());
-        let generator_exp = generator(500, graph.x_min, graph.x_max, x => compiled_expr({ x }));
-        graph.mutate_data_set("d1", points => {
-            points.splice(0, points.length, ...Array.from(generator_exp));
-        }, true);
+            let compiled_expr = Expression.compile(graph.data_sets["d1"].fn ?? "0", get_global_ctx());
+            let generator_exp = generator(500, graph.x_min, graph.x_max, x => compiled_expr({ x }));
+            graph.mutate_data_set("d1", points => {
+                points.splice(0, points.length, ...Array.from(generator_exp));
+            }, true);
+        }
     });
 
     div.appendChild(graph);
@@ -426,16 +428,18 @@ function createOutputTable(div: DraggableComponentElement): void {
     graph.isAnOutput = true;
 
     div.addEventListener("constantschanged", _ => {
-        graph.x_min = Expression.eval(div.dataset.x_min ?? `${graph.x_min}`, get_global_ctx());
-        graph.x_max = Expression.eval(div.dataset.x_max ?? `${graph.x_max}`, get_global_ctx());
-        graph.y_min = Expression.eval(div.dataset.y_min ?? `${graph.y_min}`, get_global_ctx());
-        graph.y_max = Expression.eval(div.dataset.y_max ?? `${graph.y_max}`, get_global_ctx());
+        if (!isRunning) {
+            graph.x_min = Expression.eval(div.dataset.x_min ?? `${graph.x_min}`, get_global_ctx());
+            graph.x_max = Expression.eval(div.dataset.x_max ?? `${graph.x_max}`, get_global_ctx());
+            graph.y_min = Expression.eval(div.dataset.y_min ?? `${graph.y_min}`, get_global_ctx());
+            graph.y_max = Expression.eval(div.dataset.y_max ?? `${graph.y_max}`, get_global_ctx());
 
-        let compiled_expr = Expression.compile(graph.data_sets["d1"].fn ?? "0", get_global_ctx());
-        let generator_exp = generator(500, graph.x_min, graph.x_max, x => compiled_expr({ x }));
-        graph.mutate_data_set("d1", points => {
-            points.splice(0, points.length, ...Array.from(generator_exp));
-        }, true);
+            let compiled_expr = Expression.compile(graph.data_sets["d1"].fn ?? "0", get_global_ctx());
+            let generator_exp = generator(500, graph.x_min, graph.x_max, x => compiled_expr({ x }));
+            graph.mutate_data_set("d1", points => {
+                points.splice(0, points.length, ...Array.from(generator_exp));
+            }, true);
+        }
     });
 
     type ExportedData = {
