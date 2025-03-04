@@ -3,6 +3,9 @@
 <head>
     <title>Differential Analyser</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simulation of Vannevar Bush's Differentials Analyser (Differential Analyzer in American English), later consturcted out of Macano by Dr Maurice Wilkes at the University of Cambridge">
+
     <script type="module" src="src/index.ts"></script>
 
     <link rel="stylesheet" href="styles/style.css">
@@ -117,7 +120,9 @@
 
         <div id="user-control-parent">
             <div id="minimize-button">
-                <img src="icons/Minimize.svg" class="nodrag" alt="Minimize Arrow"/>
+                <div>
+                    <img src="icons/Minimize.svg" class="nodrag" alt="Minimize Arrow"/>
+                </div>
             </div>
             <div id="user-control">
                 <div id="components-area">
@@ -213,7 +218,7 @@
                     <p style="margin: 0;">Configuration</p>
 
                     <div id="control_buttons">
-                        <div style="padding: 0;" id="config_buttons">
+                        <div style="padding:calc(2*var(--gap-size))" id="config_buttons">
                             <button id="import-button">Load</button>
                             <button id="export-button">Save</button>
                             <button id="clear-button">Clear Screen</button>
