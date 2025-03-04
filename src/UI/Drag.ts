@@ -94,7 +94,6 @@ export function pickup(event: MouseEvent): void {
   // Will come up with a better solution
   UNDO_SINGLETON.push();
 
-  currentTarget.classList.add("dragged");
 
   curDragItem.item = currentTarget;
 
@@ -137,12 +136,17 @@ function move(event: MouseEvent): void {
   endSelect(event);
 
   if (!startedDragging) {
+    curDragItem.item.classList.add("dragged");
     let diffX = event.clientX - curDragItem.mouseX;
     let diffY = event.clientY - curDragItem.mouseY;
     if (diffX * diffX + diffY * diffY < startDraggingRadius * startDraggingRadius) {
       return;
     }
     startedDragging = true;
+
+    let e = new CustomEvent("placecomponent");
+    document.dispatchEvent(e);
+
     startDragging();
   }
 

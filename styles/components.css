@@ -23,8 +23,8 @@
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(4, 1fr);
 
-    gap: calc(var(--gap-size));
-    padding: calc(var(--gap-size) * 1.2);
+    gap: calc(2 * var(--gap-size));
+    padding: calc(2 * var(--gap-size));
 
     grid-column-start: 1;
     grid-column-end: 3;
