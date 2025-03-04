@@ -38,14 +38,13 @@ export class CustomVariablesElement extends LitElement {
     this._textarea.style.height = `calc(min(${this._textarea.scrollHeight}px, 40vh))`;
 
     this.expression = this._textarea.value;
+    this._outputs.value = "";
     if (this.expression.trim() === "") {
       this.values = {};
       return;
     }
 
     let parsed_expression = Expression.parse(this.expression);
-
-    this._outputs.value = "";
 
     do {
       if (parsed_expression._type !== "let") {
