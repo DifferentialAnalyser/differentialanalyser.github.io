@@ -81,6 +81,7 @@ html {
 
 #user-control-parent {
     position: relative;
+    z-index: 6;
 }
 
 #user-control {
