@@ -45,8 +45,6 @@ export class CustomVariablesElement extends LitElement {
 
     let parsed_expression = Expression.parse(this.expression);
 
-    console.log(parsed_expression);
-
     this._outputs.value = "";
 
     do {

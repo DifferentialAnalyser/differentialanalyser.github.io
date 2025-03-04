@@ -221,16 +221,15 @@ export class Lifecycle {
             let current_offset = getScreenOffset();
             let size = user_control.clientWidth / 2;
 
-
-            if (img.style.rotate == "180deg") {
+            if (img.src.includes("Maximize.svg")) {
                 this.machine.style.minWidth = "0%";
                 user_control.style.left = "0%";
-                img.style.rotate = "0deg";
+                img.src = "icons/Minimize.svg";
                 setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
             } else {
                 this.machine.style.minWidth = "100%";
                 user_control.style.left = "100%";
-                img.style.rotate = "180deg";
+                img.src = "icons/Maximize.svg";
                 setScreenOffset({ x: current_offset.x + size, y: current_offset.y });
             }
         });

@@ -52,9 +52,6 @@ function openPopup(e: MouseEvent, popup: HTMLDivElement): void {
   popup.style.top = `${top}px`;
   popup.style.zIndex = "10";
 
-  console.log(e);
-  console.log(`${top}`);
-
   const target: DraggableComponentElement = e.currentTarget as DraggableComponentElement;
   popup.dataset.id = target.id;
 
