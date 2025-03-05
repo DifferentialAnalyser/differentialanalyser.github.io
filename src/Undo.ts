@@ -64,6 +64,9 @@ export class UndoHistory {
 
       this.content.appendChild(component);
     }
+
+    let e = new CustomEvent("placecomponent");
+    document.dispatchEvent(e);
   }
 
   pop_future(): void {
@@ -96,6 +99,9 @@ export class UndoHistory {
 
       this.content.appendChild(component);
     }
+
+    let e = new CustomEvent("placecomponent");
+    document.dispatchEvent(e);
   }
 
   push(): void {

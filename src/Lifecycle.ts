@@ -333,6 +333,9 @@ export class Lifecycle {
 
         loadConfig(config);
 
+        let e = new CustomEvent("placecomponent");
+        document.dispatchEvent(e);
+
         this.fitMachine();
     }
 
