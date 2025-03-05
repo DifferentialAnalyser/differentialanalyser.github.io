@@ -4,7 +4,7 @@
  * @author Simon Solca, Andy Zhu, Hanzhang Shen
  */
 
-import { Config } from "../config";
+import { Config, ShaftID } from "../config";
 import { CrossConnect } from "./CrossConnect";
 import { Device } from "./Device";
 import { Differential } from "./Differential";
@@ -164,6 +164,15 @@ export class Simulator {
     return result;
   }
 
+  valid_shafts(allShafts: Map<number, Shaft>, checkShafts: ShaftID[]): Boolean {
+    let valid = true;
+    checkShafts.forEach(e => { valid = valid && allShafts.get(e) != undefined; })
+    if (!valid) {
+      console.error("Invalid");
+    }
+    return valid;
+  }
+
   /**
    * @function parse_config
    * @description Parse the config and create the corresponding shafts and devices.
@@ -187,130 +196,146 @@ export class Simulator {
       let new_component: Device;
       switch (component.type) {
         case "differential":
-          new_component = new Differential(
-            component.compID,
-            shafts.get(component.diffShaft1)!,
-            shafts.get(component.diffShaft2)!,
-            shafts.get(component.sumShaft)!
-          );
-          shafts.get(component.diffShaft1)!.outputs.push(new_component);
-          shafts.get(component.diffShaft2)!.outputs.push(new_component);
-          shafts.get(component.sumShaft)!.outputs.push(new_component);
-          components.push(new_component);
+          if (this.valid_shafts(shafts, [component.diffShaft1, component.diffShaft2, component.sumShaft])) {
+            new_component = new Differential(
+              component.compID,
+              shafts.get(component.diffShaft1)!,
+              shafts.get(component.diffShaft2)!,
+              shafts.get(component.sumShaft)!
+            );
+            shafts.get(component.diffShaft1)!.outputs.push(new_component);
+            shafts.get(component.diffShaft2)!.outputs.push(new_component);
+            shafts.get(component.sumShaft)!.outputs.push(new_component);
+            components.push(new_component);
+          }
           break;
 
         case "integrator":
-          new_component = new Integrator(
-            component.compID,
-            shafts.get(component.variableOfIntegrationShaft)!,
-            shafts.get(component.integrandShaft)!,
-            shafts.get(component.outputShaft)!,
-            false,
-            Expression.eval(String(component.initialPosition), get_global_ctx()) // Accounts for direct numbers in config
-          );
-          shafts
-            .get(component.variableOfIntegrationShaft)!
-            .outputs.push(new_component);
-          shafts.get(component.integrandShaft)!.outputs.push(new_component);
-          components.push(new_component);
+          if (this.valid_shafts(shafts, [component.variableOfIntegrationShaft, component.integrandShaft])) {
+            new_component = new Integrator(
+              component.compID,
+              shafts.get(component.variableOfIntegrationShaft)!,
+              shafts.get(component.integrandShaft)!,
+              shafts.get(component.outputShaft)!,
+              false,
+              Expression.eval(String(component.initialPosition), get_global_ctx()) // Accounts for direct numbers in config
+            );
+            shafts
+              .get(component.variableOfIntegrationShaft)!
+              .outputs.push(new_component);
+            shafts.get(component.integrandShaft)!.outputs.push(new_component);
+            components.push(new_component);
+          }
           break;
 
         case "multiplier":
-          new_component = new Multiplier(
-            component.compID,
-            shafts.get(component.inputShaft)!,
-            shafts.get(component.outputShaft)!,
-            Expression.eval(String(component.factor), get_global_ctx()), // Accounts for numbers instead of a string in config
-            !component.multiplicandShaft
-              ? undefined
-              : shafts.get(component.multiplicandShaft)!
-          );
-          shafts.get(component.inputShaft)!.outputs.push(new_component);
-          components.push(new_component);
+          if (this.valid_shafts(shafts, [component.inputShaft, component.outputShaft])) {
+            new_component = new Multiplier(
+              component.compID,
+              shafts.get(component.inputShaft)!,
+              shafts.get(component.outputShaft)!,
+              Expression.eval(String(component.factor), get_global_ctx()), // Accounts for numbers instead of a string in config
+              !component.multiplicandShaft
+                ? undefined
+                : shafts.get(component.multiplicandShaft)!
+            );
+
+            shafts.get(component.inputShaft)!.outputs.push(new_component);
+            components.push(new_component);
+          }
           break;
 
         case "crossConnect":
-          new_component = new CrossConnect(
-            component.compID,
-            shafts.get(component.horizontal)!,
-            shafts.get(component.vertical)!,
-            component.reversed
-          );
-          shafts.get(component.horizontal)!.outputs.push(new_component);
-          shafts.get(component.vertical)!.outputs.push(new_component);
-          components.push(new_component);
+          if (this.valid_shafts(shafts, [component.horizontal, component.vertical])) {
+            new_component = new CrossConnect(
+              component.compID,
+              shafts.get(component.horizontal)!,
+              shafts.get(component.vertical)!,
+              component.reversed
+            );
+            shafts.get(component.horizontal)!.outputs.push(new_component);
+            shafts.get(component.vertical)!.outputs.push(new_component);
+            components.push(new_component);
+          }
           break;
 
         case "gearPair":
-          new_component = new GearPair(
-            component.compID,
-            shafts.get(component.shaft1)!,
-            shafts.get(component.shaft2)!,
-            component.outputRatio / component.inputRatio
-          );
-          shafts.get(component.shaft1)!.outputs.push(new_component);
-          shafts.get(component.shaft2)!.outputs.push(new_component);
-          components.push(new_component);
+          if (this.valid_shafts(shafts, [component.shaft1, component.shaft2])) {
+            new_component = new GearPair(
+              component.compID,
+              shafts.get(component.shaft1)!,
+              shafts.get(component.shaft2)!,
+              component.outputRatio / component.inputRatio
+            );
+            shafts.get(component.shaft1)!.outputs.push(new_component);
+            shafts.get(component.shaft2)!.outputs.push(new_component);
+            components.push(new_component);
+          }
           break;
 
         case "functionTable":
-          new_component = new FunctionTable(
-            component.compID,
-            shafts.get(component.inputShaft)!,
-            shafts.get(component.outputShaft)!,
-            this.initial_x_position,
-            this.inputFunction // TODO: hardcoded for now to test the engine
-          );
-          (new_component as FunctionTable).id = component.compID;
-          shafts.get(component.inputShaft)!.outputs.push(new_component);
-          components.push(new_component);
+          if (this.valid_shafts(shafts, [component.inputShaft, component.outputShaft])) {
+            new_component = new FunctionTable(
+              component.compID,
+              shafts.get(component.inputShaft)!,
+              shafts.get(component.outputShaft)!,
+              this.initial_x_position,
+              this.inputFunction // TODO: hardcoded for now to test the engine
+            );
+            (new_component as FunctionTable).id = component.compID;
+            shafts.get(component.inputShaft)!.outputs.push(new_component);
+            components.push(new_component);
+          }
           break;
 
         case "motor":
-          if (this.motor) throw new Error("Only one motor is allowed.");
-          motor = new Motor(
-            component.compID,
-            this.rotation,
-            shafts.get(component.outputShaft)!
-          );
-          components.push(motor);
+          if (this.valid_shafts(shafts, [component.outputShaft])) {
+            if (this.motor) throw new Error("Only one motor is allowed.");
+            motor = new Motor(
+              component.compID,
+              this.rotation,
+              shafts.get(component.outputShaft)!
+            );
+            components.push(motor);
+          }
           break;
 
         case "outputTable":
-          let outputTable: OutputTable;
-          let outputShaft1 = component.outputShaft1;
-          let outputShaft2 = component.outputShaft2;
-          let swap = false;
-          if (!outputShaft1) {
-            outputShaft1 = component.outputShaft2;
-            outputShaft2 - component.outputShaft1;
-            swap = true;
-          }
-          if (outputShaft2) {
-            outputTable = new OutputTable(
-              component.compID,
-              shafts.get(component.inputShaft)!,
-              shafts.get(outputShaft1)!,
-              Expression.eval(String(component.initialY1), get_global_ctx()), // Accounts for numbers instead of a string being passed into input
-              shafts.get(outputShaft2)!,
-              Expression.eval(String(component.initialY2), get_global_ctx())
-            );
-            shafts.get(outputShaft2)!.outputs.push(outputTable);
-          } else {
-            outputTable = new OutputTable(
-              component.compID,
-              shafts.get(component.inputShaft)!,
-              shafts.get(outputShaft1)!,
-              Expression.eval(String(component.initialY1), get_global_ctx())
-            );
-          }
-          outputTable.swap = swap;
-          outputTable.id = component.compID;
+          if (this.valid_shafts(shafts, [component.inputShaft, component.outputShaft1]) || this.valid_shafts(shafts, [component.inputShaft, component.outputShaft2])) {
+            let outputTable: OutputTable;
+            let outputShaft1 = component.outputShaft1;
+            let outputShaft2 = component.outputShaft2;
+            let swap = false;
+            if (!outputShaft1) {
+              outputShaft1 = component.outputShaft2;
+              outputShaft2 = component.outputShaft1;
+              swap = true;
+            }
+            if (outputShaft2) {
+              outputTable = new OutputTable(
+                component.compID,
+                shafts.get(component.inputShaft)!,
+                shafts.get(outputShaft1)!,
+                Expression.eval(String(component.initialY1), get_global_ctx()), // Accounts for numbers instead of a string being passed into input
+                shafts.get(outputShaft2)!,
+                Expression.eval(String(component.initialY2), get_global_ctx())
+              );
+              shafts.get(outputShaft2)!.outputs.push(outputTable);
+            } else {
+              outputTable = new OutputTable(
+                component.compID,
+                shafts.get(component.inputShaft)!,
+                shafts.get(outputShaft1)!,
+                Expression.eval(String(component.initialY1), get_global_ctx())
+              );
+            }
+            outputTable.swap = swap;
+            outputTable.id = component.compID;
 
-          shafts.get(component.inputShaft)!.outputs.push(outputTable);
-          shafts.get(outputShaft1)!.outputs.push(outputTable);
-          // components.push(outputTable);
-          outputTables.push(outputTable);
+            shafts.get(component.inputShaft)!.outputs.push(outputTable);
+            shafts.get(outputShaft1)!.outputs.push(outputTable);
+            outputTables.push(outputTable);
+          }
           break;
 
         // only from frontend
@@ -327,13 +352,16 @@ export class Simulator {
             determine_output(): Shaft | undefined {
               return undefined;
             }
-            update(_dt: number): void {}
+            update(_dt: number): void { }
             getID(): number {
               return this.id;
             }
           })(component.compID);
-          shafts.get(component.inputShaft)!.outputs.push(new_component);
-          components.push(new_component);
+
+          if (this.valid_shafts(shafts, [component.inputShaft])) {
+            shafts.get(component.inputShaft)!.outputs.push(new_component);
+            components.push(new_component);
+          }
           break;
 
         default:
