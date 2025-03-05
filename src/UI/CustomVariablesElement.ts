@@ -3,6 +3,7 @@ import { css, unsafeCSS, html, LitElement } from "lit";
 import { customElement, query } from "lit/decorators.js";
 
 import styles from "../../styles/CustomVariables.css?inline";
+import { Lifecycle } from "@src/Lifecycle";
 
 @customElement("custom-variables")
 export class CustomVariablesElement extends LitElement {

@@ -1,10 +1,10 @@
 /**
  * @file Main.ts
  * @description This file contains functions to simulate the differential analyzer
- * @author Simon Solca, Andy Zhu, Hanzhang Shen
+ * @author Aaron Danton, Joseph Hunt, Simon Solca, Andy Zhu, Hanzhang Shen, 
  */
 
-import { Config } from "../config";
+import { Config, ShaftID } from "../config";
 import { CrossConnect } from "./CrossConnect";
 import { Device } from "./Device";
 import { Differential } from "./Differential";
@@ -193,9 +193,9 @@ export class Simulator {
             shafts.get(component.diffShaft2)!,
             shafts.get(component.sumShaft)!
           );
-          shafts.get(component.diffShaft1)!.outputs.push(new_component);
-          shafts.get(component.diffShaft2)!.outputs.push(new_component);
-          shafts.get(component.sumShaft)!.outputs.push(new_component);
+          shafts.get(component.diffShaft1)?.outputs.push(new_component);
+          shafts.get(component.diffShaft2)?.outputs.push(new_component);
+          shafts.get(component.sumShaft)?.outputs.push(new_component);
           components.push(new_component);
           break;
 
@@ -209,9 +209,8 @@ export class Simulator {
             Expression.eval(String(component.initialPosition), get_global_ctx()) // Accounts for direct numbers in config
           );
           shafts
-            .get(component.variableOfIntegrationShaft)!
-            .outputs.push(new_component);
-          shafts.get(component.integrandShaft)!.outputs.push(new_component);
+            .get(component.variableOfIntegrationShaft)?.outputs.push(new_component);
+          shafts.get(component.integrandShaft)?.outputs.push(new_component);
           components.push(new_component);
           break;
 
@@ -225,7 +224,8 @@ export class Simulator {
               ? undefined
               : shafts.get(component.multiplicandShaft)!
           );
-          shafts.get(component.inputShaft)!.outputs.push(new_component);
+
+          shafts.get(component.inputShaft)?.outputs.push(new_component);
           components.push(new_component);
           break;
 
@@ -236,8 +236,8 @@ export class Simulator {
             shafts.get(component.vertical)!,
             component.reversed
           );
-          shafts.get(component.horizontal)!.outputs.push(new_component);
-          shafts.get(component.vertical)!.outputs.push(new_component);
+          shafts.get(component.horizontal)?.outputs.push(new_component);
+          shafts.get(component.vertical)?.outputs.push(new_component);
           components.push(new_component);
           break;
 
@@ -248,8 +248,8 @@ export class Simulator {
             shafts.get(component.shaft2)!,
             component.outputRatio / component.inputRatio
           );
-          shafts.get(component.shaft1)!.outputs.push(new_component);
-          shafts.get(component.shaft2)!.outputs.push(new_component);
+          shafts.get(component.shaft1)?.outputs.push(new_component);
+          shafts.get(component.shaft2)?.outputs.push(new_component);
           components.push(new_component);
           break;
 
@@ -262,7 +262,7 @@ export class Simulator {
             this.inputFunction // TODO: hardcoded for now to test the engine
           );
           (new_component as FunctionTable).id = component.compID;
-          shafts.get(component.inputShaft)!.outputs.push(new_component);
+          shafts.get(component.inputShaft)?.outputs.push(new_component);
           components.push(new_component);
           break;
 
@@ -283,7 +283,7 @@ export class Simulator {
           let swap = false;
           if (!outputShaft1) {
             outputShaft1 = component.outputShaft2;
-            outputShaft2 - component.outputShaft1;
+            outputShaft2 = component.outputShaft1;
             swap = true;
           }
           if (outputShaft2) {
@@ -307,9 +307,8 @@ export class Simulator {
           outputTable.swap = swap;
           outputTable.id = component.compID;
 
-          shafts.get(component.inputShaft)!.outputs.push(outputTable);
-          shafts.get(outputShaft1)!.outputs.push(outputTable);
-          // components.push(outputTable);
+          shafts.get(component.inputShaft)?.outputs.push(outputTable);
+          shafts.get(outputShaft1)?.outputs.push(outputTable);
           outputTables.push(outputTable);
           break;
 
@@ -327,12 +326,13 @@ export class Simulator {
             determine_output(): Shaft | undefined {
               return undefined;
             }
-            update(_dt: number): void {}
+            update(_dt: number): void { }
             getID(): number {
               return this.id;
             }
           })(component.compID);
-          shafts.get(component.inputShaft)!.outputs.push(new_component);
+
+          shafts.get(component.inputShaft)?.outputs.push(new_component);
           components.push(new_component);
           break;
 

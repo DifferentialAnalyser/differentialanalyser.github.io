@@ -119,9 +119,9 @@
         </div>
 
         <div id="user-control-parent">
-            <div id="minimize-button">
-                <div>
-                    <img src="icons/Minimize.svg" class="nodrag" alt="Minimize Arrow"/>
+            <div id="side-pannel-buttons">
+                <div id ="minimize" style="rotate: 0deg">
+                    <img src="icons/Minimize.svg" class="nodrag" alt="Minimize"/>
                 </div>
             </div>
             <div id="user-control">
@@ -149,38 +149,17 @@
                             </div>
                         </div>
 
-                        <div data-type="Integrator" class="component">
-                            <div class="component-label"><span>Integ.</span></div>
-                            <div class="component-img">
-                                <img src="icons/Integrator.svg" alt="Integrator"/>
-                            </div>
-                        </div>
-
-                        <div data-type="FunctionTable" class="component">
-                            <div class="component-label"><span>Fn. Table</span></div>
-                            <div class="component-img">
-                                <img src="icons/FunctionTable.svg" alt="Function Table"/>
-                            </div>
-                        </div>
-
-                        <div data-type="Differential" class="component">
-                            <div class="component-label"><span>Sum</span></div>
-                            <div class="component-img">
-                                <img src="icons/Differential.svg" alt="Differential"/>
-                            </div>
-                        </div>
-
-                        <div data-type="OutputTable" class="component">
-                            <div class="component-label"><span>Out. Table</span></div>
-                            <div class="component-img">
-                                <img src="icons/OutputTable.svg" alt="Output table"/>
-                            </div>
-                        </div>
-
                         <div data-type="Motor" class="component">
                             <div class="component-label"><span>Motor</span></div>
                             <div class="component-img">
                                 <img src="icons/Motor.svg" alt="Motor"/>
+                            </div>
+                        </div>
+
+                        <div data-type="Integrator" class="component">
+                            <div class="component-label"><span>Integ.</span></div>
+                            <div class="component-img">
+                                <img src="icons/Integrator.svg" alt="Integrator"/>
                             </div>
                         </div>
 
@@ -191,10 +170,31 @@
                             </div>
                         </div>
 
+                        <div data-type="Differential" class="component">
+                            <div class="component-label"><span>Sum</span></div>
+                            <div class="component-img">
+                                <img src="icons/Differential.svg" alt="Differential"/>
+                            </div>
+                        </div>
+
                         <div data-type="GearPair" class="component">
                             <div class="component-label"><span>Gear Pair</span></div>
                             <div class="component-img">
                                 <img src="icons/GearPair.svg" alt="Gear Pair"/>
+                            </div>
+                        </div>
+
+                        <div data-type="FunctionTable" class="component">
+                            <div class="component-label"><span>Fn. Table</span></div>
+                            <div class="component-img">
+                                <img src="icons/FunctionTable.svg" alt="Function Table"/>
+                            </div>
+                        </div>
+
+                        <div data-type="OutputTable" class="component">
+                            <div class="component-label"><span>Out. Table</span></div>
+                            <div class="component-img">
+                                <img src="icons/OutputTable.svg" alt="Output table"/>
                             </div>
                         </div>
 
@@ -234,7 +234,7 @@
                         <option value="linear_integration">Linear Integration</option>
                         <option value="gear_pair">Gear pair usage</option>
                         <option value="weierstrauss_function">Weierstrauss Function</option>
-                        
+
                         <option value="epicycloid">Epicycloid</option>
                         <option value="duffing_equation">Duffing equation</option>
                         <option value="simple_pendulum">Simple pendulum</option>

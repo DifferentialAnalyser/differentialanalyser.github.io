@@ -45,6 +45,8 @@ export function get_global_ctx(): { [k: string]: number } {
     return custom_variables.getValues();
 }
 
+export let isRunning: Boolean = false;
+
 /**
  * represents the lifecycle of the application and when certain code should be called.
  */
@@ -126,10 +128,11 @@ export class Lifecycle {
     @query("#constants")
     constants_screen!: HTMLElement;
 
-    @query("#minimize-button")
-    minimize_screen!: HTMLDivElement;
+    @query("#side-pannel-buttons")
+    side_pannel_buttons!: HTMLDivElement;
 
-    currently_demoing: Boolean = false;
+    @query("#minimize")
+    minimize_button!: HTMLDivElement;
 
     state: State = State.Stopped;
 
@@ -198,7 +201,7 @@ export class Lifecycle {
         });
 
         this.pause_button.addEventListener("click", _ => this.pause());
-        this.stop_button.addEventListener("click", _ => this.stop());
+        this.stop_button.addEventListener("click", _ => { this.loop_check.checked = false; this.stop() });
 
         this.fullscreen.addEventListener("click", _ => {
             this.fullscreen.style.visibility = "hidden";
@@ -228,25 +231,25 @@ export class Lifecycle {
             this.constants_screen.style.visibility = "visible";
         })
 
-        this.minimize_screen.addEventListener("click", _ => {
-            let img = this.minimize_screen.querySelector("img")!;
-            console.log(img);
+
+        this.minimize_button.addEventListener("click", _ => {
             let user_control = document.querySelector("#user-control")! as HTMLDivElement;
 
             let current_offset = getScreenOffset();
             let size = user_control.clientWidth / 2;
 
-            if (img.src.includes("Maximize.svg")) {
-                this.machine.style.minWidth = "0%";
-                user_control.style.left = "0%";
-                img.src = "icons/Minimize.svg";
-                setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
-            } else {
+            if (this.minimize_button.style.rotate == "0deg") {
                 this.machine.style.minWidth = "100%";
                 user_control.style.left = "100%";
-                img.src = "icons/Maximize.svg";
+                this.minimize_button.style.rotate = "180deg";
                 setScreenOffset({ x: current_offset.x + size, y: current_offset.y });
+            } else {
+                this.machine.style.minWidth = "0%";
+                user_control.style.left = "0%";
+                this.minimize_button.style.rotate = "0deg";
+                setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
             }
+
         });
 
         document.querySelectorAll("#fullscreen .center").forEach(x => x.addEventListener("click", e => e.stopImmediatePropagation()));
@@ -319,6 +322,8 @@ export class Lifecycle {
      */
     public loadState(config: Config): void {
         UNDO_SINGLETON.push();
+
+        this.loop_check.checked = false;
 
         // Remove any components placed in the scene.
         this._clear_components();
@@ -424,6 +429,8 @@ export class Lifecycle {
         this.stop_button.disabled = true;
         this.clear_output_tables_button.disabled = false;
         this.examples_select.disabled = false;
+
+        isRunning = false;
     }
 
     pause(): void {
@@ -477,6 +484,8 @@ export class Lifecycle {
         this.stop_button.disabled = false;
         this.clear_output_tables_button.disabled = true;
         this.examples_select.disabled = true;
+
+        isRunning = true;
 
         const step_period = Number(this.step_period_input.value);
         const get_motor_speed = () => Number(this.motor_speed_input.value);
@@ -561,7 +570,7 @@ export class Lifecycle {
                     comp.count = simulator.shafts.filter(p => { return p.id == shaft_id })[0].rotation;
                 }
             }
-            
+
             for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
                 let pointpos = corecomp.accumulator;
                 const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;

@@ -1,7 +1,7 @@
 /**
  * @file Multiplier.ts
  * @description This file contains the definition of the Multiplier class.
- * @author Simon Solca, Andy Zhu
+ * @author Aaron Danton, Simon Solca, Andy Zhu
  */
 
 import { Device } from "./Device";
