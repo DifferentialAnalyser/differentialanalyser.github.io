@@ -1,7 +1,7 @@
 /**
  * @file Main.ts
  * @description This file contains functions to simulate the differential analyzer
- * @author Simon Solca, Andy Zhu, Hanzhang Shen
+ * @author Aaron Danton, Joseph Hunt, Simon Solca, Andy Zhu, Hanzhang Shen, 
  */
 
 import { Config, ShaftID } from "../config";
@@ -165,12 +165,8 @@ export class Simulator {
   }
 
   valid_shafts(allShafts: Map<number, Shaft>, checkShafts: ShaftID[]): Boolean {
-    let valid = true;
-    checkShafts.forEach(e => { valid = valid && allShafts.get(e) != undefined; })
-    if (!valid) {
-      console.error("Invalid");
-    }
-    return valid;
+    checkShafts.forEach(e => { if (!allShafts.has(e)) { return false; } })
+    return true;
   }
 
   /**
@@ -211,7 +207,7 @@ export class Simulator {
           break;
 
         case "integrator":
-          if (this.valid_shafts(shafts, [component.variableOfIntegrationShaft, component.integrandShaft])) {
+          if (this.valid_shafts(shafts, [component.variableOfIntegrationShaft, component.integrandShaft, component.outputShaft])) {
             new_component = new Integrator(
               component.compID,
               shafts.get(component.variableOfIntegrationShaft)!,
