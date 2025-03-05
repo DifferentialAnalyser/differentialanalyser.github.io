@@ -1,18 +1,7 @@
 {
   "shafts": [
     {
-      "id": 17,
-      "start": [
-        3,
-        6
-      ],
-      "end": [
-        15,
-        6
-      ]
-    },
-    {
-      "id": 18,
+      "id": 41,
       "start": [
         3,
         7
@@ -23,7 +12,7 @@
       ]
     },
     {
-      "id": 19,
+      "id": 43,
       "start": [
         5,
         5
@@ -34,7 +23,7 @@
       ]
     },
     {
-      "id": 20,
+      "id": 45,
       "start": [
         4,
         5
@@ -45,7 +34,7 @@
       ]
     },
     {
-      "id": 21,
+      "id": 47,
       "start": [
         9,
         5
@@ -56,7 +45,7 @@
       ]
     },
     {
-      "id": 22,
+      "id": 49,
       "start": [
         10,
         5
@@ -67,9 +56,9 @@
       ]
     },
     {
-      "id": 23,
+      "id": 51,
       "start": [
-        6,
+        7,
         8
       ],
       "end": [
@@ -78,7 +67,7 @@
       ]
     },
     {
-      "id": 24,
+      "id": 53,
       "start": [
         11,
         5
@@ -89,7 +78,7 @@
       ]
     },
     {
-      "id": 25,
+      "id": 55,
       "start": [
         15,
         5
@@ -100,7 +89,7 @@
       ]
     },
     {
-      "id": 26,
+      "id": 57,
       "start": [
         16,
         5
@@ -111,7 +100,7 @@
       ]
     },
     {
-      "id": 27,
+      "id": 59,
       "start": [
         13,
         8
@@ -122,7 +111,7 @@
       ]
     },
     {
-      "id": 28,
+      "id": 61,
       "start": [
         17,
         5
@@ -131,22 +120,33 @@
         17,
         8
       ]
+    },
+    {
+      "id": 63,
+      "start": [
+        3,
+        6
+      ],
+      "end": [
+        15,
+        6
+      ]
     }
   ],
   "components": [
     {
       "type": "motor",
-      "compID": 0,
+      "compID": 1,
       "position": [
         1,
         6
       ],
       "reversed": false,
-      "outputShaft": 17
+      "outputShaft": 63
     },
     {
       "type": "functionTable",
-      "compID": 1,
+      "compID": 3,
       "position": [
         2,
         1
@@ -155,14 +155,14 @@
       "x_max": "10",
       "y_min": "-2",
       "y_max": "2",
-      "inputShaft": 20,
-      "outputShaft": 19,
+      "inputShaft": 45,
+      "outputShaft": 43,
       "lookup": false,
       "fn": "sin(x)"
     },
     {
       "type": "outputTable",
-      "compID": 2,
+      "compID": 5,
       "position": [
         8,
         1
@@ -171,56 +171,56 @@
       "x_max": "10",
       "y_min": "-2",
       "y_max": "2",
-      "inputShaft": 21,
-      "outputShaft1": 22,
-      "outputShaft2": 24,
+      "inputShaft": 47,
+      "outputShaft1": 49,
+      "outputShaft2": 53,
       "initialY1": "0",
       "initialY2": "0"
     },
     {
       "type": "crossConnect",
-      "compID": 3,
+      "compID": 7,
       "position": [
         5,
         7
       ],
       "reversed": false,
-      "vertical": 19,
-      "horizontal": 18
+      "vertical": 43,
+      "horizontal": 41
     },
     {
       "type": "crossConnect",
-      "compID": 4,
+      "compID": 9,
       "position": [
         4,
         6
       ],
-      "vertical": 20,
-      "horizontal": 17
+      "vertical": 45,
+      "horizontal": 63
     },
     {
       "type": "crossConnect",
-      "compID": 5,
+      "compID": 11,
       "position": [
         9,
         6
       ],
-      "vertical": 21,
-      "horizontal": 17
+      "vertical": 47,
+      "horizontal": 63
     },
     {
       "type": "crossConnect",
-      "compID": 6,
+      "compID": 13,
       "position": [
         10,
         7
       ],
-      "vertical": 22,
-      "horizontal": 18
+      "vertical": 49,
+      "horizontal": 41
     },
     {
       "type": "label",
-      "compID": 7,
+      "compID": 15,
       "position": [
         2,
         0
@@ -234,30 +234,30 @@
     },
     {
       "type": "gearPair",
-      "compID": 8,
+      "compID": 17,
       "position": [
-        6,
+        7,
         7
       ],
       "inputRatio": 2,
       "outputRatio": 1,
-      "shaft1": 18,
-      "shaft2": 23
+      "shaft1": 41,
+      "shaft2": 51
     },
     {
       "type": "crossConnect",
-      "compID": 9,
+      "compID": 19,
       "position": [
         11,
         8
       ],
       "reversed": false,
-      "vertical": 24,
-      "horizontal": 23
+      "vertical": 53,
+      "horizontal": 51
     },
     {
       "type": "outputTable",
-      "compID": 10,
+      "compID": 21,
       "position": [
         14,
         1
@@ -266,60 +266,49 @@
       "x_max": "10",
       "y_min": "-2",
       "y_max": "2",
-      "inputShaft": 25,
-      "outputShaft1": 26,
-      "outputShaft2": 28,
+      "inputShaft": 55,
+      "outputShaft1": 57,
+      "outputShaft2": 61,
       "initialY1": "0",
       "initialY2": "0"
     },
     {
       "type": "crossConnect",
-      "compID": 11,
+      "compID": 23,
       "position": [
         15,
         6
       ],
       "reversed": false,
-      "vertical": 25,
-      "horizontal": 17
+      "vertical": 55,
+      "horizontal": 63
     },
     {
       "type": "crossConnect",
-      "compID": 12,
+      "compID": 25,
       "position": [
         16,
         7
       ],
       "reversed": false,
-      "vertical": 26,
-      "horizontal": 18
+      "vertical": 57,
+      "horizontal": 41
     },
     {
       "type": "gearPair",
-      "compID": 13,
+      "compID": 27,
       "position": [
         13,
         7
       ],
       "inputRatio": 1,
       "outputRatio": 2,
-      "shaft1": 18,
-      "shaft2": 27
-    },
-    {
-      "type": "crossConnect",
-      "compID": 14,
-      "position": [
-        17,
-        8
-      ],
-      "reversed": false,
-      "vertical": 28,
-      "horizontal": 27
+      "shaft1": 41,
+      "shaft2": 59
     },
     {
       "type": "label",
-      "compID": 15,
+      "compID": 29,
       "position": [
         8,
         0
@@ -333,7 +322,7 @@
     },
     {
       "type": "label",
-      "compID": 16,
+      "compID": 31,
       "position": [
         14,
         0
@@ -344,6 +333,56 @@
       ],
       "align": "center",
       "_comment": "2x"
+    },
+    {
+      "type": "dial",
+      "compID": 33,
+      "position": [
+        8,
+        7
+      ],
+      "inputShaft": 41
+    },
+    {
+      "type": "dial",
+      "compID": 35,
+      "position": [
+        8,
+        8
+      ],
+      "inputShaft": 51
+    },
+    {
+      "type": "dial",
+      "compID": 37,
+      "position": [
+        14,
+        7
+      ],
+      "inputShaft": 41
+    },
+    {
+      "type": "dial",
+      "compID": 39,
+      "position": [
+        14,
+        8
+      ],
+      "inputShaft": 59
+    },
+    {
+      "type": "crossConnect",
+      "compID": 62,
+      "position": [
+        17,
+        8
+      ],
+      "reversed": false,
+      "vertical": 61,
+      "horizontal": 59
     }
-  ]
+  ],
+  "settings": {
+    "custom_variables": ""
+  }
 }
