@@ -134,9 +134,6 @@ export class Lifecycle {
     @query("#minimize")
     minimize_button!: HTMLDivElement;
 
-    @query("#maximize")
-    maximize_button!: HTMLDivElement;
-
     state: State = State.Stopped;
 
     private _on_frame: undefined | ((delta: number) => void);
@@ -235,31 +232,24 @@ export class Lifecycle {
         })
 
 
-        this.maximize_button.addEventListener("click", _ => {
-            let user_control = document.querySelector("#user-control")! as HTMLDivElement;
-
-            let current_offset = getScreenOffset();
-            let size = user_control.clientWidth / 2;
-
-            this.machine.style.minWidth = "0%";
-            user_control.style.left = "0%";
-            this.maximize_button.style.display = "none";
-            this.minimize_button.style.display = "flex";
-
-            setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
-        });
         this.minimize_button.addEventListener("click", _ => {
             let user_control = document.querySelector("#user-control")! as HTMLDivElement;
 
             let current_offset = getScreenOffset();
             let size = user_control.clientWidth / 2;
 
-            this.machine.style.minWidth = "100%";
-            user_control.style.left = "100%";
-            this.maximize_button.style.display = "flex";
-            this.minimize_button.style.display = "none";
+            if (this.minimize_button.style.rotate == "0deg") {
+                this.machine.style.minWidth = "100%";
+                user_control.style.left = "100%";
+                this.minimize_button.style.rotate = "180deg";
+                setScreenOffset({ x: current_offset.x + size, y: current_offset.y });
+            } else {
+                this.machine.style.minWidth = "0%";
+                user_control.style.left = "0%";
+                this.minimize_button.style.rotate = "0deg";
+                setScreenOffset({ x: current_offset.x - size, y: current_offset.y });
+            }
 
-            setScreenOffset({ x: current_offset.x + size, y: current_offset.y });
         });
 
         document.querySelectorAll("#fullscreen .center").forEach(x => x.addEventListener("click", e => e.stopImmediatePropagation()));
