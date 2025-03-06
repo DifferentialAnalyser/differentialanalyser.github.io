@@ -21,7 +21,6 @@ export class Integrator implements Device {
     private variableOfIntegration: Shaft;
     private readonly wheelRadius: number = 1;
     private reverse: boolean = false;
-    accumulator: number;
 
     /**
      * @constructor
@@ -40,7 +39,6 @@ export class Integrator implements Device {
         this.variableOfIntegration = variableOfIntegration;
         this.reverse = reverse
         this.diskPosition = initialPosition;
-        this.accumulator = 0;
     }
 
     /**
@@ -59,7 +57,6 @@ export class Integrator implements Device {
     update(dt: number = 1){
         // Linear speed of the wheel = f(x) * dx.
         this.diskPosition += this.integrand.get_rotation_rate();
-        this.accumulator += this.variableOfIntegration.get_rotation_rate();
         let wheelLinearSpeed = this.variableOfIntegration.get_rotation_rate() * this.diskPosition;
         let wheelAngularSpeed = wheelLinearSpeed / this.wheelRadius;
         if (this.reverse){
@@ -69,4 +66,14 @@ export class Integrator implements Device {
     }
 
     getID() : number { return this.id; }
+
+    getVariableIntegrandShaft() : Shaft {
+        return this.variableOfIntegration;
+    }
+
+    getDiskPosition() : number {
+        console.log(this.diskPosition)
+        return this.diskPosition;
+    }
+
 }

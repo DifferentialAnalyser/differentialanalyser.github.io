@@ -13,6 +13,8 @@ import Expression from "@src/expr/Expression.ts";
 import { machine } from "./Constants.ts";
 import { get_global_ctx, isRunning } from "@src/Lifecycle.ts";
 import { DialComponentElement } from "./DialComponentElement.ts";
+import { IntegratorComponentElement } from "./IntegratorComponent.ts";
+import { MultiplierComponentElement } from "./MultiplierComponentElement.ts";
 
 export enum ComponentType {
     VShaft,
@@ -267,6 +269,10 @@ function createIntegrator(div: DraggableComponentElement): void {
         _this.top = data.top;
         _this.left = data.left;
         _this.dataset.initialValue = data.initialPosition;
+
+        const comp = _this.querySelector("integrator-component")! as IntegratorComponentElement;
+        comp.set_value(Expression.eval(_this.dataset.initialValue, get_global_ctx()));
+        comp.renormalize();
     };
 }
 
@@ -570,6 +576,11 @@ function createMultiplier(div: DraggableComponentElement): void {
         _this.top = data.top;
         _this.left = data.left;
         _this.dataset.factor = data.factor ?? "1";
+
+        const comp = _this.querySelector("multiplier-component")! as MultiplierComponentElement;
+        comp.set_value(Expression.eval(_this.dataset.factor, get_global_ctx()));
+        comp.renormalize();
+    
     };
 }
 

@@ -19,6 +19,8 @@ import { ConfigError } from "./ConfigError.ts";
 import { resetIDs } from "./UI/Components.ts";
 import { IntegratorComponentElement } from "./UI/IntegratorComponent.ts";
 import { Integrator } from "./core/Integrator.ts";
+import { Multiplier } from "./core/Multiplier.ts";
+import { MultiplierComponentElement } from "./UI/MultiplierComponentElement.ts";
 
 enum State {
     Paused,
@@ -515,6 +517,13 @@ export class Lifecycle {
         dials.forEach(dial => {
             (dial.querySelector("dial-component")! as DialComponentElement).count = 0
         })
+        
+        for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
+            const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
+            const uicomp = integrator.querySelector("integrator-component")! as IntegratorComponentElement;
+            uicomp.set_value(corecomp.getDiskPosition());
+            uicomp.renormalize();
+        }
 
         let elapsed = 0;
         let steps_taken = 0;
@@ -575,13 +584,18 @@ export class Lifecycle {
             }
 
             for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
-                let pointpos = corecomp.accumulator;
                 const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
                 const uicomp = integrator.querySelector("integrator-component")! as IntegratorComponentElement;
+                let pointpos = corecomp.getVariableIntegrandShaft().rotation;
                 uicomp.theta = 2 * Math.PI * pointpos;
-                uicomp.x = uicomp.centre_x + uicomp.radius * Math.cos(uicomp.theta);
-                uicomp.y = uicomp.centre_y + uicomp.radius * Math.sin(uicomp.theta);
-                // check if that angle is actually right
+                uicomp.set_value(corecomp.getDiskPosition());
+            }
+
+            for (let corecomp of simulator.components.filter(x => x instanceof Multiplier)) {
+                const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
+                const uicomp = integrator.querySelector("multiplier-component")! as MultiplierComponentElement;
+                uicomp.factor = corecomp.getFactor();
+                uicomp.set_value(corecomp.getInputShaft().rotation);
             }
 
             for (let comp of simulator.components.filter(x => x instanceof FunctionTable)) {

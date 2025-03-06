@@ -10,6 +10,8 @@ import { generator } from "../index.ts";
 import { CrossConnectComponentElement } from "./CrossConnectComponentElement.ts";
 import { machine } from "./Constants.ts";
 import { get_global_ctx } from "@src/Lifecycle.ts";
+import { IntegratorComponentElement } from "./IntegratorComponent.ts";
+import { MultiplierComponentElement } from "./MultiplierComponentElement.ts";
 
 const MIN_TEXT_AREA_LINES = 3;
 const MAX_TEXT_AREA_LINES = 10;
@@ -282,6 +284,11 @@ function setupIntegratorPopup(): void {
     updateTooltip(input);
 
     component.dataset.initialValue = input.value;
+
+    const comp = component.querySelector("integrator-component")! as IntegratorComponentElement;
+    comp.set_value(Expression.eval(component.dataset.initialValue, get_global_ctx()));
+    comp.renormalize();
+        
   })
 }
 
@@ -300,6 +307,10 @@ function setupMultiplierPopup(): void {
     updateTooltip(input);
 
     component.dataset.factor = input.value;
+
+    const comp = component.querySelector("multiplier-component")! as MultiplierComponentElement;
+    comp.factor = Expression.eval(component.dataset.factor, get_global_ctx());
+
   });
 }
 

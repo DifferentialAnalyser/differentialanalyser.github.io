@@ -20,17 +20,39 @@ export class IntegratorComponentElement extends LitElement {
   theta = 0;
 
   @property({ type: Number }) 
-  x = this.centre_x + this.radius * Math.cos(this.theta);
+  value: number = 0;
   @property({ type: Number }) 
-  y = this.centre_y + this.radius * Math.sin(this.theta);
+  max_value: number = 1;
+  @property({ type: Number }) 
+  current_value: number = 0;
 
 
-  //
-  //<text text-anchor="middle" dominant-baseline="middle" y="50%" x="50%" fill="black" font-size="8">${this.count.toPrecision(5).substring(0, 6)}</text>
-  //
+  set_value(value: number): void {
+    this.max_value = Math.max(this.max_value, Math.abs(value));
+    this.value = value;
+  }
+
+  renormalize(): void {
+    if (Math.abs(this.value) <= 1) {
+      this.max_value = 1;
+    }
+    else {
+      this.max_value = Math.abs(2 * this.value);
+    }
+  }
+
+  map_range(number: number, in_min: number, in_max: number, out_min: number, out_max: number): number {
+    return (number - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  }
 
   render() {
-    // viewBox="4 4 92 62"
+    let x = this.centre_x + this.radius * Math.cos(this.theta);
+    let y = this.centre_y + this.radius * Math.sin(this.theta);
+
+    let shaftY = this.map_range(this.value, -this.max_value, this.max_value, 82, 18);
+    console.log("value");
+    console.log(this.value);
+    console.log(this.max_value);
     return svg`
       <svg
         xmlns="https://www.w3.org/2000/svg"
@@ -40,10 +62,10 @@ export class IntegratorComponentElement extends LitElement {
         <rect x="24" y="1" width="175" height="98" class="stroke-fg fill-bg" stroke-width="2" rx="5" />
         <rect x="115" y="30" width="20" height="40" fill="none" class="stroke-fg" stroke-width="2" rx="2" />
         <circle cx="75" cy="50" r="38" fill="none" class="stroke-fg" stroke-width="2" />
-        <circle cx="${this.x.toPrecision(5)}" cy="${this.y.toPrecision(5)}" class="stroke-fg" r="2" stroke-width="2" />
+        <circle cx="${x}" cy="${y}" class="stroke-fg" r="2" stroke-width="2" />
 
-        <line x1="60" y1="50" x2="90" y2="50" class="stroke-fg" stroke-width="2" stroke-linecap="round" />
-        <line x1="75" y1="50" x2="75" y2="0" class="stroke-fg" stroke="black" stroke-width="2" stroke-linecap="round" />
+        <line x1="60" y1="${shaftY}" x2="90" y2="${shaftY}" class="stroke-fg" stroke-width="2" stroke-linecap="round" />
+        <line x1="75" y1="${shaftY}" x2="75" y2="0" class="stroke-fg" stroke="black" stroke-width="2" stroke-linecap="round" />
         <line x1="125" y1="30" x2="125" y2="0" class="stroke-fg" stroke="black" stroke-width="2" stroke-linecap="round" />
         <line x1="175" y1="30" x2="175" y2="0" class="stroke-fg" stroke="black" stroke-width="2" stroke-linecap="round"/>
 
