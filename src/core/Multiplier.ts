@@ -64,4 +64,17 @@ export class Multiplier implements Device {
     }
 
     getID(): number { return this.id; }
+
+    getFactor(): number {
+        if (!this.multiplicand_shaft) {
+            return this.factor;
+        }
+        else {
+            return this.multiplicand_shaft!.rotation;
+        }
+    }
+
+    getInputShaft(): Shaft {
+        return this.input;
+    }
 }
