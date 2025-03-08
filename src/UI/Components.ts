@@ -578,9 +578,9 @@ function createMultiplier(div: DraggableComponentElement): void {
         _this.dataset.factor = data.factor ?? "1";
 
         const comp = _this.querySelector("multiplier-component")! as MultiplierComponentElement;
-        comp.set_value(Expression.eval(_this.dataset.factor, get_global_ctx()));
-        comp.renormalize();
-    
+
+        comp.factor = Expression.eval(_this.dataset.factor, get_global_ctx());
+
     };
 }
 

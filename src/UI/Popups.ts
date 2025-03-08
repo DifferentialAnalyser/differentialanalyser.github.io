@@ -227,6 +227,16 @@ function closePopup(e: MouseEvent) {
   (e.currentTarget as HTMLDivElement).style.visibility = "hidden";
 }
 
+export function anyPopupVisible(): Boolean {
+  console.log(document.querySelectorAll(".popup")! as NodeListOf<HTMLDivElement>);
+  let anyVisible = false;
+  (document.querySelectorAll(".popup")! as NodeListOf<HTMLDivElement>).forEach(
+    (x: HTMLDivElement) => { if (x.style.visibility == "visible") { console.log(x); console.log(x.style.visibility); anyVisible = true; return; } }
+  );
+
+  return anyVisible;
+}
+
 // Check whether the mouse event occurs within a popup
 function mouseWithin(popup: HTMLDivElement, e: MouseEvent): boolean {
   if (popup.style.visibility == "hidden") return false;
@@ -288,7 +298,8 @@ function setupIntegratorPopup(): void {
     const comp = component.querySelector("integrator-component")! as IntegratorComponentElement;
     comp.set_value(Expression.eval(component.dataset.initialValue, get_global_ctx()));
     comp.renormalize();
-        
+
+    e.stopImmediatePropagation();
   })
 }
 
@@ -311,6 +322,7 @@ function setupMultiplierPopup(): void {
     const comp = component.querySelector("multiplier-component")! as MultiplierComponentElement;
     comp.factor = Expression.eval(component.dataset.factor, get_global_ctx());
 
+    e.stopImmediatePropagation();
   });
 }
 
@@ -358,6 +370,8 @@ function setupFunctionTablePopup(): void {
     component_graph.mutate_data_set("d1", points => {
       points.splice(0, points.length, ...Array.from(generator_exp));
     }, true);
+
+    e.stopImmediatePropagation();
   });
 
   const inputs = functionTablePopup.querySelectorAll("* > input");
@@ -482,6 +496,7 @@ function setupLabelPopup(): void {
     const input: HTMLInputElement = e.currentTarget as HTMLInputElement;
     const component = document.querySelector(`#${input.parentElement!.parentElement!.dataset.id!} > p`) as HTMLParagraphElement;
     component.textContent = input.value;
+    e.stopImmediatePropagation();
   }
 
 

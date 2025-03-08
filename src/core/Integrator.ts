@@ -30,9 +30,8 @@ export class Integrator implements Device {
      * @param output The output shaft that represents the angular speed of the wheel.
      */
     constructor(id: number, variableOfIntegration: Shaft, integrand: Shaft, output: Shaft,
-                reverse: boolean,
-                initialPosition: number)
-    {
+        reverse: boolean,
+        initialPosition: number) {
         this.id = id;
         this.output = output;
         this.integrand = integrand;
@@ -54,25 +53,24 @@ export class Integrator implements Device {
      * @method update
      * @description This method calculates the angular speed of the wheel by integrating the input shafts.
     */
-    update(dt: number = 1){
+    update(dt: number = 1) {
         // Linear speed of the wheel = f(x) * dx.
         this.diskPosition += this.integrand.get_rotation_rate();
         let wheelLinearSpeed = this.variableOfIntegration.get_rotation_rate() * this.diskPosition;
         let wheelAngularSpeed = wheelLinearSpeed / this.wheelRadius;
-        if (this.reverse){
+        if (this.reverse) {
             wheelAngularSpeed = -wheelAngularSpeed
         }
         this.output.set_rotation_rate(wheelAngularSpeed);
     }
 
-    getID() : number { return this.id; }
+    getID(): number { return this.id; }
 
-    getVariableIntegrandShaft() : Shaft {
+    getVariableIntegrandShaft(): Shaft {
         return this.variableOfIntegration;
     }
 
-    getDiskPosition() : number {
-        console.log(this.diskPosition)
+    getDiskPosition(): number {
         return this.diskPosition;
     }
 
