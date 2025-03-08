@@ -296,8 +296,10 @@ export class Lifecycle {
                 break;
             case 'r':
             case 'R':
-                if (!anyPopupVisible())
+                if (!anyPopupVisible()) {
                     this.fitMachine();
+                    e.preventDefault();
+                }
                 break;
             case 'S':
             case 's':
