@@ -6,7 +6,7 @@ import { setupDragHooks } from "./UI/Drag";
 import { DraggableComponentElement } from "./UI/DraggableElement";
 import { getScreenOffset, GRID_SIZE, resetScreenOffset, setCells, setScreenOffset, setupScreenHooks } from "./UI/Grid";
 import { setupSelectHooks } from "./UI/SelectShaft.ts";
-import { setupPopups } from "./UI/Popups";
+import { anyPopupVisible, setupPopups } from "./UI/Popups";
 import Vector2 from "./UI/Vector2";
 import { UNDO_SINGLETON } from "./Undo";
 import { GraphElement } from "./UI/GraphElement";
@@ -296,7 +296,8 @@ export class Lifecycle {
                 break;
             case 'r':
             case 'R':
-                this.fitMachine();
+                if (!anyPopupVisible())
+                    this.fitMachine();
                 break;
             case 'S':
             case 's':
@@ -517,11 +518,18 @@ export class Lifecycle {
         dials.forEach(dial => {
             (dial.querySelector("dial-component")! as DialComponentElement).count = 0
         })
-        
+
         for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
             const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
             const uicomp = integrator.querySelector("integrator-component")! as IntegratorComponentElement;
             uicomp.set_value(corecomp.getDiskPosition());
+            uicomp.renormalize();
+        }
+
+        for (let corecomp of simulator.components.filter(x => x instanceof Multiplier)) {
+            const multiplier = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
+            const uicomp = multiplier.querySelector("multiplier-component")! as MultiplierComponentElement;
+            uicomp.set_value(0);
             uicomp.renormalize();
         }
 

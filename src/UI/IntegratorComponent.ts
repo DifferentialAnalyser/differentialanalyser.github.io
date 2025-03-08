@@ -13,19 +13,18 @@ export class IntegratorComponentElement extends LitElement {
 
   centre_x = 75; // centre x of turntable = 75
   centre_y = 50; // centre y of turntable = 50
-  
-  @property({ type: Number }) 
+
+  @property({ type: Number })
   radius = 25; // 25
-  @property({ type: Number }) 
+  @property({ type: Number })
   theta = 0;
 
-  @property({ type: Number }) 
+  @property({ type: Number })
   value: number = 0;
-  @property({ type: Number }) 
+  @property({ type: Number })
   max_value: number = 1;
-  @property({ type: Number }) 
+  @property({ type: Number })
   current_value: number = 0;
-
 
   set_value(value: number): void {
     this.max_value = Math.max(this.max_value, Math.abs(value));
@@ -49,10 +48,9 @@ export class IntegratorComponentElement extends LitElement {
     let x = this.centre_x + this.radius * Math.cos(this.theta);
     let y = this.centre_y + this.radius * Math.sin(this.theta);
 
-    let shaftY = this.map_range(this.value, -this.max_value, this.max_value, 82, 18);
-    console.log("value");
-    console.log(this.value);
-    console.log(this.max_value);
+    let value = 1 / (1 + Math.exp(-this.value / 5.));
+    let shaftY = this.map_range(value, 0, 1, 82, 18);
+
     return svg`
       <svg
         xmlns="https://www.w3.org/2000/svg"
