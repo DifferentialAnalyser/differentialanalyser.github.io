@@ -21,6 +21,7 @@ import { IntegratorComponentElement } from "./UI/IntegratorComponent.ts";
 import { Integrator } from "./core/Integrator.ts";
 import { Multiplier } from "./core/Multiplier.ts";
 import { MultiplierComponentElement } from "./UI/MultiplierComponentElement.ts";
+import { ShaftElement } from "./UI/ShaftElement.ts";
 
 enum State {
     Paused,
@@ -591,6 +592,8 @@ export class Lifecycle {
                 if (shaft_id != null) {
                     comp.count = simulator.shafts.filter(p => { return p.id == shaft_id })[0].rotation;
                 }
+
+                simulator.shafts.forEach(x => { if (x.id == shaft_id) comp.rotation = x.rotation });
             }
 
             for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
