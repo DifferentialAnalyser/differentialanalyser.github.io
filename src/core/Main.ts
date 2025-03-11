@@ -66,7 +66,7 @@ export class Simulator {
 
   /**
    * @function setup
-   * @description Simulates one cycle of the differential analyzer using topological sort.
+   * @description Figure out input output based on topological sort from motor
    * @return void
    * @author Andy Zhu
    */
@@ -99,6 +99,12 @@ export class Simulator {
     this.ordered_components = ordered_devices;
   }
 
+  /**
+   * @function step
+   * @description Simulate one cycle of computation
+   * @return void
+   * @author Andy Zhu
+   */
   step() {
     // update the components
     for (let i = 0; i < this.mini_steps_n; i++) {
@@ -112,6 +118,12 @@ export class Simulator {
     }
   }
 
+  /**
+   * @function check_config
+   * @description find unreachable shafts and incorrect cycles in the configuration
+   * @return Map<number, ConfigError> from shaft id maps to its state ConfigError
+   * @author Andy Zhu
+   */
   check_config(): Map<number, ConfigError> {
     let result = new Map<number, ConfigError>();
     if (this.motor == undefined) {
