@@ -16,7 +16,7 @@ import Expression from "./expr/Expression";
 import { DialComponentElement } from "./UI/DialComponentElement.ts";
 import { CustomVariablesElement } from "./UI/CustomVariablesElement.ts";
 import { ConfigError } from "./ConfigError.ts";
-import { resetIDs } from "./UI/Components.ts";
+import { regenerateIDs, resetIDs } from "./UI/Components.ts";
 import { IntegratorComponentElement } from "./UI/IntegratorComponent.ts";
 import { Integrator } from "./core/Integrator.ts";
 import { Multiplier } from "./core/Multiplier.ts";
@@ -367,6 +367,7 @@ export class Lifecycle {
     }
 
     public exportState(): Config {
+        regenerateIDs();
         return toConfig()[0];
     }
 

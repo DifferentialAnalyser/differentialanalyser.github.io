@@ -106,6 +106,15 @@ export function resetIDs(): void {
     max_id = 0;
 }
 
+export function regenerateIDs(): void {
+    resetIDs();
+    console.log("Clear IDs");
+
+    (document.querySelectorAll(".placed-component") as NodeListOf<DraggableComponentElement>).forEach((x: DraggableComponentElement) => {
+        setID(x);
+    })
+}
+
 export function deleteComponent(component: DraggableComponentElement): void {
     free_ids.push(component.componentID);
 }
