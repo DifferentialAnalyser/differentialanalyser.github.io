@@ -33,7 +33,7 @@ export class GearPair implements Device {
     }
 
     shafts_defined(): boolean {
-        return !(!this.shafts[0] || !this.shafts[1] || !this.shafts[2]);
+        return !(!this.shafts[0] || !this.shafts[1]);
     }
 
     /**
