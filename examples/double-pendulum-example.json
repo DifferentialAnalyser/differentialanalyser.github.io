@@ -1,7 +1,7 @@
 {
   "shafts": [
     {
-      "id": 413,
+      "id": 207,
       "start": [
         25,
         0
@@ -12,7 +12,7 @@
       ]
     },
     {
-      "id": 415,
+      "id": 208,
       "start": [
         30,
         0
@@ -23,7 +23,7 @@
       ]
     },
     {
-      "id": 417,
+      "id": 209,
       "start": [
         0,
         15
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "id": 419,
+      "id": 210,
       "start": [
         0,
         17
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "id": 421,
+      "id": 211,
       "start": [
         34,
         0
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "id": 423,
+      "id": 212,
       "start": [
         0,
         13
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "id": 425,
+      "id": 213,
       "start": [
         35,
         0
@@ -78,7 +78,7 @@
       ]
     },
     {
-      "id": 427,
+      "id": 214,
       "start": [
         9,
         10
@@ -89,7 +89,7 @@
       ]
     },
     {
-      "id": 429,
+      "id": 215,
       "start": [
         8,
         15
@@ -100,7 +100,7 @@
       ]
     },
     {
-      "id": 431,
+      "id": 216,
       "start": [
         13,
         7
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "id": 433,
+      "id": 217,
       "start": [
         12,
         17
@@ -122,7 +122,7 @@
       ]
     },
     {
-      "id": 435,
+      "id": 218,
       "start": [
         5,
         12
@@ -133,7 +133,7 @@
       ]
     },
     {
-      "id": 437,
+      "id": 219,
       "start": [
         3,
         16
@@ -144,7 +144,7 @@
       ]
     },
     {
-      "id": 439,
+      "id": 220,
       "start": [
         0,
         18
@@ -155,7 +155,7 @@
       ]
     },
     {
-      "id": 441,
+      "id": 221,
       "start": [
         4,
         18
@@ -166,7 +166,7 @@
       ]
     },
     {
-      "id": 443,
+      "id": 222,
       "start": [
         18,
         10
@@ -177,7 +177,7 @@
       ]
     },
     {
-      "id": 445,
+      "id": 223,
       "start": [
         16,
         9
@@ -188,7 +188,7 @@
       ]
     },
     {
-      "id": 447,
+      "id": 224,
       "start": [
         17,
         24
@@ -199,7 +199,7 @@
       ]
     },
     {
-      "id": 449,
+      "id": 225,
       "start": [
         22,
         24
@@ -210,7 +210,7 @@
       ]
     },
     {
-      "id": 451,
+      "id": 226,
       "start": [
         17,
         24
@@ -221,7 +221,7 @@
       ]
     },
     {
-      "id": 453,
+      "id": 227,
       "start": [
         21,
         20
@@ -232,7 +232,7 @@
       ]
     },
     {
-      "id": 455,
+      "id": 228,
       "start": [
         27,
         6
@@ -243,7 +243,7 @@
       ]
     },
     {
-      "id": 457,
+      "id": 229,
       "start": [
         26,
         23
@@ -254,7 +254,7 @@
       ]
     },
     {
-      "id": 459,
+      "id": 230,
       "start": [
         0,
         21
@@ -265,7 +265,7 @@
       ]
     },
     {
-      "id": 461,
+      "id": 231,
       "start": [
         2,
         19
@@ -276,7 +276,7 @@
       ]
     },
     {
-      "id": 463,
+      "id": 232,
       "start": [
         29,
         22
@@ -287,7 +287,7 @@
       ]
     },
     {
-      "id": 465,
+      "id": 233,
       "start": [
         31,
         13
@@ -298,7 +298,7 @@
       ]
     },
     {
-      "id": 467,
+      "id": 234,
       "start": [
         37,
         1
@@ -309,7 +309,7 @@
       ]
     },
     {
-      "id": 469,
+      "id": 235,
       "start": [
         36,
         4
@@ -320,7 +320,7 @@
       ]
     },
     {
-      "id": 471,
+      "id": 236,
       "start": [
         30,
         24
@@ -331,7 +331,7 @@
       ]
     },
     {
-      "id": 473,
+      "id": 237,
       "start": [
         38,
         24
@@ -342,7 +342,7 @@
       ]
     },
     {
-      "id": 475,
+      "id": 238,
       "start": [
         30,
         24
@@ -353,7 +353,7 @@
       ]
     },
     {
-      "id": 477,
+      "id": 239,
       "start": [
         42,
         1
@@ -364,7 +364,7 @@
       ]
     },
     {
-      "id": 479,
+      "id": 240,
       "start": [
         43,
         4
@@ -375,7 +375,7 @@
       ]
     },
     {
-      "id": 481,
+      "id": 241,
       "start": [
         41,
         2
@@ -386,7 +386,7 @@
       ]
     },
     {
-      "id": 483,
+      "id": 242,
       "start": [
         48,
         16
@@ -397,7 +397,7 @@
       ]
     },
     {
-      "id": 485,
+      "id": 243,
       "start": [
         45,
         16
@@ -408,7 +408,7 @@
       ]
     },
     {
-      "id": 487,
+      "id": 244,
       "start": [
         49,
         18
@@ -419,7 +419,7 @@
       ]
     },
     {
-      "id": 489,
+      "id": 245,
       "start": [
         50,
         12
@@ -430,7 +430,7 @@
       ]
     },
     {
-      "id": 491,
+      "id": 246,
       "start": [
         52,
         10
@@ -441,7 +441,7 @@
       ]
     },
     {
-      "id": 493,
+      "id": 247,
       "start": [
         45,
         15
@@ -452,7 +452,7 @@
       ]
     },
     {
-      "id": 495,
+      "id": 248,
       "start": [
         53,
         15
@@ -463,7 +463,7 @@
       ]
     },
     {
-      "id": 497,
+      "id": 249,
       "start": [
         58,
         6
@@ -474,7 +474,7 @@
       ]
     },
     {
-      "id": 499,
+      "id": 250,
       "start": [
         45,
         17
@@ -485,7 +485,7 @@
       ]
     },
     {
-      "id": 501,
+      "id": 251,
       "start": [
         57,
         17
@@ -496,7 +496,7 @@
       ]
     },
     {
-      "id": 503,
+      "id": 252,
       "start": [
         60,
         8
@@ -507,7 +507,7 @@
       ]
     },
     {
-      "id": 505,
+      "id": 253,
       "start": [
         62,
         10
@@ -518,7 +518,7 @@
       ]
     },
     {
-      "id": 507,
+      "id": 254,
       "start": [
         61,
         24
@@ -529,7 +529,7 @@
       ]
     },
     {
-      "id": 509,
+      "id": 255,
       "start": [
         66,
         24
@@ -540,7 +540,7 @@
       ]
     },
     {
-      "id": 511,
+      "id": 256,
       "start": [
         61,
         24
@@ -551,7 +551,7 @@
       ]
     },
     {
-      "id": 513,
+      "id": 257,
       "start": [
         65,
         20
@@ -562,7 +562,7 @@
       ]
     },
     {
-      "id": 515,
+      "id": 258,
       "start": [
         45,
         19
@@ -573,7 +573,7 @@
       ]
     },
     {
-      "id": 517,
+      "id": 259,
       "start": [
         47,
         19
@@ -584,7 +584,7 @@
       ]
     },
     {
-      "id": 519,
+      "id": 260,
       "start": [
         45,
         21
@@ -595,7 +595,7 @@
       ]
     },
     {
-      "id": 521,
+      "id": 261,
       "start": [
         70,
         7
@@ -606,7 +606,7 @@
       ]
     },
     {
-      "id": 523,
+      "id": 262,
       "start": [
         45,
         23
@@ -617,7 +617,7 @@
       ]
     },
     {
-      "id": 525,
+      "id": 263,
       "start": [
         69,
         23
@@ -628,7 +628,7 @@
       ]
     },
     {
-      "id": 527,
+      "id": 264,
       "start": [
         45,
         22
@@ -639,7 +639,7 @@
       ]
     },
     {
-      "id": 529,
+      "id": 265,
       "start": [
         72,
         22
@@ -650,7 +650,7 @@
       ]
     },
     {
-      "id": 531,
+      "id": 266,
       "start": [
         74,
         13
@@ -661,7 +661,7 @@
       ]
     },
     {
-      "id": 533,
+      "id": 267,
       "start": [
         73,
         24
@@ -672,7 +672,7 @@
       ]
     },
     {
-      "id": 535,
+      "id": 268,
       "start": [
         78,
         24
@@ -683,7 +683,7 @@
       ]
     },
     {
-      "id": 537,
+      "id": 269,
       "start": [
         73,
         24
@@ -694,7 +694,7 @@
       ]
     },
     {
-      "id": 539,
+      "id": 270,
       "start": [
         77,
         1
@@ -705,7 +705,7 @@
       ]
     },
     {
-      "id": 541,
+      "id": 271,
       "start": [
         81,
         1
@@ -716,7 +716,7 @@
       ]
     },
     {
-      "id": 543,
+      "id": 272,
       "start": [
         76,
         5
@@ -727,7 +727,7 @@
       ]
     },
     {
-      "id": 545,
+      "id": 273,
       "start": [
         82,
         5
@@ -738,7 +738,7 @@
       ]
     },
     {
-      "id": 547,
+      "id": 274,
       "start": [
         80,
         3
@@ -749,7 +749,7 @@
       ]
     },
     {
-      "id": 549,
+      "id": 275,
       "start": [
         46,
         0
@@ -760,7 +760,7 @@
       ]
     },
     {
-      "id": 551,
+      "id": 276,
       "start": [
         51,
         0
@@ -771,7 +771,7 @@
       ]
     },
     {
-      "id": 553,
+      "id": 277,
       "start": [
         47,
         0
@@ -782,7 +782,7 @@
       ]
     },
     {
-      "id": 555,
+      "id": 278,
       "start": [
         48,
         0
@@ -793,7 +793,7 @@
       ]
     },
     {
-      "id": 557,
+      "id": 279,
       "start": [
         52,
         0
@@ -804,7 +804,7 @@
       ]
     },
     {
-      "id": 559,
+      "id": 280,
       "start": [
         53,
         0
@@ -815,7 +815,7 @@
       ]
     },
     {
-      "id": 561,
+      "id": 281,
       "start": [
         0,
         1
@@ -826,7 +826,7 @@
       ]
     },
     {
-      "id": 563,
+      "id": 282,
       "start": [
         0,
         2
@@ -837,7 +837,7 @@
       ]
     },
     {
-      "id": 565,
+      "id": 283,
       "start": [
         0,
         3
@@ -848,7 +848,7 @@
       ]
     },
     {
-      "id": 567,
+      "id": 284,
       "start": [
         0,
         4
@@ -859,7 +859,7 @@
       ]
     },
     {
-      "id": 569,
+      "id": 285,
       "start": [
         0,
         5
@@ -870,7 +870,7 @@
       ]
     },
     {
-      "id": 571,
+      "id": 286,
       "start": [
         0,
         7
@@ -881,7 +881,7 @@
       ]
     },
     {
-      "id": 573,
+      "id": 287,
       "start": [
         0,
         8
@@ -892,7 +892,7 @@
       ]
     },
     {
-      "id": 575,
+      "id": 288,
       "start": [
         0,
         9
@@ -903,7 +903,7 @@
       ]
     },
     {
-      "id": 577,
+      "id": 289,
       "start": [
         0,
         11
@@ -914,7 +914,7 @@
       ]
     },
     {
-      "id": 579,
+      "id": 290,
       "start": [
         5,
         10
@@ -925,7 +925,7 @@
       ]
     },
     {
-      "id": 581,
+      "id": 291,
       "start": [
         5,
         12
@@ -936,7 +936,7 @@
       ]
     },
     {
-      "id": 583,
+      "id": 292,
       "start": [
         1,
         12
@@ -947,7 +947,7 @@
       ]
     },
     {
-      "id": 585,
+      "id": 293,
       "start": [
         1,
         10
@@ -958,7 +958,7 @@
       ]
     },
     {
-      "id": 587,
+      "id": 294,
       "start": [
         2,
         3
@@ -969,7 +969,7 @@
       ]
     },
     {
-      "id": 589,
+      "id": 295,
       "start": [
         3,
         2
@@ -980,7 +980,7 @@
       ]
     },
     {
-      "id": 591,
+      "id": 296,
       "start": [
         4,
         0
@@ -991,7 +991,7 @@
       ]
     },
     {
-      "id": 593,
+      "id": 297,
       "start": [
         9,
         0
@@ -1002,7 +1002,7 @@
       ]
     },
     {
-      "id": 595,
+      "id": 298,
       "start": [
         5,
         0
@@ -1013,7 +1013,7 @@
       ]
     },
     {
-      "id": 597,
+      "id": 299,
       "start": [
         10,
         0
@@ -1024,7 +1024,7 @@
       ]
     },
     {
-      "id": 599,
+      "id": 300,
       "start": [
         14,
         0
@@ -1035,7 +1035,7 @@
       ]
     },
     {
-      "id": 601,
+      "id": 301,
       "start": [
         19,
         0
@@ -1046,7 +1046,7 @@
       ]
     },
     {
-      "id": 603,
+      "id": 302,
       "start": [
         15,
         0
@@ -1057,7 +1057,7 @@
       ]
     },
     {
-      "id": 605,
+      "id": 303,
       "start": [
         20,
         0
@@ -1068,7 +1068,7 @@
       ]
     },
     {
-      "id": 607,
+      "id": 304,
       "start": [
         24,
         0
@@ -1079,7 +1079,7 @@
       ]
     },
     {
-      "id": 609,
+      "id": 305,
       "start": [
         29,
         0
@@ -1090,7 +1090,7 @@
       ]
     },
     {
-      "id": 611,
+      "id": 306,
       "start": [
         61,
         -9
@@ -1101,7 +1101,7 @@
       ]
     },
     {
-      "id": 613,
+      "id": 307,
       "start": [
         62,
         -8
@@ -1112,7 +1112,7 @@
       ]
     },
     {
-      "id": 615,
+      "id": 308,
       "start": [
         57,
         -7
@@ -1123,7 +1123,7 @@
       ]
     },
     {
-      "id": 617,
+      "id": 309,
       "start": [
         60,
         -10
@@ -1134,7 +1134,7 @@
       ]
     },
     {
-      "id": 619,
+      "id": 310,
       "start": [
         57,
         -5
@@ -1145,7 +1145,7 @@
       ]
     },
     {
-      "id": 621,
+      "id": 311,
       "start": [
         70,
         -10
@@ -1156,7 +1156,7 @@
       ]
     },
     {
-      "id": 623,
+      "id": 312,
       "start": [
         57,
         -4
@@ -1167,7 +1167,7 @@
       ]
     },
     {
-      "id": 625,
+      "id": 313,
       "start": [
         65,
         -10
@@ -1178,7 +1178,7 @@
       ]
     },
     {
-      "id": 627,
+      "id": 314,
       "start": [
         57,
         -2
@@ -1189,7 +1189,7 @@
       ]
     },
     {
-      "id": 629,
+      "id": 315,
       "start": [
         75,
         -10
@@ -1200,7 +1200,7 @@
       ]
     },
     {
-      "id": 631,
+      "id": 316,
       "start": [
         57,
         -9
@@ -1211,7 +1211,7 @@
       ]
     },
     {
-      "id": 633,
+      "id": 317,
       "start": [
         57,
         -8
@@ -1222,7 +1222,7 @@
       ]
     },
     {
-      "id": 635,
+      "id": 318,
       "start": [
         59,
         -10
@@ -1233,7 +1233,7 @@
       ]
     },
     {
-      "id": 637,
+      "id": 319,
       "start": [
         64,
         -10
@@ -1244,7 +1244,7 @@
       ]
     },
     {
-      "id": 639,
+      "id": 320,
       "start": [
         74,
         -10
@@ -1255,7 +1255,7 @@
       ]
     },
     {
-      "id": 641,
+      "id": 321,
       "start": [
         69,
         -10
@@ -1266,7 +1266,7 @@
       ]
     },
     {
-      "id": 643,
+      "id": 322,
       "start": [
         57,
         -6
@@ -1277,7 +1277,7 @@
       ]
     },
     {
-      "id": 645,
+      "id": 323,
       "start": [
         84,
         -10
@@ -1288,7 +1288,7 @@
       ]
     },
     {
-      "id": 647,
+      "id": 324,
       "start": [
         57,
         -3
@@ -1299,7 +1299,7 @@
       ]
     },
     {
-      "id": 649,
+      "id": 325,
       "start": [
         85,
         -10
@@ -1310,7 +1310,7 @@
       ]
     },
     {
-      "id": 651,
+      "id": 326,
       "start": [
         79,
         -10
@@ -1321,7 +1321,7 @@
       ]
     },
     {
-      "id": 653,
+      "id": 327,
       "start": [
         80,
         -10
@@ -1332,7 +1332,7 @@
       ]
     },
     {
-      "id": 655,
+      "id": 328,
       "start": [
         7,
         8
@@ -1343,7 +1343,7 @@
       ]
     },
     {
-      "id": 657,
+      "id": 329,
       "start": [
         54,
         9
@@ -1354,7 +1354,7 @@
       ]
     },
     {
-      "id": 659,
+      "id": 330,
       "start": [
         0,
         6
@@ -1365,7 +1365,7 @@
       ]
     },
     {
-      "id": 661,
+      "id": 331,
       "start": [
         0,
         16
@@ -1376,7 +1376,7 @@
       ]
     },
     {
-      "id": 663,
+      "id": 332,
       "start": [
         0,
         19
@@ -1387,7 +1387,7 @@
       ]
     },
     {
-      "id": 665,
+      "id": 333,
       "start": [
         0,
         20
@@ -1398,7 +1398,7 @@
       ]
     },
     {
-      "id": 667,
+      "id": 334,
       "start": [
         0,
         22
@@ -1409,7 +1409,7 @@
       ]
     },
     {
-      "id": 669,
+      "id": 335,
       "start": [
         0,
         23
@@ -1420,7 +1420,7 @@
       ]
     },
     {
-      "id": 671,
+      "id": 336,
       "start": [
         45,
         18
@@ -1431,7 +1431,7 @@
       ]
     },
     {
-      "id": 673,
+      "id": 337,
       "start": [
         45,
         20
@@ -1445,45 +1445,45 @@
   "components": [
     {
       "type": "crossConnect",
-      "compID": 1,
+      "compID": 0,
       "position": [
         25,
         6
       ],
       "reversed": false,
-      "vertical": 413,
-      "horizontal": 659
+      "vertical": 207,
+      "horizontal": 330
     },
     {
       "type": "crossConnect",
-      "compID": 3,
+      "compID": 1,
       "position": [
         30,
         7
       ],
       "reversed": false,
-      "vertical": 415,
-      "horizontal": 571
+      "vertical": 208,
+      "horizontal": 286
     },
     {
       "type": "functionTable",
-      "compID": 5,
+      "compID": 2,
       "position": [
         32,
         -4
       ],
-      "x_min": "0",
-      "x_max": "10",
-      "y_min": "-1.5",
-      "y_max": "1.5",
-      "inputShaft": 421,
-      "outputShaft": 425,
+      "x_min": "-10",
+      "x_max": "80",
+      "y_min": "2200000",
+      "y_max": "4500000",
+      "inputShaft": 211,
+      "outputShaft": 213,
       "lookup": true,
       "fn": "1/(A*B-(C^2)*cos(x+a-b)^2)"
     },
     {
       "type": "label",
-      "compID": 7,
+      "compID": 3,
       "position": [
         31,
         -5
@@ -1493,462 +1493,462 @@
         1
       ],
       "align": "center",
-      "_comment": "-1/(AB-C^2cos(x)^2)"
+      "_comment": "1/(AB-C^2cos(x)^2)"
     },
     {
       "type": "crossConnect",
-      "compID": 9,
+      "compID": 4,
       "position": [
         34,
         11
       ],
       "reversed": false,
-      "vertical": 421,
-      "horizontal": 577
+      "vertical": 211,
+      "horizontal": 289
     },
     {
       "type": "crossConnect",
-      "compID": 11,
+      "compID": 5,
       "position": [
         35,
         13
       ],
       "reversed": false,
-      "vertical": 425,
-      "horizontal": 423
+      "vertical": 213,
+      "horizontal": 212
     },
     {
       "type": "multiplier",
-      "compID": 13,
+      "compID": 6,
       "position": [
         7,
         26
       ],
       "factor": "1",
-      "inputShaft": 427,
-      "outputShaft": 429,
-      "multiplicandShaft": 655
+      "inputShaft": 214,
+      "outputShaft": 215,
+      "multiplicandShaft": 328
     },
     {
       "type": "crossConnect",
-      "compID": 15,
+      "compID": 7,
       "position": [
         9,
         10
       ],
       "reversed": false,
-      "vertical": 427,
-      "horizontal": 579
+      "vertical": 214,
+      "horizontal": 290
     },
     {
       "type": "crossConnect",
-      "compID": 17,
+      "compID": 8,
       "position": [
         7,
         8
       ],
       "reversed": false,
-      "vertical": 655,
-      "horizontal": 573
+      "vertical": 328,
+      "horizontal": 287
     },
     {
       "type": "crossConnect",
-      "compID": 19,
+      "compID": 9,
       "position": [
         8,
         15
       ],
       "reversed": false,
-      "vertical": 429,
-      "horizontal": 417
+      "vertical": 215,
+      "horizontal": 209
     },
     {
       "type": "multiplier",
-      "compID": 21,
+      "compID": 10,
       "position": [
         11,
         26
       ],
       "factor": "E",
-      "inputShaft": 431,
-      "outputShaft": 433,
+      "inputShaft": 216,
+      "outputShaft": 217,
       "multiplicandShaft": null
     },
     {
       "type": "crossConnect",
-      "compID": 23,
+      "compID": 11,
       "position": [
         13,
         7
       ],
       "reversed": false,
-      "vertical": 431,
-      "horizontal": 571
+      "vertical": 216,
+      "horizontal": 286
     },
     {
       "type": "crossConnect",
-      "compID": 25,
+      "compID": 12,
       "position": [
         12,
         17
       ],
       "reversed": true,
-      "vertical": 433,
-      "horizontal": 419
+      "vertical": 217,
+      "horizontal": 210
     },
     {
       "type": "differential",
-      "compID": 27,
+      "compID": 13,
       "position": [
         1,
         15
       ],
-      "diffShaft1": 417,
-      "sumShaft": 661,
-      "diffShaft2": 419
+      "diffShaft1": 209,
+      "sumShaft": 331,
+      "diffShaft2": 210
     },
     {
       "type": "multiplier",
-      "compID": 29,
+      "compID": 14,
       "position": [
         3,
         26
       ],
       "factor": "1",
-      "inputShaft": 435,
-      "outputShaft": 441,
-      "multiplicandShaft": 437
+      "inputShaft": 218,
+      "outputShaft": 221,
+      "multiplicandShaft": 219
     },
     {
       "type": "crossConnect",
-      "compID": 31,
+      "compID": 15,
       "position": [
         5,
         12
       ],
       "reversed": false,
-      "vertical": 435,
-      "horizontal": 581
+      "vertical": 218,
+      "horizontal": 291
     },
     {
       "type": "crossConnect",
-      "compID": 33,
+      "compID": 16,
       "position": [
         3,
         16
       ],
       "reversed": false,
-      "vertical": 437,
-      "horizontal": 661
+      "vertical": 219,
+      "horizontal": 331
     },
     {
       "type": "differential",
-      "compID": 35,
+      "compID": 17,
       "position": [
         1,
         18
       ],
-      "diffShaft1": 439,
-      "sumShaft": 663,
-      "diffShaft2": 665
+      "diffShaft1": 220,
+      "sumShaft": 332,
+      "diffShaft2": 333
     },
     {
       "type": "crossConnect",
-      "compID": 37,
+      "compID": 18,
       "position": [
         4,
         18
       ],
       "reversed": false,
-      "vertical": 441,
-      "horizontal": 439
+      "vertical": 221,
+      "horizontal": 220
     },
     {
       "type": "multiplier",
-      "compID": 39,
+      "compID": 19,
       "position": [
         16,
         26
       ],
       "factor": "1",
-      "inputShaft": 443,
-      "outputShaft": 447,
-      "multiplicandShaft": 445
+      "inputShaft": 222,
+      "outputShaft": 224,
+      "multiplicandShaft": 223
     },
     {
       "type": "multiplier",
-      "compID": 41,
+      "compID": 20,
       "position": [
         20,
         26
       ],
       "factor": "B",
-      "inputShaft": 449,
-      "outputShaft": 453,
+      "inputShaft": 225,
+      "outputShaft": 227,
       "multiplicandShaft": null
     },
     {
       "type": "crossConnect",
-      "compID": 43,
+      "compID": 21,
       "position": [
         18,
         10
       ],
       "reversed": false,
-      "vertical": 443,
-      "horizontal": 579
+      "vertical": 222,
+      "horizontal": 290
     },
     {
       "type": "crossConnect",
-      "compID": 45,
+      "compID": 22,
       "position": [
         16,
         9
       ],
       "reversed": false,
-      "vertical": 445,
-      "horizontal": 575
+      "vertical": 223,
+      "horizontal": 288
     },
     {
       "type": "crossConnect",
-      "compID": 47,
+      "compID": 23,
       "position": [
         17,
         24
       ],
       "reversed": false,
-      "vertical": 447,
-      "horizontal": 451
+      "vertical": 224,
+      "horizontal": 226
     },
     {
       "type": "crossConnect",
-      "compID": 49,
+      "compID": 24,
       "position": [
         22,
         24
       ],
       "reversed": false,
-      "vertical": 449,
-      "horizontal": 451
+      "vertical": 225,
+      "horizontal": 226
     },
     {
       "type": "crossConnect",
-      "compID": 51,
+      "compID": 25,
       "position": [
         21,
         20
       ],
       "reversed": false,
-      "vertical": 453,
-      "horizontal": 665
+      "vertical": 227,
+      "horizontal": 333
     },
     {
       "type": "differential",
-      "compID": 53,
+      "compID": 26,
       "position": [
         1,
         21
       ],
-      "diffShaft1": 459,
-      "sumShaft": 667,
-      "diffShaft2": 669
+      "diffShaft1": 230,
+      "sumShaft": 334,
+      "diffShaft2": 335
     },
     {
       "type": "multiplier",
-      "compID": 55,
+      "compID": 27,
       "position": [
         25,
         26
       ],
       "factor": "B*D",
-      "inputShaft": 455,
-      "outputShaft": 457,
+      "inputShaft": 228,
+      "outputShaft": 229,
       "multiplicandShaft": null
     },
     {
       "type": "crossConnect",
-      "compID": 57,
+      "compID": 28,
       "position": [
         27,
         6
       ],
       "reversed": false,
-      "vertical": 455,
-      "horizontal": 659
+      "vertical": 228,
+      "horizontal": 330
     },
     {
       "type": "crossConnect",
-      "compID": 59,
+      "compID": 29,
       "position": [
         26,
         23
       ],
       "reversed": false,
-      "vertical": 457,
-      "horizontal": 669
+      "vertical": 229,
+      "horizontal": 335
     },
     {
       "type": "crossConnect",
-      "compID": 61,
+      "compID": 30,
       "position": [
         2,
         21
       ],
       "reversed": false,
-      "vertical": 461,
-      "horizontal": 459
+      "vertical": 231,
+      "horizontal": 230
     },
     {
       "type": "crossConnect",
-      "compID": 63,
+      "compID": 31,
       "position": [
         2,
         19
       ],
       "reversed": false,
-      "vertical": 461,
-      "horizontal": 663
+      "vertical": 231,
+      "horizontal": 332
     },
     {
       "type": "multiplier",
-      "compID": 65,
+      "compID": 32,
       "position": [
         29,
         26
       ],
       "factor": "1",
-      "inputShaft": 465,
-      "outputShaft": 471,
-      "multiplicandShaft": 463
+      "inputShaft": 233,
+      "outputShaft": 236,
+      "multiplicandShaft": 232
     },
     {
       "type": "crossConnect",
-      "compID": 67,
+      "compID": 33,
       "position": [
         29,
         22
       ],
       "reversed": false,
-      "vertical": 463,
-      "horizontal": 667
+      "vertical": 232,
+      "horizontal": 334
     },
     {
       "type": "crossConnect",
-      "compID": 69,
+      "compID": 34,
       "position": [
         31,
         13
       ],
       "reversed": false,
-      "vertical": 465,
-      "horizontal": 423
+      "vertical": 233,
+      "horizontal": 212
     },
     {
       "type": "integrator",
-      "compID": 71,
+      "compID": 35,
       "position": [
         35,
         26
       ],
-      "outputShaft": 469,
-      "variableOfIntegrationShaft": 467,
-      "integrandShaft": 473,
+      "outputShaft": 235,
+      "variableOfIntegrationShaft": 234,
+      "integrandShaft": 237,
       "initialPosition": "a_acc"
     },
     {
       "type": "crossConnect",
-      "compID": 73,
+      "compID": 36,
       "position": [
         37,
         1
       ],
       "reversed": false,
-      "vertical": 467,
-      "horizontal": 561
+      "vertical": 234,
+      "horizontal": 281
     },
     {
       "type": "crossConnect",
-      "compID": 75,
+      "compID": 37,
       "position": [
         36,
         4
       ],
       "reversed": true,
-      "vertical": 469,
-      "horizontal": 567
+      "vertical": 235,
+      "horizontal": 284
     },
     {
       "type": "crossConnect",
-      "compID": 77,
+      "compID": 38,
       "position": [
         38,
         24
       ],
       "reversed": false,
-      "vertical": 473,
-      "horizontal": 475
+      "vertical": 237,
+      "horizontal": 238
     },
     {
       "type": "crossConnect",
-      "compID": 79,
+      "compID": 39,
       "position": [
         30,
         24
       ],
       "reversed": false,
-      "vertical": 471,
-      "horizontal": 475
+      "vertical": 236,
+      "horizontal": 238
     },
     {
       "type": "integrator",
-      "compID": 81,
+      "compID": 40,
       "position": [
         40,
         26
       ],
-      "outputShaft": 481,
-      "variableOfIntegrationShaft": 477,
-      "integrandShaft": 479,
+      "outputShaft": 241,
+      "variableOfIntegrationShaft": 239,
+      "integrandShaft": 240,
       "initialPosition": "0"
     },
     {
       "type": "crossConnect",
-      "compID": 83,
+      "compID": 41,
       "position": [
         42,
         1
       ],
       "reversed": false,
-      "vertical": 477,
-      "horizontal": 561
+      "vertical": 239,
+      "horizontal": 281
     },
     {
       "type": "crossConnect",
-      "compID": 85,
+      "compID": 42,
       "position": [
         43,
         4
       ],
       "reversed": false,
-      "vertical": 479,
-      "horizontal": 567
+      "vertical": 240,
+      "horizontal": 284
     },
     {
       "type": "crossConnect",
-      "compID": 87,
+      "compID": 43,
       "position": [
         41,
         2
       ],
       "reversed": false,
-      "vertical": 481,
-      "horizontal": 563
+      "vertical": 241,
+      "horizontal": 282
     },
     {
       "type": "label",
-      "compID": 89,
+      "compID": 44,
       "position": [
-        -7,
+        -6,
         13
       ],
       "size": [
@@ -1960,532 +1960,532 @@
     },
     {
       "type": "differential",
-      "compID": 91,
+      "compID": 45,
       "position": [
         46,
         15
       ],
-      "diffShaft1": 493,
-      "sumShaft": 485,
-      "diffShaft2": 499
+      "diffShaft1": 247,
+      "sumShaft": 243,
+      "diffShaft2": 250
     },
     {
       "type": "differential",
-      "compID": 93,
+      "compID": 46,
       "position": [
         46,
         18
       ],
-      "diffShaft1": 671,
-      "sumShaft": 515,
-      "diffShaft2": 673
+      "diffShaft1": 336,
+      "sumShaft": 258,
+      "diffShaft2": 337
     },
     {
       "type": "differential",
-      "compID": 95,
+      "compID": 47,
       "position": [
         46,
         21
       ],
-      "diffShaft1": 519,
-      "sumShaft": 527,
-      "diffShaft2": 523
+      "diffShaft1": 260,
+      "sumShaft": 264,
+      "diffShaft2": 262
     },
     {
       "type": "multiplier",
-      "compID": 97,
+      "compID": 48,
       "position": [
         48,
         26
       ],
       "factor": "1",
-      "inputShaft": 489,
-      "outputShaft": 487,
-      "multiplicandShaft": 483
+      "inputShaft": 245,
+      "outputShaft": 244,
+      "multiplicandShaft": 242
     },
     {
       "type": "crossConnect",
-      "compID": 99,
+      "compID": 49,
       "position": [
         48,
         16
       ],
       "reversed": false,
-      "vertical": 483,
-      "horizontal": 485
+      "vertical": 242,
+      "horizontal": 243
     },
     {
       "type": "crossConnect",
-      "compID": 101,
+      "compID": 50,
       "position": [
         49,
         18
       ],
       "reversed": false,
-      "vertical": 487,
-      "horizontal": 671
+      "vertical": 244,
+      "horizontal": 336
     },
     {
       "type": "crossConnect",
-      "compID": 103,
+      "compID": 51,
       "position": [
         50,
         12
       ],
       "reversed": false,
-      "vertical": 489,
-      "horizontal": 581
+      "vertical": 245,
+      "horizontal": 291
     },
     {
       "type": "multiplier",
-      "compID": 105,
+      "compID": 52,
       "position": [
         52,
         26
       ],
       "factor": "1",
-      "inputShaft": 657,
-      "outputShaft": 495,
-      "multiplicandShaft": 491
+      "inputShaft": 329,
+      "outputShaft": 248,
+      "multiplicandShaft": 246
     },
     {
       "type": "crossConnect",
-      "compID": 107,
+      "compID": 53,
       "position": [
         54,
         9
       ],
       "reversed": false,
-      "vertical": 657,
-      "horizontal": 575
+      "vertical": 329,
+      "horizontal": 288
     },
     {
       "type": "crossConnect",
-      "compID": 109,
+      "compID": 54,
       "position": [
         52,
         10
       ],
       "reversed": false,
-      "vertical": 491,
-      "horizontal": 579
+      "vertical": 246,
+      "horizontal": 290
     },
     {
       "type": "crossConnect",
-      "compID": 111,
+      "compID": 55,
       "position": [
         53,
         15
       ],
       "reversed": false,
-      "vertical": 495,
-      "horizontal": 493
+      "vertical": 248,
+      "horizontal": 247
     },
     {
       "type": "multiplier",
-      "compID": 113,
+      "compID": 56,
       "position": [
         56,
         26
       ],
       "factor": "D",
-      "inputShaft": 497,
-      "outputShaft": 501,
+      "inputShaft": 249,
+      "outputShaft": 251,
       "multiplicandShaft": null
     },
     {
       "type": "crossConnect",
-      "compID": 115,
+      "compID": 57,
       "position": [
         58,
         6
       ],
       "reversed": false,
-      "vertical": 497,
-      "horizontal": 659
+      "vertical": 249,
+      "horizontal": 330
     },
     {
       "type": "crossConnect",
-      "compID": 117,
+      "compID": 58,
       "position": [
         57,
         17
       ],
       "reversed": false,
-      "vertical": 501,
-      "horizontal": 499
+      "vertical": 251,
+      "horizontal": 250
     },
     {
       "type": "multiplier",
-      "compID": 119,
+      "compID": 59,
       "position": [
         60,
         26
       ],
       "factor": "1",
-      "inputShaft": 505,
-      "outputShaft": 507,
-      "multiplicandShaft": 503
+      "inputShaft": 253,
+      "outputShaft": 254,
+      "multiplicandShaft": 252
     },
     {
       "type": "crossConnect",
-      "compID": 121,
+      "compID": 60,
       "position": [
         60,
         8
       ],
       "reversed": false,
-      "vertical": 503,
-      "horizontal": 573
+      "vertical": 252,
+      "horizontal": 287
     },
     {
       "type": "crossConnect",
-      "compID": 123,
+      "compID": 61,
       "position": [
         62,
         10
       ],
       "reversed": false,
-      "vertical": 505,
-      "horizontal": 579
+      "vertical": 253,
+      "horizontal": 290
     },
     {
       "type": "multiplier",
-      "compID": 125,
+      "compID": 62,
       "position": [
         64,
         26
       ],
       "factor": "A",
-      "inputShaft": 509,
-      "outputShaft": 513,
+      "inputShaft": 255,
+      "outputShaft": 257,
       "multiplicandShaft": null
     },
     {
       "type": "crossConnect",
-      "compID": 127,
+      "compID": 63,
       "position": [
         66,
         24
       ],
       "reversed": false,
-      "vertical": 509,
-      "horizontal": 511
+      "vertical": 255,
+      "horizontal": 256
     },
     {
       "type": "crossConnect",
-      "compID": 129,
+      "compID": 64,
       "position": [
         61,
         24
       ],
       "reversed": false,
-      "vertical": 507,
-      "horizontal": 511
+      "vertical": 254,
+      "horizontal": 256
     },
     {
       "type": "crossConnect",
-      "compID": 131,
+      "compID": 65,
       "position": [
         65,
         20
       ],
       "reversed": false,
-      "vertical": 513,
-      "horizontal": 673
+      "vertical": 257,
+      "horizontal": 337
     },
     {
       "type": "crossConnect",
-      "compID": 133,
+      "compID": 66,
       "position": [
         47,
         19
       ],
       "reversed": false,
-      "vertical": 517,
-      "horizontal": 515
+      "vertical": 259,
+      "horizontal": 258
     },
     {
       "type": "crossConnect",
-      "compID": 135,
+      "compID": 67,
       "position": [
         47,
         21
       ],
       "reversed": false,
-      "vertical": 517,
-      "horizontal": 519
+      "vertical": 259,
+      "horizontal": 260
     },
     {
       "type": "multiplier",
-      "compID": 137,
+      "compID": 68,
       "position": [
         68,
         26
       ],
       "factor": "A*E",
-      "inputShaft": 521,
-      "outputShaft": 525,
+      "inputShaft": 261,
+      "outputShaft": 263,
       "multiplicandShaft": null
     },
     {
       "type": "crossConnect",
-      "compID": 139,
+      "compID": 69,
       "position": [
         70,
         7
       ],
       "reversed": false,
-      "vertical": 521,
-      "horizontal": 571
+      "vertical": 261,
+      "horizontal": 286
     },
     {
       "type": "crossConnect",
-      "compID": 141,
+      "compID": 70,
       "position": [
         69,
         23
       ],
       "reversed": true,
-      "vertical": 525,
-      "horizontal": 523
+      "vertical": 263,
+      "horizontal": 262
     },
     {
       "type": "multiplier",
-      "compID": 143,
+      "compID": 71,
       "position": [
         72,
         26
       ],
       "factor": "1",
-      "inputShaft": 531,
-      "outputShaft": 533,
-      "multiplicandShaft": 529
+      "inputShaft": 266,
+      "outputShaft": 267,
+      "multiplicandShaft": 265
     },
     {
       "type": "crossConnect",
-      "compID": 145,
+      "compID": 72,
       "position": [
         72,
         22
       ],
       "reversed": false,
-      "vertical": 529,
-      "horizontal": 527
+      "vertical": 265,
+      "horizontal": 264
     },
     {
       "type": "crossConnect",
-      "compID": 147,
+      "compID": 73,
       "position": [
         74,
         13
       ],
       "reversed": false,
-      "vertical": 531,
-      "horizontal": 423
+      "vertical": 266,
+      "horizontal": 212
     },
     {
       "type": "integrator",
-      "compID": 149,
+      "compID": 74,
       "position": [
         79,
         26
       ],
-      "outputShaft": 547,
-      "variableOfIntegrationShaft": 541,
-      "integrandShaft": 545,
+      "outputShaft": 274,
+      "variableOfIntegrationShaft": 271,
+      "integrandShaft": 273,
       "initialPosition": "0"
     },
     {
       "type": "crossConnect",
-      "compID": 151,
+      "compID": 75,
       "position": [
         78,
         24
       ],
       "reversed": false,
-      "vertical": 535,
-      "horizontal": 537
+      "vertical": 268,
+      "horizontal": 269
     },
     {
       "type": "crossConnect",
-      "compID": 153,
+      "compID": 76,
       "position": [
         73,
         24
       ],
       "reversed": false,
-      "vertical": 533,
-      "horizontal": 537
+      "vertical": 267,
+      "horizontal": 269
     },
     {
       "type": "crossConnect",
-      "compID": 155,
+      "compID": 77,
       "position": [
         77,
         1
       ],
       "reversed": false,
-      "vertical": 539,
-      "horizontal": 561
+      "vertical": 270,
+      "horizontal": 281
     },
     {
       "type": "crossConnect",
-      "compID": 157,
+      "compID": 78,
       "position": [
         81,
         1
       ],
       "reversed": false,
-      "vertical": 541,
-      "horizontal": 561
+      "vertical": 271,
+      "horizontal": 281
     },
     {
       "type": "crossConnect",
-      "compID": 159,
+      "compID": 79,
       "position": [
         76,
         5
       ],
       "reversed": false,
-      "vertical": 543,
-      "horizontal": 569
+      "vertical": 272,
+      "horizontal": 285
     },
     {
       "type": "crossConnect",
-      "compID": 161,
+      "compID": 80,
       "position": [
         82,
         5
       ],
       "reversed": false,
-      "vertical": 545,
-      "horizontal": 569
+      "vertical": 273,
+      "horizontal": 285
     },
     {
       "type": "crossConnect",
-      "compID": 163,
+      "compID": 81,
       "position": [
         80,
         3
       ],
       "reversed": false,
-      "vertical": 547,
-      "horizontal": 565
+      "vertical": 274,
+      "horizontal": 283
     },
     {
       "type": "outputTable",
-      "compID": 165,
+      "compID": 82,
       "position": [
         45,
         -4
       ],
       "x_min": "0",
       "x_max": "8",
-      "y_min": "-17",
+      "y_min": "-70",
       "y_max": "5",
-      "inputShaft": 549,
-      "outputShaft1": 553,
-      "outputShaft2": 555,
+      "inputShaft": 275,
+      "outputShaft1": 277,
+      "outputShaft2": 278,
       "initialY1": "a",
       "initialY2": "b"
     },
     {
       "type": "outputTable",
-      "compID": 167,
+      "compID": 83,
       "position": [
         50,
         -4
       ],
       "x_min": "0",
       "x_max": "8",
-      "y_min": "-pi",
+      "y_min": "-70",
       "y_max": "30",
-      "inputShaft": 551,
-      "outputShaft1": 557,
-      "outputShaft2": 559,
+      "inputShaft": 276,
+      "outputShaft1": 279,
+      "outputShaft2": 280,
       "initialY1": "0",
       "initialY2": "1"
     },
     {
       "type": "crossConnect",
-      "compID": 169,
+      "compID": 84,
       "position": [
         46,
         1
       ],
       "reversed": false,
-      "vertical": 549,
-      "horizontal": 561
+      "vertical": 275,
+      "horizontal": 281
     },
     {
       "type": "crossConnect",
-      "compID": 171,
+      "compID": 85,
       "position": [
         51,
         1
       ],
       "reversed": false,
-      "vertical": 551,
-      "horizontal": 561
+      "vertical": 276,
+      "horizontal": 281
     },
     {
       "type": "crossConnect",
-      "compID": 173,
+      "compID": 86,
       "position": [
         47,
         2
       ],
       "reversed": false,
-      "vertical": 553,
-      "horizontal": 563
+      "vertical": 277,
+      "horizontal": 282
     },
     {
       "type": "crossConnect",
-      "compID": 175,
+      "compID": 87,
       "position": [
         48,
         3
       ],
       "reversed": false,
-      "vertical": 555,
-      "horizontal": 565
+      "vertical": 278,
+      "horizontal": 283
     },
     {
       "type": "crossConnect",
-      "compID": 177,
+      "compID": 88,
       "position": [
         52,
         3
       ],
       "reversed": false,
-      "vertical": 557,
-      "horizontal": 565
+      "vertical": 279,
+      "horizontal": 283
     },
     {
       "type": "crossConnect",
-      "compID": 179,
+      "compID": 89,
       "position": [
         53,
         5
       ],
       "reversed": false,
-      "vertical": 559,
-      "horizontal": 569
+      "vertical": 280,
+      "horizontal": 285
     },
     {
       "type": "motor",
-      "compID": 181,
+      "compID": 90,
       "position": [
         -2,
         1
       ],
       "reversed": false,
-      "outputShaft": 561
+      "outputShaft": 281
     },
     {
       "type": "label",
-      "compID": 183,
+      "compID": 91,
       "position": [
         -1,
         2
@@ -2499,7 +2499,7 @@
     },
     {
       "type": "label",
-      "compID": 185,
+      "compID": 92,
       "position": [
         -1,
         3
@@ -2513,7 +2513,7 @@
     },
     {
       "type": "label",
-      "compID": 187,
+      "compID": 93,
       "position": [
         -1,
         4
@@ -2527,7 +2527,7 @@
     },
     {
       "type": "label",
-      "compID": 189,
+      "compID": 94,
       "position": [
         -1,
         5
@@ -2541,7 +2541,7 @@
     },
     {
       "type": "label",
-      "compID": 191,
+      "compID": 95,
       "position": [
         -2,
         8
@@ -2555,7 +2555,7 @@
     },
     {
       "type": "label",
-      "compID": 193,
+      "compID": 96,
       "position": [
         -2,
         9
@@ -2569,62 +2569,62 @@
     },
     {
       "type": "differential",
-      "compID": 195,
+      "compID": 97,
       "position": [
         1,
         10
       ],
-      "diffShaft1": 585,
-      "sumShaft": 577,
-      "diffShaft2": 583
+      "diffShaft1": 293,
+      "sumShaft": 289,
+      "diffShaft2": 292
     },
     {
       "type": "crossConnect",
-      "compID": 197,
+      "compID": 98,
       "position": [
         3,
         10
       ],
       "reversed": false,
-      "vertical": 589,
-      "horizontal": 585
+      "vertical": 295,
+      "horizontal": 293
     },
     {
       "type": "crossConnect",
-      "compID": 199,
+      "compID": 99,
       "position": [
         2,
         12
       ],
       "reversed": true,
-      "vertical": 587,
-      "horizontal": 583
+      "vertical": 294,
+      "horizontal": 292
     },
     {
       "type": "crossConnect",
-      "compID": 201,
+      "compID": 100,
       "position": [
         3,
         2
       ],
       "reversed": false,
-      "vertical": 589,
-      "horizontal": 563
+      "vertical": 295,
+      "horizontal": 282
     },
     {
       "type": "crossConnect",
-      "compID": 203,
+      "compID": 101,
       "position": [
         2,
         3
       ],
       "reversed": false,
-      "vertical": 587,
-      "horizontal": 565
+      "vertical": 294,
+      "horizontal": 283
     },
     {
       "type": "label",
-      "compID": 205,
+      "compID": 102,
       "position": [
         -2,
         11
@@ -2638,7 +2638,7 @@
     },
     {
       "type": "label",
-      "compID": 207,
+      "compID": 103,
       "position": [
         -3,
         10
@@ -2652,7 +2652,7 @@
     },
     {
       "type": "label",
-      "compID": 209,
+      "compID": 104,
       "position": [
         -3,
         12
@@ -2666,159 +2666,159 @@
     },
     {
       "type": "functionTable",
-      "compID": 211,
+      "compID": 105,
       "position": [
         2,
         -4
       ],
-      "x_min": "-10",
-      "x_max": "10",
+      "x_min": "-20",
+      "x_max": "20",
       "y_min": "0",
-      "y_max": "100",
-      "inputShaft": 591,
-      "outputShaft": 595,
+      "y_max": "400",
+      "inputShaft": 296,
+      "outputShaft": 298,
       "lookup": true,
       "fn": "x^2"
     },
     {
       "type": "functionTable",
-      "compID": 213,
+      "compID": 106,
       "position": [
         7,
         -4
       ],
-      "x_min": "-10",
-      "x_max": "10",
+      "x_min": "-50",
+      "x_max": "50",
       "y_min": "0",
-      "y_max": "100",
-      "inputShaft": 593,
-      "outputShaft": 597,
+      "y_max": "2500",
+      "inputShaft": 297,
+      "outputShaft": 299,
       "lookup": true,
       "fn": "x^2"
     },
     {
       "type": "crossConnect",
-      "compID": 215,
+      "compID": 107,
       "position": [
         4,
         4
       ],
       "reversed": false,
-      "vertical": 591,
-      "horizontal": 567
+      "vertical": 296,
+      "horizontal": 284
     },
     {
       "type": "crossConnect",
-      "compID": 217,
+      "compID": 108,
       "position": [
         9,
         5
       ],
       "reversed": false,
-      "vertical": 593,
-      "horizontal": 569
+      "vertical": 297,
+      "horizontal": 285
     },
     {
       "type": "crossConnect",
-      "compID": 219,
+      "compID": 109,
       "position": [
         5,
         8
       ],
       "reversed": false,
-      "vertical": 595,
-      "horizontal": 573
+      "vertical": 298,
+      "horizontal": 287
     },
     {
       "type": "crossConnect",
-      "compID": 221,
+      "compID": 110,
       "position": [
         10,
         9
       ],
       "reversed": false,
-      "vertical": 597,
-      "horizontal": 575
+      "vertical": 299,
+      "horizontal": 288
     },
     {
       "type": "functionTable",
-      "compID": 223,
+      "compID": 111,
       "position": [
         12,
         -4
       ],
-      "x_min": "0",
-      "x_max": "10",
-      "y_min": "-1.5",
-      "y_max": "1.5",
-      "inputShaft": 599,
-      "outputShaft": 603,
+      "x_min": "-100",
+      "x_max": "100",
+      "y_min": "-0.001",
+      "y_max": "0.001",
+      "inputShaft": 300,
+      "outputShaft": 302,
       "lookup": true,
       "fn": "C*sin(x+a-b)"
     },
     {
       "type": "functionTable",
-      "compID": 225,
+      "compID": 112,
       "position": [
         17,
         -4
       ],
-      "x_min": "0",
-      "x_max": "10",
-      "y_min": "-1.5",
-      "y_max": "1.5",
-      "inputShaft": 601,
-      "outputShaft": 605,
+      "x_min": "-100",
+      "x_max": "100",
+      "y_min": "-0.001",
+      "y_max": "0.001",
+      "inputShaft": 301,
+      "outputShaft": 303,
       "lookup": true,
       "fn": "C*cos(x+a-b)"
     },
     {
       "type": "crossConnect",
-      "compID": 227,
+      "compID": 113,
       "position": [
         14,
         11
       ],
       "reversed": false,
-      "vertical": 599,
-      "horizontal": 577
+      "vertical": 300,
+      "horizontal": 289
     },
     {
       "type": "crossConnect",
-      "compID": 229,
+      "compID": 114,
       "position": [
         19,
         11
       ],
       "reversed": false,
-      "vertical": 601,
-      "horizontal": 577
+      "vertical": 301,
+      "horizontal": 289
     },
     {
       "type": "crossConnect",
-      "compID": 231,
+      "compID": 115,
       "position": [
         15,
         10
       ],
       "reversed": false,
-      "vertical": 603,
-      "horizontal": 579
+      "vertical": 302,
+      "horizontal": 290
     },
     {
       "type": "crossConnect",
-      "compID": 233,
+      "compID": 116,
       "position": [
         20,
         12
       ],
       "reversed": false,
-      "vertical": 605,
-      "horizontal": 581
+      "vertical": 303,
+      "horizontal": 291
     },
     {
       "type": "label",
-      "compID": 235,
+      "compID": 117,
       "position": [
         12,
         -5
@@ -2832,7 +2832,7 @@
     },
     {
       "type": "label",
-      "compID": 237,
+      "compID": 118,
       "position": [
         17,
         -5
@@ -2846,7 +2846,7 @@
     },
     {
       "type": "label",
-      "compID": 239,
+      "compID": 119,
       "position": [
         -2,
         6
@@ -2860,7 +2860,7 @@
     },
     {
       "type": "label",
-      "compID": 241,
+      "compID": 120,
       "position": [
         -2,
         7
@@ -2874,39 +2874,39 @@
     },
     {
       "type": "functionTable",
-      "compID": 243,
+      "compID": 121,
       "position": [
         22,
         -4
       ],
-      "x_min": "0",
-      "x_max": "10",
+      "x_min": "-6.3",
+      "x_max": "6.3",
       "y_min": "-1.5",
       "y_max": "1.5",
-      "inputShaft": 607,
-      "outputShaft": 413,
+      "inputShaft": 304,
+      "outputShaft": 207,
       "lookup": true,
       "fn": "sin(x+a)"
     },
     {
       "type": "functionTable",
-      "compID": 245,
+      "compID": 122,
       "position": [
         27,
         -4
       ],
-      "x_min": "0",
-      "x_max": "10",
+      "x_min": "-70",
+      "x_max": "6.3",
       "y_min": "-1.5",
       "y_max": "1.5",
-      "inputShaft": 609,
-      "outputShaft": 415,
+      "inputShaft": 305,
+      "outputShaft": 208,
       "lookup": true,
       "fn": "sin(x+b)"
     },
     {
       "type": "label",
-      "compID": 247,
+      "compID": 123,
       "position": [
         22,
         -5
@@ -2920,7 +2920,7 @@
     },
     {
       "type": "label",
-      "compID": 249,
+      "compID": 124,
       "position": [
         27,
         -5
@@ -2934,51 +2934,51 @@
     },
     {
       "type": "crossConnect",
-      "compID": 251,
+      "compID": 125,
       "position": [
         29,
         3
       ],
       "reversed": false,
-      "vertical": 609,
-      "horizontal": 565
+      "vertical": 305,
+      "horizontal": 283
     },
     {
       "type": "crossConnect",
-      "compID": 253,
+      "compID": 126,
       "position": [
         24,
         2
       ],
       "reversed": false,
-      "vertical": 607,
-      "horizontal": 563
+      "vertical": 304,
+      "horizontal": 282
     },
     {
       "type": "crossConnect",
-      "compID": 255,
+      "compID": 127,
       "position": [
         61,
         2
       ],
       "reversed": false,
-      "vertical": 611,
-      "horizontal": 563
+      "vertical": 306,
+      "horizontal": 282
     },
     {
       "type": "crossConnect",
-      "compID": 257,
+      "compID": 128,
       "position": [
         62,
         3
       ],
       "reversed": false,
-      "vertical": 613,
-      "horizontal": 565
+      "vertical": 307,
+      "horizontal": 283
     },
     {
       "type": "functionTable",
-      "compID": 259,
+      "compID": 129,
       "position": [
         57,
         -14
@@ -2987,14 +2987,14 @@
       "x_max": "pi",
       "y_min": "-1.5",
       "y_max": "1.5",
-      "inputShaft": 635,
-      "outputShaft": 617,
+      "inputShaft": 318,
+      "outputShaft": 309,
       "lookup": true,
       "fn": "length=1;\nlength*sin(x+a)"
     },
     {
       "type": "functionTable",
-      "compID": 261,
+      "compID": 130,
       "position": [
         62,
         -14
@@ -3003,14 +3003,14 @@
       "x_max": "pi",
       "y_min": "-1.5",
       "y_max": "1.5",
-      "inputShaft": 637,
-      "outputShaft": 625,
+      "inputShaft": 319,
+      "outputShaft": 313,
       "lookup": true,
       "fn": "length=1;\nlength*cos(x+a)"
     },
     {
       "type": "functionTable",
-      "compID": 263,
+      "compID": 131,
       "position": [
         67,
         -14
@@ -3019,14 +3019,14 @@
       "x_max": "pi",
       "y_min": "-1.5",
       "y_max": "1.5",
-      "inputShaft": 641,
-      "outputShaft": 621,
+      "inputShaft": 321,
+      "outputShaft": 311,
       "lookup": true,
       "fn": "length=1;\nlength*sin(x+b)"
     },
     {
       "type": "functionTable",
-      "compID": 265,
+      "compID": 132,
       "position": [
         72,
         -14
@@ -3035,91 +3035,91 @@
       "x_max": "pi",
       "y_min": "-1.5",
       "y_max": "1.5",
-      "inputShaft": 639,
-      "outputShaft": 629,
+      "inputShaft": 320,
+      "outputShaft": 315,
       "lookup": true,
       "fn": "length=1;\nlength*cos(x+b)"
     },
     {
       "type": "differential",
-      "compID": 267,
+      "compID": 133,
       "position": [
         57,
         -4
       ],
-      "diffShaft1": 623,
-      "sumShaft": 647,
-      "diffShaft2": 627
+      "diffShaft1": 312,
+      "sumShaft": 324,
+      "diffShaft2": 314
     },
     {
       "type": "crossConnect",
-      "compID": 269,
+      "compID": 134,
       "position": [
         70,
         -5
       ],
       "reversed": false,
-      "vertical": 621,
-      "horizontal": 619
+      "vertical": 311,
+      "horizontal": 310
     },
     {
       "type": "crossConnect",
-      "compID": 271,
+      "compID": 135,
       "position": [
         60,
         -7
       ],
       "reversed": false,
-      "vertical": 617,
-      "horizontal": 615
+      "vertical": 309,
+      "horizontal": 308
     },
     {
       "type": "crossConnect",
-      "compID": 273,
+      "compID": 136,
       "position": [
         65,
         -4
       ],
       "reversed": true,
-      "vertical": 625,
-      "horizontal": 623
+      "vertical": 313,
+      "horizontal": 312
     },
     {
       "type": "crossConnect",
-      "compID": 275,
+      "compID": 137,
       "position": [
         75,
         -2
       ],
       "reversed": true,
-      "vertical": 629,
-      "horizontal": 627
+      "vertical": 315,
+      "horizontal": 314
     },
     {
       "type": "crossConnect",
-      "compID": 277,
+      "compID": 138,
       "position": [
         62,
         -8
       ],
       "reversed": false,
-      "vertical": 613,
-      "horizontal": 633
+      "vertical": 307,
+      "horizontal": 317
     },
     {
       "type": "crossConnect",
-      "compID": 279,
+      "compID": 139,
       "position": [
         61,
         -9
       ],
       "reversed": false,
-      "vertical": 611,
-      "horizontal": 631
+      "vertical": 306,
+      "horizontal": 316
     },
     {
       "type": "label",
-      "compID": 281,
+      "compID": 140,
       "position": [
         56,
         -9
@@ -3133,7 +3133,7 @@
     },
     {
       "type": "label",
-      "compID": 283,
+      "compID": 141,
       "position": [
         56,
         -8
@@ -3147,29 +3147,29 @@
     },
     {
       "type": "crossConnect",
-      "compID": 285,
+      "compID": 142,
       "position": [
         59,
         -9
       ],
       "reversed": false,
-      "vertical": 635,
-      "horizontal": 631
+      "vertical": 318,
+      "horizontal": 316
     },
     {
       "type": "crossConnect",
-      "compID": 287,
+      "compID": 143,
       "position": [
         64,
         -9
       ],
       "reversed": false,
-      "vertical": 637,
-      "horizontal": 631
+      "vertical": 319,
+      "horizontal": 316
     },
     {
       "type": "label",
-      "compID": 289,
+      "compID": 144,
       "position": [
         56,
         -7
@@ -3183,7 +3183,7 @@
     },
     {
       "type": "label",
-      "compID": 291,
+      "compID": 145,
       "position": [
         56,
         -5
@@ -3197,7 +3197,7 @@
     },
     {
       "type": "label",
-      "compID": 293,
+      "compID": 146,
       "position": [
         56,
         -4
@@ -3211,7 +3211,7 @@
     },
     {
       "type": "label",
-      "compID": 295,
+      "compID": 147,
       "position": [
         56,
         -2
@@ -3225,29 +3225,29 @@
     },
     {
       "type": "crossConnect",
-      "compID": 297,
+      "compID": 148,
       "position": [
         69,
         -8
       ],
       "reversed": false,
-      "vertical": 641,
-      "horizontal": 633
+      "vertical": 321,
+      "horizontal": 317
     },
     {
       "type": "crossConnect",
-      "compID": 299,
+      "compID": 149,
       "position": [
         74,
         -8
       ],
       "reversed": false,
-      "vertical": 639,
-      "horizontal": 633
+      "vertical": 320,
+      "horizontal": 317
     },
     {
       "type": "outputTable",
-      "compID": 301,
+      "compID": 150,
       "position": [
         83,
         -14
@@ -3256,37 +3256,37 @@
       "x_max": "4",
       "y_min": "-4",
       "y_max": "4",
-      "inputShaft": 645,
-      "outputShaft1": 649,
+      "inputShaft": 323,
+      "outputShaft1": 325,
       "outputShaft2": null,
       "initialY1": "0",
       "initialY2": "0"
     },
     {
       "type": "crossConnect",
-      "compID": 303,
+      "compID": 151,
       "position": [
         84,
         -6
       ],
       "reversed": false,
-      "vertical": 645,
-      "horizontal": 643
+      "vertical": 323,
+      "horizontal": 322
     },
     {
       "type": "crossConnect",
-      "compID": 305,
+      "compID": 152,
       "position": [
         85,
         -3
       ],
       "reversed": false,
-      "vertical": 649,
-      "horizontal": 647
+      "vertical": 325,
+      "horizontal": 324
     },
     {
       "type": "outputTable",
-      "compID": 307,
+      "compID": 153,
       "position": [
         78,
         -14
@@ -3295,48 +3295,48 @@
       "x_max": "4",
       "y_min": "-4",
       "y_max": "4",
-      "inputShaft": 651,
-      "outputShaft1": 653,
+      "inputShaft": 326,
+      "outputShaft1": 327,
       "outputShaft2": null,
       "initialY1": "0",
       "initialY2": "0"
     },
     {
       "type": "differential",
-      "compID": 309,
+      "compID": 154,
       "position": [
         57,
         -7
       ],
-      "diffShaft1": 615,
-      "sumShaft": 643,
-      "diffShaft2": 619
+      "diffShaft1": 308,
+      "sumShaft": 322,
+      "diffShaft2": 310
     },
     {
       "type": "crossConnect",
-      "compID": 311,
+      "compID": 155,
       "position": [
         79,
         -7
       ],
       "reversed": false,
-      "vertical": 651,
-      "horizontal": 615
+      "vertical": 326,
+      "horizontal": 308
     },
     {
       "type": "crossConnect",
-      "compID": 313,
+      "compID": 156,
       "position": [
         80,
         -4
       ],
       "reversed": false,
-      "vertical": 653,
-      "horizontal": 623
+      "vertical": 327,
+      "horizontal": 312
     },
     {
       "type": "label",
-      "compID": 315,
+      "compID": 157,
       "position": [
         77,
         -15
@@ -3350,7 +3350,7 @@
     },
     {
       "type": "label",
-      "compID": 317,
+      "compID": 158,
       "position": [
         82,
         -15
@@ -3364,7 +3364,7 @@
     },
     {
       "type": "label",
-      "compID": 319,
+      "compID": 159,
       "position": [
         46,
         -5
@@ -3378,7 +3378,7 @@
     },
     {
       "type": "label",
-      "compID": 321,
+      "compID": 160,
       "position": [
         51,
         -5
@@ -3392,7 +3392,7 @@
     },
     {
       "type": "label",
-      "compID": 323,
+      "compID": 161,
       "position": [
         57,
         -15
@@ -3406,34 +3406,34 @@
     },
     {
       "type": "dial",
-      "compID": 325,
+      "compID": 162,
       "position": [
         58,
         -7
       ],
-      "inputShaft": 615
+      "inputShaft": 308
     },
     {
       "type": "dial",
-      "compID": 327,
+      "compID": 163,
       "position": [
         58,
         -5
       ],
-      "inputShaft": 619
+      "inputShaft": 310
     },
     {
       "type": "dial",
-      "compID": 329,
+      "compID": 164,
       "position": [
         58,
         -6
       ],
-      "inputShaft": 643
+      "inputShaft": 322
     },
     {
       "type": "label",
-      "compID": 331,
+      "compID": 165,
       "position": [
         57,
         -15
@@ -3447,7 +3447,7 @@
     },
     {
       "type": "label",
-      "compID": 333,
+      "compID": 166,
       "position": [
         2,
         -5
@@ -3461,7 +3461,7 @@
     },
     {
       "type": "label",
-      "compID": 335,
+      "compID": 167,
       "position": [
         7,
         -5
@@ -3475,43 +3475,43 @@
     },
     {
       "type": "dial",
-      "compID": 337,
+      "compID": 168,
       "position": [
         75,
         -10
       ],
-      "inputShaft": 629
+      "inputShaft": 315
     },
     {
       "type": "dial",
-      "compID": 339,
+      "compID": 169,
       "position": [
         70,
         -10
       ],
-      "inputShaft": 621
+      "inputShaft": 311
     },
     {
       "type": "dial",
-      "compID": 341,
+      "compID": 170,
       "position": [
         65,
         -10
       ],
-      "inputShaft": 625
+      "inputShaft": 313
     },
     {
       "type": "dial",
-      "compID": 343,
+      "compID": 171,
       "position": [
         60,
         -10
       ],
-      "inputShaft": 617
+      "inputShaft": 309
     },
     {
       "type": "label",
-      "compID": 345,
+      "compID": 172,
       "position": [
         -5,
         15
@@ -3520,12 +3520,12 @@
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(1): Ca'^2sin(a-b)"
     },
     {
       "type": "label",
-      "compID": 347,
+      "compID": 173,
       "position": [
         -5,
         17
@@ -3534,12 +3534,12 @@
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(2): Esin(b)"
     },
     {
       "type": "label",
-      "compID": 349,
+      "compID": 174,
       "position": [
         11,
         28
@@ -3553,7 +3553,7 @@
     },
     {
       "type": "label",
-      "compID": 351,
+      "compID": 175,
       "position": [
         -5,
         20
@@ -3562,12 +3562,12 @@
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(4): BCb'^2sin(a-b)"
     },
     {
       "type": "label",
-      "compID": 353,
+      "compID": 176,
       "position": [
         15,
         28
@@ -3581,7 +3581,7 @@
     },
     {
       "type": "label",
-      "compID": 355,
+      "compID": 177,
       "position": [
         19,
         28
@@ -3595,13 +3595,13 @@
     },
     {
       "type": "label",
-      "compID": 357,
+      "compID": 178,
       "position": [
         -5,
         23
       ],
       "size": [
-        5,
+        4,
         1
       ],
       "align": "center",
@@ -3609,7 +3609,7 @@
     },
     {
       "type": "label",
-      "compID": 359,
+      "compID": 179,
       "position": [
         25,
         28
@@ -3623,13 +3623,13 @@
     },
     {
       "type": "label",
-      "compID": 361,
+      "compID": 180,
       "position": [
         -5,
         16
       ],
       "size": [
-        5,
+        3,
         1
       ],
       "align": "center",
@@ -3637,7 +3637,7 @@
     },
     {
       "type": "label",
-      "compID": 363,
+      "compID": 181,
       "position": [
         -6,
         18
@@ -3651,7 +3651,7 @@
     },
     {
       "type": "label",
-      "compID": 365,
+      "compID": 182,
       "position": [
         -5,
         19
@@ -3660,26 +3660,26 @@
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(5): (3)+(4)"
     },
     {
       "type": "label",
-      "compID": 367,
+      "compID": 183,
       "position": [
-        -5,
+        -4,
         21
       ],
       "size": [
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(5)"
     },
     {
       "type": "label",
-      "compID": 369,
+      "compID": 184,
       "position": [
         -5,
         22
@@ -3688,12 +3688,12 @@
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(6): (5)+BDsin(a)"
     },
     {
       "type": "label",
-      "compID": 371,
+      "compID": 185,
       "position": [
         27,
         28
@@ -3707,7 +3707,7 @@
     },
     {
       "type": "label",
-      "compID": 373,
+      "compID": 186,
       "position": [
         2,
         28
@@ -3721,7 +3721,7 @@
     },
     {
       "type": "label",
-      "compID": 375,
+      "compID": 187,
       "position": [
         6,
         28
@@ -3735,7 +3735,7 @@
     },
     {
       "type": "label",
-      "compID": 377,
+      "compID": 188,
       "position": [
         51,
         28
@@ -3749,7 +3749,7 @@
     },
     {
       "type": "label",
-      "compID": 379,
+      "compID": 189,
       "position": [
         55,
         28
@@ -3763,7 +3763,7 @@
     },
     {
       "type": "label",
-      "compID": 381,
+      "compID": 190,
       "position": [
         59,
         28
@@ -3777,7 +3777,7 @@
     },
     {
       "type": "label",
-      "compID": 383,
+      "compID": 191,
       "position": [
         63,
         28
@@ -3791,7 +3791,7 @@
     },
     {
       "type": "label",
-      "compID": 385,
+      "compID": 192,
       "position": [
         68,
         28
@@ -3805,7 +3805,7 @@
     },
     {
       "type": "label",
-      "compID": 387,
+      "compID": 193,
       "position": [
         83,
         23
@@ -3814,12 +3814,12 @@
         5,
         1
       ],
-      "align": "center",
-      "_comment": "-AEsin(b)"
+      "align": "left",
+      "_comment": "(13): -AEsin(b)"
     },
     {
       "type": "label",
-      "compID": 389,
+      "compID": 194,
       "position": [
         83,
         15
@@ -3828,12 +3828,12 @@
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(7): Cb'^2sin(a-b)"
     },
     {
       "type": "label",
-      "compID": 391,
+      "compID": 195,
       "position": [
         83,
         17
@@ -3842,14 +3842,14 @@
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(8): Dsin(a)"
     },
     {
       "type": "label",
-      "compID": 393,
+      "compID": 196,
       "position": [
-        83,
+        82,
         16
       ],
       "size": [
@@ -3861,7 +3861,7 @@
     },
     {
       "type": "label",
-      "compID": 395,
+      "compID": 197,
       "position": [
         47,
         28
@@ -3875,7 +3875,7 @@
     },
     {
       "type": "label",
-      "compID": 397,
+      "compID": 198,
       "position": [
         82,
         18
@@ -3889,7 +3889,7 @@
     },
     {
       "type": "label",
-      "compID": 399,
+      "compID": 199,
       "position": [
         83,
         20
@@ -3898,12 +3898,12 @@
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(10): ACa'^2sin(a-b)"
     },
     {
       "type": "label",
-      "compID": 401,
+      "compID": 200,
       "position": [
         83,
         19
@@ -3912,14 +3912,14 @@
         5,
         1
       ],
-      "align": "center",
+      "align": "left",
       "_comment": "(11): (9)+(10)"
     },
     {
       "type": "label",
-      "compID": 403,
+      "compID": 201,
       "position": [
-        83,
+        82,
         21
       ],
       "size": [
@@ -3931,21 +3931,7 @@
     },
     {
       "type": "label",
-      "compID": 405,
-      "position": [
-        83,
-        22
-      ],
-      "size": [
-        5,
-        1
-      ],
-      "align": "center",
-      "_comment": "(12): -AEsin(b)"
-    },
-    {
-      "type": "label",
-      "compID": 407,
+      "compID": 202,
       "position": [
         70,
         28
@@ -3959,7 +3945,7 @@
     },
     {
       "type": "label",
-      "compID": 409,
+      "compID": 203,
       "position": [
         59,
         -15
@@ -3973,15 +3959,57 @@
     },
     {
       "type": "integrator",
-      "compID": 411,
+      "compID": 204,
       "position": [
         75,
         26
       ],
-      "outputShaft": 543,
-      "variableOfIntegrationShaft": 539,
-      "integrandShaft": 535,
+      "outputShaft": 272,
+      "variableOfIntegrationShaft": 270,
+      "integrandShaft": 268,
       "initialPosition": "b_acc"
+    },
+    {
+      "type": "label",
+      "compID": 205,
+      "position": [
+        36,
+        28
+      ],
+      "size": [
+        2,
+        1
+      ],
+      "align": "center",
+      "_comment": "∫a'' dt"
+    },
+    {
+      "type": "label",
+      "compID": 206,
+      "position": [
+        41,
+        28
+      ],
+      "size": [
+        3,
+        1
+      ],
+      "align": "center",
+      "_comment": "∫a' dt"
+    },
+    {
+      "type": "label",
+      "compID": 338,
+      "position": [
+        83,
+        22
+      ],
+      "size": [
+        5,
+        1
+      ],
+      "align": "left",
+      "_comment": "(12): (9) + (10) + (13)"
     }
   ],
   "settings": {

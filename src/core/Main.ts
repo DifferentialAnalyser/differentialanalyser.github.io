@@ -76,7 +76,7 @@ export class Simulator {
       throw new Error("The configuration must have at least one motor");
     }
     let ordered_devices: Device[] = [this.motor];
-    let stack: Shaft[] = [this.motor.determine_output()];
+    let stack: Shaft[] = [this.motor.determine_output()!];
     let visited: Set<number> = new Set<number>();
     let visited_devices: Set<Device> = new Set<Device>();
     visited.add(stack[0].id);
@@ -131,7 +131,7 @@ export class Simulator {
       throw new Error("The configuration must have at least one motor");
     }
     let ordered_devices: Device[] = [this.motor];
-    let stack: Shaft[] = [this.motor.determine_output()];
+    let stack: Shaft[] = [this.motor.determine_output()!];
     let visited: Set<number> = new Set<number>();
     let visited_devices: Set<Device> = new Set<Device>();
     visited_devices.add(this.motor);
