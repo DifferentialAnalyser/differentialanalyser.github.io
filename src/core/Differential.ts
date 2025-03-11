@@ -17,7 +17,7 @@ export class Differential implements Device {
     id: number;
     private output: Shaft | undefined;
     // the sum shaft is always in the middle
-    private shafts: Shaft[];
+    private shafts: (Shaft | undefined)[];
     private output_index: number = -1;
 
     /**
@@ -27,9 +27,13 @@ export class Differential implements Device {
      * @param diffShaft2 The shaft that represents one of the connected shaft
      * @param sumShaft The shaft that represents the sum of the two diffShafts (not necessarily the output)
      */
-    constructor(id: number, diffShaft1: Shaft, diffShaft2: Shaft, sumShaft: Shaft) {
+    constructor(id: number, diffShaft1: Shaft | undefined, diffShaft2: Shaft | undefined, sumShaft: Shaft | undefined) {
         this.id = id;
         this.shafts = [diffShaft1, sumShaft, diffShaft2];
+    }
+
+    shafts_defined(): boolean {
+        return !(!this.shafts[0] || !this.shafts[1] || !this.shafts[2]);
     }
 
     /**
@@ -37,20 +41,22 @@ export class Differential implements Device {
      * @description This method calculates the nextRotation of output shaft
      * @returns The output shaft that represents the output of the Differential
      */
-    determine_output() : Shaft | undefined {
+    determine_output(): Shaft | undefined {
+        if (!this.shafts_defined()) return undefined;
+
         // determine how many shafts are ready
         let count = 0
-        for(const shaft of this.shafts) {
-            if(shaft.ready_flag) {
+        for (const shaft of this.shafts) {
+            if (shaft?.ready_flag) {
                 count++;
             }
         }
 
         // if theres 2 ready we can determine the output shaft
-        if(count == 2) {
+        if (count == 2) {
             // find shaft that isnt ready
-            for(let i = 0; i < 3; i++) {
-                if(!this.shafts[i].ready_flag) {
+            for (let i = 0; i < 3; i++) {
+                if (!this.shafts[i]?.ready_flag) {
                     this.output_index = i;
                     break;
                 }
@@ -58,10 +64,10 @@ export class Differential implements Device {
             this.output = this.shafts[this.output_index];
             return this.output;
         }
-        else if (count == 3){
+        else if (count == 3) {
             return this.output;
         }
-        else{
+        else {
             return undefined;
         }
     }
@@ -71,19 +77,21 @@ export class Differential implements Device {
      * @description This method directly updates the rotation rate of its output 
      * to be the combination of inputs shafts depending on which shafts were ready
     */
-    update(dt: number = 1){
+    update(dt: number = 1) {
+        if (!this.shafts_defined()) return;
+
         let new_rotation = NaN;
 
         // case where sum shaft is the output
-        if(this.output_index == 1){
-            new_rotation = this.shafts[0].get_rotation_rate() + this.shafts[2].get_rotation_rate();
+        if (this.output_index == 1) {
+            new_rotation = this.shafts[0]!.get_rotation_rate() + this.shafts[2]!.get_rotation_rate();
         }
         // case when output shaft is one of the other two
-        else{
-            new_rotation = this.shafts[1].get_rotation_rate() - this.shafts[2-this.output_index].get_rotation_rate();
+        else {
+            new_rotation = this.shafts[1]!.get_rotation_rate() - this.shafts[2 - this.output_index]!.get_rotation_rate();
         }
         this.output?.set_rotation_rate(new_rotation);
     }
-    
-    getID() : number { return this.id; }
+
+    getID(): number { return this.id; }
 }

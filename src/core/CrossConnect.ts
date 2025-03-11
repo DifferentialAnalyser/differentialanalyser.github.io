@@ -14,7 +14,7 @@ import { Shaft } from "./Shaft";
  */
 export class CrossConnect implements Device {
     id: number;
-    private shafts: Shaft[];
+    private shafts: (Shaft | undefined)[];
     private output: Shaft | undefined;
     private input: Shaft | undefined;
     private reversed: Boolean;
@@ -26,7 +26,7 @@ export class CrossConnect implements Device {
      * @param shaft2 The shaft that represents one of the connected shaft
      * @param reversed A flag representing whether or not the output should be reversed
      */
-    constructor(id: number, shaft1: Shaft, shaft2: Shaft, reversed: Boolean) {
+    constructor(id: number, shaft1: Shaft | undefined, shaft2: Shaft | undefined, reversed: Boolean) {
         this.id = id;
         this.shafts = [shaft1, shaft2];
         this.reversed = reversed;
@@ -38,6 +38,8 @@ export class CrossConnect implements Device {
      * @returns The output shaft that represents the output of the Gear given the input
      */
     determine_output(): Shaft | undefined {
+        if (!this.shafts[0] || !this.shafts[1]) return undefined;
+
         if (!this.shafts[0].ready_flag && !this.shafts[1].ready_flag) {
             return undefined;
         }
@@ -51,9 +53,11 @@ export class CrossConnect implements Device {
         }
         return this.output;
     }
+
     update(dt: number = 1): void {
         const rotation_rate = this.input?.get_rotation_rate()!;
         this.output?.set_rotation_rate(this.reversed ? -rotation_rate : rotation_rate);
     }
-    getID() : number { return this.id; }
+
+    getID(): number { return this.id; }
 }

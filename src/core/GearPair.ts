@@ -14,7 +14,7 @@ import { Shaft } from "./Shaft";
  */
 export class GearPair implements Device {
     id: number;
-    private shafts: Shaft[];
+    private shafts: (Shaft | undefined)[];
     private input: Shaft | undefined;
     private output: Shaft | undefined;
     private factor: number;
@@ -26,10 +26,14 @@ export class GearPair implements Device {
      * @param shaft2 The shaft that represents one of the connected shaft
      * @param factor The gear ratio. A ratio of k means that shaft 2 rotates k turns when shaft 1 rotates 1 turn. It can be negative.
      */
-    constructor(id: number, shaft1: Shaft, shaft2: Shaft, factor: number) {
+    constructor(id: number, shaft1: Shaft | undefined, shaft2: Shaft | undefined, factor: number) {
         this.id = id;
         this.shafts = [shaft1, shaft2];
         this.factor = factor
+    }
+
+    shafts_defined(): boolean {
+        return !(!this.shafts[0] || !this.shafts[1] || !this.shafts[2]);
     }
 
     /**
@@ -38,24 +42,27 @@ export class GearPair implements Device {
      * @returns The output shaft that represents the output of the gear pair given the input
      */
     determine_output(): Shaft | undefined {
-        if (!this.shafts[0].ready_flag && !this.shafts[1].ready_flag) {
+        if (!this.shafts_defined()) return undefined;
+
+        if (!this.shafts[0]!.ready_flag && !this.shafts[1]!.ready_flag) {
             return undefined;
         }
-        if (this.shafts[0].ready_flag && !this.shafts[1].ready_flag) {
+        if (this.shafts[0]!.ready_flag && !this.shafts[1]!.ready_flag) {
             this.output = this.shafts[1];
             this.input = this.shafts[0];
         }
-        if (this.shafts[1].ready_flag && !this.shafts[0].ready_flag) {
+        if (this.shafts[1]!.ready_flag && !this.shafts[0]!.ready_flag) {
             this.output = this.shafts[0];
             this.input = this.shafts[1];
             this.factor = 1.0 / this.factor;
         }
         return this.output;
     }
+
     update(dt: number = 1): void {
         const rotation_rate = this.factor * this.input?.get_rotation_rate()!;
         this.output?.set_rotation_rate(rotation_rate);
     }
 
-    getID() : number { return this.id; }
+    getID(): number { return this.id; }
 }

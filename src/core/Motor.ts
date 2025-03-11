@@ -11,9 +11,9 @@ import { Device } from "./Device";
  * @class Motor
  * @description the Motor class which simulates the motor driving the differential analyzer
  */
-export class Motor implements Device{
+export class Motor implements Device {
     private rotation: number;
-    private output: Shaft;
+    private output: Shaft | undefined;
     id: number;
 
     /**
@@ -22,7 +22,7 @@ export class Motor implements Device{
      * @param rotation The rotation speed of the motor
      * @param output The output shaft
      */
-    constructor(id: number, rotation: number, output: Shaft) {
+    constructor(id: number, rotation: number, output: Shaft | undefined) {
         this.id = id;
         this.rotation = rotation;
         this.output = output;
@@ -36,13 +36,13 @@ export class Motor implements Device{
     changeRotation(rotation: number): void {
         this.rotation = rotation;
     }
-    
+
     /**
      * @method getOutput
      * @description This method returns the output shaft
      * @returns The output shaft
      */
-    determine_output(){
+    determine_output() {
         return this.output;
     }
 
@@ -50,9 +50,9 @@ export class Motor implements Device{
      * @method update
      * @description Sets the outputs rotation rate to be the motors rotation rate
     */
-    update(dt: number = 1){
-        this.output.set_rotation_rate(this.rotation * dt);
+    update(dt: number = 1) {
+        this.output?.set_rotation_rate(this.rotation * dt);
     }
 
-    getID() : number { return this.id; }
+    getID(): number { return this.id; }
 }

@@ -14,11 +14,11 @@ import { Shaft } from "./Shaft";
  */
 export class FunctionTable implements Device {
     id: number;
-    private output: Shaft;
+    private output: Shaft | undefined;
     x_position: number;
     private f_n: number;
     fun: (n: number) => number;
-    private input: Shaft;
+    private input: Shaft | undefined;
 
     /**
      * @constructor
@@ -28,13 +28,17 @@ export class FunctionTable implements Device {
      * @param initial_x_position The initial_x_position user sets 
      * @param fun The function of to trace
      */
-    constructor(id: number, input: Shaft, output: Shaft, initial_x_position: number, fun: (n: number) => number) {
+    constructor(id: number, input: Shaft | undefined, output: Shaft | undefined, initial_x_position: number, fun: (n: number) => number) {
         this.id = id;
         this.input = input;
         this.output = output;
         this.fun = fun;
         this.x_position = initial_x_position;
         this.f_n = fun(initial_x_position);
+    }
+
+    shafts_defined(): boolean {
+        return !(!this.input || !this.output);
     }
 
     /**
@@ -52,16 +56,18 @@ export class FunctionTable implements Device {
      * @description This method directly updates the rotation rate of its output
      * as the change in the functions value
     */
-    update(dt: number = 1){
+    update(dt: number = 1) {
+        if (!this.shafts_defined()) return;
+
         // calculate new x position and new f(x) position
-        this.x_position += this.input.get_rotation_rate();
+        this.x_position += this.input!.get_rotation_rate();
         let f_np1 = this.fun(this.x_position);
 
         // set the rotation of the output to be Delta f(x)
-        this.output.set_rotation_rate(f_np1 - this.f_n);
+        this.output!.set_rotation_rate(f_np1 - this.f_n);
         // update the current f(x) value
         this.f_n = f_np1;
     }
 
-    getID() : number { return this.id; }
+    getID(): number { return this.id; }
 }

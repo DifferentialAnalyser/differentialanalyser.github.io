@@ -15,6 +15,7 @@ import { Motor } from "./Motor";
 import { Multiplier } from "./Multiplier";
 import { OutputTable } from "./OutputTable";
 import { Shaft } from "./Shaft";
+import { Dial } from "./Dial";
 import { ConfigError } from "../ConfigError.ts";
 
 import Expression from "../expr/Expression.ts";
@@ -201,9 +202,9 @@ export class Simulator {
         case "differential":
           new_component = new Differential(
             component.compID,
-            shafts.get(component.diffShaft1)!,
-            shafts.get(component.diffShaft2)!,
-            shafts.get(component.sumShaft)!
+            shafts.get(component.diffShaft1),
+            shafts.get(component.diffShaft2),
+            shafts.get(component.sumShaft)
           );
           shafts.get(component.diffShaft1)?.outputs.push(new_component);
           shafts.get(component.diffShaft2)?.outputs.push(new_component);
@@ -214,9 +215,9 @@ export class Simulator {
         case "integrator":
           new_component = new Integrator(
             component.compID,
-            shafts.get(component.variableOfIntegrationShaft)!,
-            shafts.get(component.integrandShaft)!,
-            shafts.get(component.outputShaft)!,
+            shafts.get(component.variableOfIntegrationShaft),
+            shafts.get(component.integrandShaft),
+            shafts.get(component.outputShaft),
             false,
             Expression.eval(String(component.initialPosition), get_global_ctx()) // Accounts for direct numbers in config
           );
@@ -229,8 +230,8 @@ export class Simulator {
         case "multiplier":
           new_component = new Multiplier(
             component.compID,
-            shafts.get(component.inputShaft)!,
-            shafts.get(component.outputShaft)!,
+            shafts.get(component.inputShaft),
+            shafts.get(component.outputShaft),
             Expression.eval(String(component.factor), get_global_ctx()), // Accounts for numbers instead of a string in config
             !component.multiplicandShaft
               ? undefined
@@ -244,8 +245,8 @@ export class Simulator {
         case "crossConnect":
           new_component = new CrossConnect(
             component.compID,
-            shafts.get(component.horizontal)!,
-            shafts.get(component.vertical)!,
+            shafts.get(component.horizontal),
+            shafts.get(component.vertical),
             component.reversed
           );
           shafts.get(component.horizontal)?.outputs.push(new_component);
@@ -256,8 +257,8 @@ export class Simulator {
         case "gearPair":
           new_component = new GearPair(
             component.compID,
-            shafts.get(component.shaft1)!,
-            shafts.get(component.shaft2)!,
+            shafts.get(component.shaft1),
+            shafts.get(component.shaft2),
             component.outputRatio / component.inputRatio
           );
           shafts.get(component.shaft1)?.outputs.push(new_component);
@@ -268,8 +269,8 @@ export class Simulator {
         case "functionTable":
           new_component = new FunctionTable(
             component.compID,
-            shafts.get(component.inputShaft)!,
-            shafts.get(component.outputShaft)!,
+            shafts.get(component.inputShaft),
+            shafts.get(component.outputShaft),
             this.initial_x_position,
             this.inputFunction // TODO: hardcoded for now to test the engine
           );
@@ -283,7 +284,7 @@ export class Simulator {
           motor = new Motor(
             component.compID,
             this.rotation,
-            shafts.get(component.outputShaft)!
+            shafts.get(component.outputShaft)
           );
           components.push(motor);
           break;
@@ -301,18 +302,18 @@ export class Simulator {
           if (outputShaft2) {
             outputTable = new OutputTable(
               component.compID,
-              shafts.get(component.inputShaft)!,
-              shafts.get(outputShaft1)!,
+              shafts.get(component.inputShaft),
+              shafts.get(outputShaft1),
               Expression.eval(String(component.initialY1), get_global_ctx()), // Accounts for numbers instead of a string being passed into input
-              shafts.get(outputShaft2)!,
+              shafts.get(outputShaft2),
               Expression.eval(String(component.initialY2), get_global_ctx())
             );
             shafts.get(outputShaft2)!.outputs.push(outputTable);
           } else {
             outputTable = new OutputTable(
               component.compID,
-              shafts.get(component.inputShaft)!,
-              shafts.get(outputShaft1)!,
+              shafts.get(component.inputShaft),
+              shafts.get(outputShaft1),
               Expression.eval(String(component.initialY1), get_global_ctx())
             );
           }
@@ -329,20 +330,7 @@ export class Simulator {
           break;
 
         case "dial":
-          new_component = new (class Dial implements Device {
-            private id: number;
-
-            constructor(id: number) {
-              this.id = id;
-            }
-            determine_output(): Shaft | undefined {
-              return undefined;
-            }
-            update(_dt: number): void { }
-            getID(): number {
-              return this.id;
-            }
-          })(component.compID);
+          new_component = new Dial(component.compID);
 
           shafts.get(component.inputShaft)?.outputs.push(new_component);
           components.push(new_component);
