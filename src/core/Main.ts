@@ -272,7 +272,8 @@ export class Simulator {
             shafts.get(component.inputShaft),
             shafts.get(component.outputShaft),
             this.initial_x_position,
-            this.inputFunction // TODO: hardcoded for now to test the engine
+            // For testing purposes
+            this.inputFunction
           );
           (new_component as FunctionTable).id = component.compID;
           shafts.get(component.inputShaft)?.outputs.push(new_component);
