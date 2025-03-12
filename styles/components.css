@@ -93,6 +93,7 @@
 }
 
 .placed-component {
+    position: absolute;
     pointer-events: all;
 }
 

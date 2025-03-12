@@ -11,6 +11,12 @@ export class DialComponentElement extends LitElement {
   @property({ type: Number })
   rotation = 0;
 
+  /**
+   * Encode the current rotation to be a fixed number of digits
+   * If the encoding includes an e, reduce the precision to ensure it still fits
+   *
+   * @returns The string representation of the current rotation
+   */
   getValue(): string {
     let value = this.count.toPrecision(5);
     if (value.includes("e")) {
@@ -20,6 +26,9 @@ export class DialComponentElement extends LitElement {
     return value;
   }
 
+  /**
+   * Update the tooltip text if it exists
+   */
   updateTooltip(): void {
     if (!this.tooltip) return;
 
@@ -29,6 +38,7 @@ export class DialComponentElement extends LitElement {
   render() {
     this.updateTooltip();
 
+    // Calculate how much the dial should be rotated and calculate the x and y coordinates for this
     let angle = 2 * Math.PI * (this.rotation % 1) - Math.PI / 2;
 
     const radius = 10;

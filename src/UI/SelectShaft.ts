@@ -17,13 +17,17 @@ let startPos: Vector2;
 let negativeArrow: HTMLImageElement;
 let positiveArrow: HTMLImageElement;
 
-// Setup the event listeners required for the shaft selection
+/**
+ * Setup event handlers that are needed for shaft selection
+ */
 export function setupSelectHooks() {
   machine.addEventListener("click", endSelect);
 
+  // Find and store the arrows used for positive and negative size changes
   negativeArrow = document.querySelector("#negativeArrow")! as HTMLImageElement;
   positiveArrow = document.querySelector("#positiveArrow")! as HTMLImageElement;
 
+  // Setup the events on these two arrows
   negativeArrow.addEventListener("mousedown", startDrag);
   positiveArrow.addEventListener("mousedown", startDrag);
   negativeArrow.addEventListener("mouseup", endDrag);
@@ -32,11 +36,16 @@ export function setupSelectHooks() {
   negativeArrow.addEventListener("dragstart", e => e.preventDefault());
   positiveArrow.addEventListener("dragstart", e => e.preventDefault());
 
+  // Setup events on the document
   machine.addEventListener("mousemove", moveDrag, true);
   machine.addEventListener("mouseup", endDrag);
 }
 
-// Shaft dragging started
+/**
+ * Mouse has been pressed down on an arrow so start dragging, aslong as a shaft is selected
+ *
+ * @param e Event provided from the event Handler
+ */
 function startDrag(e: MouseEvent): void {
   if (!selectedItem) return;
   currentArrow = e.currentTarget as HTMLImageElement;
@@ -47,14 +56,21 @@ function startDrag(e: MouseEvent): void {
   currentArrow.style.cursor = "move";
 }
 
-// The mouse has moved while dragging a shaft
-// If the distance if above a given threshold then the shaft will be updated to reflect
-// its new size, along with the positioning of the drag arrows
+/**
+ * The mouse has moved in the document so check to see if any of the arrows should 
+ * be resized
+ *
+ * @param e Event provided from the event Handler
+ */
 function moveDrag(e: MouseEvent): void {
+  // If we have not started then ignore the event
   if (!dragging) return;
 
   let negativeDistance = 0;
   let positiveDistance = 0;
+  // Check if the mouse has moved sufficiently far enough to either adjust the positive
+  // or negative drag distance for a vertical or horizontal shaft. ENsure that the current
+  // amount of dragging is used if the mouse moved quickly
   if (selectedItem!.componentType == "hShaft") {
     if (Math.abs(e.clientX - startPos.x) >= GRID_SIZE * 0.6) {
       negativeDistance = (currentArrow!.id == "negativeArrow") ? (startPos.x - e.clientX) : 0
@@ -83,13 +99,16 @@ function moveDrag(e: MouseEvent): void {
     }
   }
 
+  // Update the shaft length and update the position of the arrows
   if (negativeDistance != 0 || positiveDistance != 0) {
     updateShaftLength(selectedItem!, Math.round(negativeDistance / GRID_SIZE), Math.round(positiveDistance / GRID_SIZE))
     updateArrows();
   }
 }
 
-// End the current dragging
+/**
+ * Mouse has been lifted so stop dragging on the arrow
+ */
 function endDrag(_e: MouseEvent): void {
   if (!dragging) return;
 
@@ -101,8 +120,10 @@ function endDrag(_e: MouseEvent): void {
   currentArrow = null;
 }
 
-// Update the position of the dragging arrows
-// Depends on the shaft being dragged
+/**
+ * Update the position of the dragging arrows depending on the current
+ * shaft that is being dragged
+ */
 export function updateArrows(): void {
   if (!selectedItem) return;
 
@@ -133,27 +154,40 @@ export function updateArrows(): void {
   positiveArrow.style.height = `${GRID_SIZE / 2}px`;
 }
 
-// Mouse was clicked so a shaft will be selected
+/**
+ * A shaft was clicked on so select it, provided we are not currently dragging
+ *
+ * @param event Provided from the event handler
+ */
 export function selectShaft(event: MouseEvent): void {
+  // Check if the left mouse button was pressed, if not return
   if (event.button != 0) { return }
+  // Check if we are not dragging
   if (startedDragging) return;
 
+  // Clear the currently selected arrow
   clearSelect();
 
+  // Set the clicked shaft as the selected shaft
   const currentTarget = event.currentTarget as DraggableComponentElement;
   selectedItem = currentTarget;
 
   selectedItem.classList.add(SELECTED_SHAFT);
 
+  // Update the arrow positions
   updateArrows();
 
+  // Set the arrows to be visible
   negativeArrow.style.visibility = "visible";
   positiveArrow.style.visibility = "visible";
 
+  // Prevent the event being passed up the DOM
   event.stopPropagation();
 }
 
-// The currently selected shaft will be cleared
+/**
+ * Clear the currently selected shaft and hide the arrows
+ */
 export function clearSelect(): void {
   if (!selectedItem) return;
 
@@ -165,7 +199,10 @@ export function clearSelect(): void {
   positiveArrow.style.visibility = "hidden";
 }
 
-// A mouse press occured so the selected shaft will be cleared
+/**
+ * Check if the left mouse has been pressed and if so clear the current seleted
+ * shaft
+ */
 export function endSelect(event: MouseEvent): void {
   if (event.button != 0) return;
   clearSelect();
