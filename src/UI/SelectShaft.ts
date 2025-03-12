@@ -47,6 +47,7 @@ export function setupSelectHooks() {
  * @param e Event provided from the event Handler
  */
 function startDrag(e: MouseEvent): void {
+  if (e.button != 0) return;
   if (!selectedItem) return;
   currentArrow = e.currentTarget as HTMLImageElement;
   dragging = true;

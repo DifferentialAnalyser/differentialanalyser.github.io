@@ -749,7 +749,7 @@ export class Lifecycle {
     }
 
     /**
-     * Reset an output tables
+     * Reset an output table
      */
     private reset_output_table(table: GraphElement): void {
         table.mutate_data_set("d1", points => { points.splice(0, points.length); }, true);

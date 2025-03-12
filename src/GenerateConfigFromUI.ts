@@ -1,10 +1,9 @@
 import { CustomVariablesElement } from "./UI/CustomVariablesElement.ts";
 import { DraggableComponentElement } from "./UI/DraggableElement.ts";
 import { Config } from "./config";
-// used to configure parameters and initial setings
-// go from UI to config which can be saved and loaded 
 
-// asumming valid config is checked as we build
+// Used to configure parameters and initial setings
+// Go from UI to config which can be saved and loaded 
 
 function getShaft(className: string, predicate: (x: number, y: number, w: number, h: number) => boolean): number | null {
   const shafts = document.querySelectorAll(`.${className}`) as NodeListOf<DraggableComponentElement>;
