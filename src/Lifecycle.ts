@@ -694,7 +694,7 @@ export class Lifecycle {
         let [config, unfinished_components] = toConfig();
         let no_motor = false;
         let components = document.querySelectorAll(".placed-component") as NodeListOf<DraggableComponentElement>;
-        components.forEach(x => x.classList.remove("warning"));
+        components.forEach(x => x.classList.remove("warning", "unconnected", "error"));
         unfinished_components.forEach(x => {
             const component = document.querySelector(`#component-${x}`) as DraggableComponentElement;
             if (component.componentType === "motor") {

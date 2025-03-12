@@ -131,6 +131,7 @@ export function openFunctionTablePopup(e: MouseEvent): void {
 }
 
 export function openOutputTablePopup(e: MouseEvent): void {
+  if (e.button != 2) return;
   if (currentlyDragging()) return;
 
   openPopup(e, outputTablePopup);

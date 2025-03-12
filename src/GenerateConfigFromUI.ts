@@ -58,8 +58,6 @@ export function toConfig(): [Config, number[]] {
         // shaft.width = thisComponent.width;
         shaft.end = [Number(thisComponent.left) + thisComponent.width - 1, Number(thisComponent.top)];
       }
-      // remove this shaft from the list of components
-      // elements.remove(thisComponent); 
       return shaft;
     }
   });
@@ -220,44 +218,6 @@ export function toConfig(): [Config, number[]] {
     return result;
   });
 
-  /*
-  if (thisComponent.componentType === "multiplier") {
-      // output 
-      component.outputShaft = thisComponent.getAttribute("output");
-  }
-  else if (thisComponent.componentType === "gear") {
-      // input
-      component.inputShaft = thisComponent.getAttribute("input");
-      // output
-      component.outputShaft = thisComponent.getAttribute("output");
-  }
-  else if (thisComponent.componentType === "functionTable") {
-      // input
-      component.inputShaft = thisComponent.getAttribute("input");
-      // output
-      component.outputShaft = thisComponent.getAttribute("output");
-  }
-  else if (thisComponent.componentType === "integrator") {
-      // integrand 
-      component.integrandShaft = thisComponent.oninput;
-      // variable
-      component.variableOfIntegrationShaft = thisComponent.getAttribute("input");
-      // output
-      component.outputShaft = thisComponent.getAttribute("output");
-  }
-  else if (thisComponent.componentType === "outputTable") {
-      // input
-      component.inputShaft = thisComponent.getAttribute("input");
-      // outputs
-      component.outputShaft1 = thisComponent.getAttribute("output");
-      component.outputShaft2 = thisComponent.getAttribute("output");
-  }
-  else if (thisComponent.componentType === "motor") {
-      // output
-      component.outputShaft = thisComponent.getAttribute("output");
-  }
-      */
-
   const shafts = config1;
   const components: any = config2;
   const constants = (document.querySelector("custom-variables")! as CustomVariablesElement).getText();
@@ -265,6 +225,7 @@ export function toConfig(): [Config, number[]] {
     "custom_variables": constants,
   };
 
+  // Should we remove unnconnected components?
   const config: Config = { shafts, components: components.filter((x: { type: string }) => x.type !== "unconnected"), settings };
   return [config, components.filter((x: { type: string }) => x.type === "unconnected").map((x: { compID: number }) => x.compID)];
 }

@@ -274,6 +274,8 @@ function drop(event: MouseEvent): void {
       if (item.shouldLockCells) {
         setCells(topLeft, size, false);
       }
+      let e = new CustomEvent("placecomponent");
+      document.dispatchEvent(e);
       return;
     }
   }
@@ -284,14 +286,14 @@ function drop(event: MouseEvent): void {
       if (!item.hasBeenPlaced) {
         item.remove();
         curDragItem.item = null;
+        let e = new CustomEvent("placecomponent");
+        document.dispatchEvent(e);
         return;
       }
 
       topLeft.x = Number(item.previousLeft);
       topLeft.y = Number(item.previousTop);
     }
-
-
 
     if (item.shouldLockCells) {
       setCells(topLeft, size, true);
