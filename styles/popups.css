@@ -71,7 +71,7 @@
   flex-direction: column;
   justify-content: center;
 
-  max-width: 10vw;
+  min-width: 10vw;
 }
 
 #gear-pair-popup>div {

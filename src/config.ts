@@ -137,6 +137,7 @@ const type_name_dict = {
   "dial": "Dial",
 };
 
+// Load config from file and restore UI
 export function loadConfig(config: Config): void {
   let settings = config.settings;
   if (settings) {
@@ -149,6 +150,7 @@ export function loadConfig(config: Config): void {
     (document.querySelector("custom-variables")! as CustomVariablesElement).setText("");
   }
 
+  // Restore components
   for (let components of config.components) {
     let [left, top] = components.position;
     let componentType = type_name_dict[components.type];
@@ -184,8 +186,6 @@ export function loadConfig(config: Config): void {
     item.left = left;
     item.renderTop = top * GRID_SIZE;
     item.renderLeft = left * GRID_SIZE;
-    item.componentID = createUniqueID();
-    item.id = `component-${item.componentID}`;
 
     if (item.componentType != "label") {
       setCells(new Vector2(left, top), item.getSize(), true);
@@ -197,6 +197,7 @@ export function loadConfig(config: Config): void {
     machine.appendChild(item);
   }
 
+  // Restore shafts
   for (let shaft of config.shafts) {
     let [left, top] = shaft.start;
     let [right, bottom] = shaft.end;

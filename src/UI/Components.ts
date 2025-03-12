@@ -16,6 +16,7 @@ import { DialComponentElement } from "./DialComponentElement.ts";
 import { IntegratorComponentElement } from "./IntegratorComponent.ts";
 import { MultiplierComponentElement } from "./MultiplierComponentElement.ts";
 
+// An enum representing all placeable components
 export enum ComponentType {
     VShaft,
     HShaft,
@@ -31,27 +32,41 @@ export enum ComponentType {
     Dial,
 };
 
+// The current maximum ID in the program and a list of free_ids that can
+// be selected form
 let max_id = 0;
 let free_ids: number[] = [];
 
-// export function setIDCounter(id: number): void { CURRENT_ID = id; }
-
+/**
+ * Convert from a string to an enum
+ *
+ * @param componentName The string that should be converted to an enum
+ * @returns The enum representation of the string
+ */
 export function stringToComponent(componentName: string): ComponentType | null {
     return ComponentType[componentName as keyof typeof ComponentType];
 }
 
+/**
+ * From an component enum, create a new DraggableComponentElement for that component
+ *
+ * @param component The enum that is used to create the DraggableComponentElement
+ * @returns A DraggableComponentElement representing the new component
+ */
 export function createComponent(component: ComponentType): DraggableComponentElement {
     const comp = document.createElement("draggable-component") as DraggableComponentElement;
 
     comp.classList.add("placed-component")
 
+    // Event Listeners used for
     comp.style.position = "absolute";
-
     comp.addEventListener("mouseover", mouseOver);
     comp.addEventListener("mouseleave", mouseLeave);
 
+    // Create a new ID for the component
     setID(comp);
 
+    // Call the relevant constructor for the component
     switch (component) {
         case ComponentType.VShaft:
             createVShaft(comp);
@@ -93,23 +108,50 @@ export function createComponent(component: ComponentType): DraggableComponentEle
             console.error("No function defined for component: ", component);
     }
 
-    // Tooltips
+    // Add classes to get the tooltips displaying correctly
     comp.classList.add("tooltip");
     comp.classList.add("top");
-
 
     return comp;
 }
 
+/**
+ * Reset the stored ID tracking
+ */
 export function resetIDs(): void {
     free_ids = [];
     max_id = 0;
 }
 
+/**
+ * For every placed component, create a new ID for each one to ensure that each
+ * has a new unique ID
+ */
+export function regenerateIDs(): void {
+    resetIDs();
+    console.log("Clear IDs");
+
+    (document.querySelectorAll(".placed-component") as NodeListOf<DraggableComponentElement>).forEach((x: DraggableComponentElement) => {
+        setID(x);
+    })
+}
+
+/**
+ * Adds the ID of component to the list of free IDs
+ *
+ * @param component The component that should will have its ID freed
+ */
 export function deleteComponent(component: DraggableComponentElement): void {
     free_ids.push(component.componentID);
 }
 
+/**
+ * Create a new unique ID
+ * If free_ids is empty then use max_id and increment it
+ * Otherwise use an ID from free_ids
+ *
+ * @returns A unique ID
+ */
 export function createUniqueID(): number {
     if (free_ids.length == 0) {
         let id = max_id;
@@ -121,30 +163,44 @@ export function createUniqueID(): number {
     }
 }
 
+/**
+ * Set the internal ID and html ID of a DraggableComponent
+ *
+ * @param div The div that should have its ID changed
+ */
 function setID(div: DraggableComponentElement): void {
     const v = createUniqueID();
     div.componentID = v
     div.id = "component-" + v;
 }
 
+/**
+ * Construct a Vertical shaft
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * a Vertical Shaft
+ */
 function createVShaft(div: DraggableComponentElement): void {
+    // The default size of the component when rendered
     div.width = 1;
     div.height = 2;
+    // The class of the component used for rendering
     div.componentType = "vShaft";
     div.shouldLockCells = false;;
-
     div.classList.add("vShaft");
 
     div.addEventListener("click", selectShaft);
 
     render(html`<shaft-component style="width:100%;height:100%"></shaft-component>`, div);
 
+    // The repesentation of the vertical shaft in the config
     type ExportedData = {
         top: number,
         left: number,
         height: number,
     };
 
+    // Define the function that is used when exporting a vertical shaft
     div.export_fn = (_this) => {
         return {
             _type: ComponentType.VShaft,
@@ -156,6 +212,7 @@ function createVShaft(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for a vertical shaft
     div.import_fn = (_this, data: ExportedData) => {
         _this.top = data.top,
             _this.left = data.left,
@@ -163,23 +220,34 @@ function createVShaft(div: DraggableComponentElement): void {
     }
 }
 
+/**
+ * Construct a Cross connect
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * a cross connect
+ */
 function createCrossConnect(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 1;
     div.height = 1;
+    // The class of the component for rendering
     div.componentType = "crossConnect";
     div.shouldLockCells = true;
     div.classList.add("crossConnect");
 
+    // Open the cross connect popup on mouseup
     div.addEventListener("mouseup", openCrossConnectPopup);
 
     render(html`<cross-connect-component teeth="6" style="width:100%;height:100%"></cross-connect-component>`, div);
 
+    // Representation of the cross connect in the config
     type ExportedData = {
         top: number,
         left: number,
         reversed: boolean;
     };
 
+    // Define the function that is used when exporting a cross connect
     div.export_fn = (_this) => {
         const connect = _this.querySelector("cross-connect-component") as CrossConnectComponentElement;
         return {
@@ -192,6 +260,7 @@ function createCrossConnect(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for a cross connect
     div.import_fn = (_this, data: ExportedData) => {
         const connect = _this.querySelector("cross-connect-component") as CrossConnectComponentElement;
         _this.top = data.top;
@@ -201,9 +270,17 @@ function createCrossConnect(div: DraggableComponentElement): void {
     };
 }
 
+/**
+ * Construct a Horizontal shaft
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * a Horizontal Shaft
+ */
 function createHShaft(div: DraggableComponentElement): void {
+    // The default size of the component when rendered
     div.width = 2;
     div.height = 1;
+    // The class of the component used for rendering
     div.componentType = "hShaft";
     div.shouldLockCells = false;;
     div.classList.add("hShaft");
@@ -212,12 +289,14 @@ function createHShaft(div: DraggableComponentElement): void {
 
     render(html`<shaft-component style="width: 100%;height:100%" horizontal></shaft-component>`, div);
 
+    // The repesentation of the horizontal shaft in the config
     type ExportedData = {
         top: number,
         left: number,
         width: number,
     };
 
+    // Define the function that is used when exporting a horizontal shaft
     div.export_fn = (_this) => {
         return {
             _type: ComponentType.HShaft,
@@ -229,6 +308,7 @@ function createHShaft(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for a horizontal shaft
     div.import_fn = (_this, data: ExportedData) => {
         _this.top = data.top,
             _this.left = data.left,
@@ -236,24 +316,36 @@ function createHShaft(div: DraggableComponentElement): void {
     }
 }
 
+/**
+ * Construct an integrator
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * an integrator
+ */
 function createIntegrator(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 4;
     div.height = 2;
+    // The class of the component used for rendering
     div.componentType = "integrator";
     div.shouldLockCells = true;
     div.classList.add("integrator");
+    // Default disk position offset
     div.inputRatio = 0;
 
     render(html`<integrator-component style="width:100%;height:100%"></integrator-component>`, div);
 
+    // Open the integrator popup on mouseup
     div.addEventListener("mouseup", openIntegratorPopup);
 
+    // Representation of the integrator in the config
     type ExportedData = {
         top: number,
         left: number,
         initialPosition: string,
     };
 
+    // Define the function that is used when exporting an integrator
     div.export_fn = (_this) => {
         return {
             _type: ComponentType.Integrator,
@@ -265,26 +357,37 @@ function createIntegrator(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for an integrator
     div.import_fn = (_this, data: ExportedData) => {
         _this.top = data.top;
         _this.left = data.left;
         _this.dataset.initialValue = data.initialPosition;
 
+        // Evaluate the stored string for the integrator disk position
         const comp = _this.querySelector("integrator-component")! as IntegratorComponentElement;
         comp.set_value(Expression.eval(_this.dataset.initialValue, get_global_ctx()));
-        comp.renormalize();
     };
 }
 
+/**
+ * Construct a function table
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * a function table
+ */
 function createFunctionTable(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 4;
     div.height = 4;
+    // The class of the component used for rendering
     div.componentType = "functionTable";
     div.shouldLockCells = true;
     div.classList.add("functionTable");
 
+    // Open the function table popup on mouseup
     div.addEventListener("mouseup", openFunctionTablePopup);
 
+    // Create the underlying graph element
     let graph = document.createElement("graph-table") as GraphElement;
     graph.setAttribute("style", "width:100%;height:100%");
     graph.setAttribute("x-min", "0.0");
@@ -295,10 +398,13 @@ function createFunctionTable(div: DraggableComponentElement): void {
     graph.setAttribute("padding", "5");
     graph.isAnOutput = false;
 
+    // Set the initial dataset to be nothing
     graph.set_data_set("d1", []);
 
+    // Add an event listener for when the global constants have changed
     div.addEventListener("constantschanged", _ => {
         if (!isRunning) {
+            // If the simulation is not running then re-evaluate all the stored expressions
             graph.x_min = Expression.eval(div.dataset.x_min ?? `${graph.x_min}`, get_global_ctx());
             graph.x_max = Expression.eval(div.dataset.x_max ?? `${graph.x_max}`, get_global_ctx());
             graph.y_min = Expression.eval(div.dataset.y_min ?? `${graph.y_min}`, get_global_ctx());
@@ -314,6 +420,7 @@ function createFunctionTable(div: DraggableComponentElement): void {
 
     div.appendChild(graph);
 
+    // Representation of the function table in the config
     type ExportedData = {
         top: number,
         left: number,
@@ -326,9 +433,11 @@ function createFunctionTable(div: DraggableComponentElement): void {
         fn: string,
     };
 
+    // Define the function that is used when exporting a function table
     div.export_fn = (_this) => {
         let graph_element = _this.querySelector("graph-table") as GraphElement;
 
+        // Ensure that if the data has not been set then use a default value
         return {
             _type: ComponentType.FunctionTable,
             data: {
@@ -345,6 +454,7 @@ function createFunctionTable(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for a function table
     div.import_fn = (_this, data: ExportedData) => {
         let graph_element = _this.querySelector("graph-table") as GraphElement;
 
@@ -357,6 +467,7 @@ function createFunctionTable(div: DraggableComponentElement): void {
         _this.dataset.y_max = data.y_max;
         _this.dataset.lookup = (!data.lookup) ? "0" : (data.lookup ? "1" : "0");
 
+        // Evaluate the stored expressions for the function table
         graph_element.x_min = Expression.eval(_this.dataset.x_min, get_global_ctx());
         graph_element.x_max = Expression.eval(_this.dataset.x_max, get_global_ctx());
         graph_element.y_min = Expression.eval(_this.dataset.y_min, get_global_ctx());
@@ -372,21 +483,30 @@ function createFunctionTable(div: DraggableComponentElement): void {
     }
 }
 
-
+/**
+ * Construct a differential
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * a differential
+ */
 function createDifferential(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 1;
     div.height = 3;
+    // The class of the component used for rendering
     div.componentType = "differential";
     div.shouldLockCells = true;
     div.classList.add("differential");
 
     render(html`<differential-component style="width:100%;height:100%"></differential-component>`, div);
 
+    // Representation of the integrator in the config
     type ExportedData = {
         top: number,
         left: number,
     };
 
+    // Define the function that is used when exporting a differential
     div.export_fn = (_this) => {
         return {
             _type: ComponentType.Differential,
@@ -397,21 +517,29 @@ function createDifferential(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for a differential
     div.import_fn = (_this, data: ExportedData) => {
         _this.top = data.top;
         _this.left = data.left;
     };
 }
 
+/**
+ * Construct an output table
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * an output table
+ */
 function createOutputTable(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 4;
     div.height = 4;
+    // The class of the component used for rendering
     div.componentType = "outputTable";
     div.shouldLockCells = true;
     div.classList.add("outputTable");
-    div.inputRatio = 0;
-    div.outputRatio = 0;
 
+    // Open the output table popup on mouseup
     div.addEventListener("mouseup", openOutputTablePopup);
 
     render(html`
@@ -427,14 +555,18 @@ function createOutputTable(div: DraggableComponentElement): void {
     </graph-table>
   `, div)
 
+    // Create the underlying graph element
     let graph = div.querySelector("graph-table") as GraphElement;
 
+    // Set the initial data sets
     graph.set_data_set("d1", [{ x: 0, y: 0 }], "blue");
     graph.set_data_set("d2", [{ x: 0, y: 0 }], "red", true);
     graph.isAnOutput = true;
 
+    // Add an event listener for when the global constants have changed
     div.addEventListener("constantschanged", _ => {
         if (!isRunning) {
+            // If the simulation is not running then re-evaluate all the stored expressions
             graph.x_min = Expression.eval(div.dataset.x_min ?? `${graph.x_min}`, get_global_ctx());
             graph.x_max = Expression.eval(div.dataset.x_max ?? `${graph.x_max}`, get_global_ctx());
             graph.y_min = Expression.eval(div.dataset.y_min ?? `${graph.y_min}`, get_global_ctx());
@@ -448,6 +580,7 @@ function createOutputTable(div: DraggableComponentElement): void {
         }
     });
 
+    // Representation of the output table in the config
     type ExportedData = {
         top: number,
         left: number,
@@ -467,9 +600,11 @@ function createOutputTable(div: DraggableComponentElement): void {
         },
     };
 
+    // Define the function that is used when exporting an output table
     div.export_fn = (_this) => {
         let graph_element = _this.querySelector("graph-table") as GraphElement;
 
+        // Ensure that if the data has not been set then use a default value
         return {
             _type: ComponentType.OutputTable,
             data: {
@@ -486,6 +621,7 @@ function createOutputTable(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for an output table
     div.import_fn = (_this, data: ExportedData) => {
         let graph_element = _this.querySelector("graph-table") as GraphElement;
 
@@ -499,6 +635,7 @@ function createOutputTable(div: DraggableComponentElement): void {
         _this.dataset.initial_1 = (data.initialY1) ?? "0";
         _this.dataset.initial_2 = data.initialY2 ?? "0";
 
+        // Evaluate the stored expressions for the output table
         graph_element.x_min = Expression.eval(_this.dataset.x_min, get_global_ctx());
         graph_element.x_max = Expression.eval(_this.dataset.x_max, get_global_ctx());
         graph_element.y_min = Expression.eval(_this.dataset.y_min, get_global_ctx());
@@ -509,58 +646,75 @@ function createOutputTable(div: DraggableComponentElement): void {
     }
 }
 
+/**
+ * Construct a motor
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * a motor
+ */
 function createMotor(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 2;
     div.height = 1;
+    // The class of the component used for rendering
     div.componentType = "motor";
     div.shouldLockCells = true;
     div.classList.add("motor");
 
-    div.outputRatio = 1;
-
     render(html`<motor-component style="width:100%;height:100%"></motor-component>`, div);
 
+    // Representation of the motor in the config
     type ExportedData = {
         top: number,
-        left: number,
-        reversed: boolean;
+        left: number
     };
 
+    // Define the function that is used when exporting a motor
     div.export_fn = (_this) => {
         return {
             _type: ComponentType.Motor,
             data: {
                 top: _this.top,
                 left: _this.left,
-                reversed: _this.outputRatio < 0,
             },
         };
     };
 
+    // Define the function that is used when importing data for a motor
     div.import_fn = (_this, data: ExportedData) => {
         _this.top = data.top;
         _this.left = data.left;
-        _this.outputRatio = (!data.reversed) ? 1 : (data.reversed ? -1 : 1);
     };
 }
 
+/**
+ * Construct a multiplier
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * a multiplier
+ */
 function createMultiplier(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 3;
     div.height = 2;
+    // The class of the component used for rendering
     div.componentType = "multiplier";
     div.shouldLockCells = true;
     div.classList.add("multiplier");
 
+    // Open the multiplier popup on mouseup
     div.addEventListener("mouseup", openMultiplierPopup);
 
     render(html`<multiplier-component style="width:100%;height:100%"></multiplier-component>`, div);
 
+    // Representation of the multiplier in the config
     type ExportedData = {
         top: number,
         left: number,
         factor: string,
     };
 
+    // Define the function that is used when exporting a multiplier
     div.export_fn = (_this) => {
         return {
             _type: ComponentType.Multiplier,
@@ -572,6 +726,7 @@ function createMultiplier(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for a multiplier
     div.import_fn = (_this, data: ExportedData) => {
         _this.top = data.top;
         _this.left = data.left;
@@ -579,21 +734,32 @@ function createMultiplier(div: DraggableComponentElement): void {
 
         const comp = _this.querySelector("multiplier-component")! as MultiplierComponentElement;
 
+        // Evaluate stored expressions
         comp.factor = Expression.eval(_this.dataset.factor, get_global_ctx());
 
     };
 }
 
+/**
+ * Construct a label
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * a label
+ */
 function createLabel(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 3;
     div.height = 1;
+    // The class of the component used for rendering
     div.componentType = "label";
     div.shouldLockCells = false;
 
     div.classList.add("label");
 
+    // Open the label popup on mouseup
     div.addEventListener("mouseup", openLabelPopup);
 
+    // Called to re-render the text of the label
     let render_p = () => {
         const para = div.querySelector("p") as HTMLParagraphElement;
         let align = "center";
@@ -608,10 +774,12 @@ function createLabel(div: DraggableComponentElement): void {
         }
     }
 
+    // Re-render the text on scroll and zoom
     machine.addEventListener("wheel", render_p);
     machine.addEventListener("touchmove", e => { if (e.touches.length == 2) render_p(); });
     render_p();
 
+    // Representation of the label in the config
     type ExportedData = {
         top: number,
         left: number,
@@ -621,6 +789,7 @@ function createLabel(div: DraggableComponentElement): void {
         _comment: string,
     };
 
+    // Define the function that is used when exporting a label
     div.export_fn = (_this) => {
         let p = _this.querySelector("p")!;
         return {
@@ -636,6 +805,7 @@ function createLabel(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for a label
     div.import_fn = (_this, data: ExportedData) => {
         _this.top = data.top;
         _this.left = data.left;
@@ -648,17 +818,27 @@ function createLabel(div: DraggableComponentElement): void {
     };
 }
 
+/**
+ * Construct a gear pair
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * an gear pair
+ */
 function createGearPair(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 1;
     div.height = 2;
+    // The class of the component used for rendering
     div.componentType = "gearPair";
     div.shouldLockCells = true;
     div.classList.add("gearPair");
 
+    // Open the gear pair popup on mouseup
     div.addEventListener("mouseup", openGearPairPopup);
 
     render(html`<gear-pair-component style="width:100%;height:100%"></gear-pair-component>`, div);
 
+    // Representation of the gear pair in the config
     type ExportedData = {
         top: number,
         left: number,
@@ -666,6 +846,7 @@ function createGearPair(div: DraggableComponentElement): void {
         outputRatio: number;
     };
 
+    // Define the function that is used when exporting a gear pair
     div.export_fn = (_this) => {
         const gear_pair = _this.querySelector("gear-pair-component") as GearPairComponentElement;
         return {
@@ -679,6 +860,7 @@ function createGearPair(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for a gear pair
     div.import_fn = (_this, data: ExportedData) => {
         const gear_pair = _this.querySelector("gear-pair-component") as GearPairComponentElement;
         _this.top = data.top;
@@ -688,20 +870,30 @@ function createGearPair(div: DraggableComponentElement): void {
     };
 }
 
+/**
+ * Construct a dial
+ *
+ * @param div The DraggableComponentElement that will be instantiated to represent
+ * a dial
+ */
 function createDial(div: DraggableComponentElement): void {
+    // The size of the component when rendered
     div.width = 1;
     div.height = 1;
+    // The class of the component used for rendering
     div.componentType = "dial";
     div.shouldLockCells = true;
     div.classList.add("dial");
 
     render(html`<dial-component style="width:100%;height:100%"></dial-component>`, div);
 
+    // Representation of the dial in the config
     type ExportedData = {
         top: number,
         left: number,
     };
 
+    // Define the function that is used when exporting a label
     div.export_fn = (_this) => {
         return {
             _type: ComponentType.Dial,
@@ -712,12 +904,20 @@ function createDial(div: DraggableComponentElement): void {
         };
     };
 
+    // Define the function that is used when importing data for a label
     div.import_fn = (_this, data: ExportedData) => {
         _this.top = data.top;
         _this.left = data.left;
     };
 }
 
+/**
+ * Find the tooltip used for every component
+ * If it doesnt exist then create and return it
+ * Otherwise return the found div
+ *
+ * @returns A div used for tooltips
+ */
 function createTooltipElement(): HTMLDivElement {
     let div = document.querySelector("#component-tooltip") as HTMLDivElement;
     if (div != undefined) return div;
@@ -735,17 +935,24 @@ function createTooltipElement(): HTMLDivElement {
 }
 
 
+/**
+ * Called when the mouse is hovering over a component
+ * If the component is illconfigured then display a relevant message
+ * If the component is a dial then configure the dials tooltip to correctly shows its full value
+ *
+ * @param e The mouse event passed from the event handler
+ */
 function mouseOver(e: MouseEvent): void {
     const component = e.currentTarget as DraggableComponentElement;
-    let componentTooltip = document.querySelector("#component-tooltip") as HTMLSpanElement | undefined;
+    let componentTooltip = createTooltipElement()
 
-    if (!componentTooltip) {
-        componentTooltip = createTooltipElement()
-    }
+    // The text of the tooltip
     let span = componentTooltip.querySelector("span")!;
 
     let end = true;
 
+    // Check if the component is illconfigured and set the span text to be a
+    // relevant message
     if (component.classList.contains("warning")) {
         end = false;
         span.textContent = "Component is missing required connections";
@@ -757,8 +964,11 @@ function mouseOver(e: MouseEvent): void {
         span.textContent = "A Shaft is being driven by two inputs";
     }
 
+    // Check the component type
     switch (component.componentType) {
         case "dial":
+            // If the dial is correctly configured then set the dials tooltip so the
+            // tooltip text is correctly set
             if (end) {
                 const dial = component.querySelector("dial-component")! as (DialComponentElement);
                 dial.tooltip = span;
@@ -787,18 +997,29 @@ function mouseOver(e: MouseEvent): void {
     document.querySelector("#machine")!.appendChild(componentTooltip);
 }
 
+/**
+ * Called when the mouse stops hovering over a component
+ * If that component had a tooltip then remove it
+ * If the component was a dial then clearup the dials tooltip
+ *
+ * @param e The mouse event passed from the event handler
+ */
 function mouseLeave(e: MouseEvent): void {
     const component = e.currentTarget as DraggableComponentElement;
-    let componentTooltip = document.querySelector("#component-tooltip") as HTMLSpanElement | undefined;
+    // Find the tooltip in the document
+    let componentTooltip = document.querySelector("#component-tooltip") as HTMLDivElement | undefined;
 
+    // If it doesn't exist then no cleanup is needed
     if (!componentTooltip) { return; }
 
     switch (component.componentType) {
         case "dial":
+            // Remove the tooltip from the dial
             const dial = component.querySelector("dial-component")! as (DialComponentElement);
             dial.tooltip = undefined;
             break;
     }
 
+    // Delete the tooltip from the document
     document.querySelector("#machine")?.removeChild(componentTooltip);
 }

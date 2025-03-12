@@ -14,22 +14,18 @@ elegant operation of this device, and help students to gain an intuitive underst
 of mathematical principles through the visualised behaviour.
 
 ## Setup Instructions
-Download the Repo and run the following command to build the website
+Download the Repo and run the following commands to build the website and run a test server
 ```shell
-> npm run build
-```
-
-To preview the website use
-```shell
-> npm preview
+> npm ci
+> npm run dev
 ```
 
 ## Team members
-- Aaron Danton:  agrd2@cam.ac.uk
-- Andy Zhu:      az453@cam.ac.uk
-- Hanzhang Shen: hs866@cam.ac.uk
-- Joseph Hunt:   jch204@cam.ac.uk
-- Simon Solca:   ss3075@cam.ac.uk
-- Sophie Ring:   sr2079@cam.ac.uk
+- Aaron Danton:  [email](mailto:agrd2%40cam.ac.uk) [github](https://github.com/Rylthos)
+- Andy Zhu:      [email](mailto:az453%40cam.ac.uk) [github](https://github.com/andyzhu23)
+- Hanzhang Shen: [email](mailto:hs866%40cam.ac.uk) [github](https://github.com/hanzhangshen03)
+- Joseph Hunt:   [email](mailto:jch204%40cam.ac.uk) [github](https://github.com/DrStormWalker)
+- Simon Solca:   [email](mailto:ss3075%40cam.ac.uk) [github](https://github.com/saimonyo)
+- Sophie Ring:   [email](mailto:sr2079%40cam.ac.uk) [github](https://github.com/sophiering)
 
 Client: Richard Pawson

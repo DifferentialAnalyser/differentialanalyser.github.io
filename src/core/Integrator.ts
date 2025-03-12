@@ -15,10 +15,10 @@ import { Shaft } from "./Shaft";
  */
 export class Integrator implements Device {
     id: number;
-    private output: Shaft;
-    private integrand: Shaft;
+    private output: Shaft | undefined;
+    private integrand: Shaft | undefined;
     private diskPosition: number;
-    private variableOfIntegration: Shaft;
+    private variableOfIntegration: Shaft | undefined;
     private readonly wheelRadius: number = 1;
     private reverse: boolean = false;
 
@@ -29,7 +29,7 @@ export class Integrator implements Device {
      * @param integrand The shaft that represents the integrand f(x).
      * @param output The output shaft that represents the angular speed of the wheel.
      */
-    constructor(id: number, variableOfIntegration: Shaft, integrand: Shaft, output: Shaft,
+    constructor(id: number, variableOfIntegration: Shaft | undefined, integrand: Shaft | undefined, output: Shaft | undefined,
         reverse: boolean,
         initialPosition: number) {
         this.id = id;
@@ -38,6 +38,10 @@ export class Integrator implements Device {
         this.variableOfIntegration = variableOfIntegration;
         this.reverse = reverse
         this.diskPosition = initialPosition;
+    }
+
+    shafts_defined(): boolean {
+        return !(!this.output || !this.integrand || !this.variableOfIntegration);
     }
 
     /**
@@ -54,19 +58,21 @@ export class Integrator implements Device {
      * @description This method calculates the angular speed of the wheel by integrating the input shafts.
     */
     update(dt: number = 1) {
+        if (!this.shafts_defined()) return;
+
         // Linear speed of the wheel = f(x) * dx.
-        this.diskPosition += this.integrand.get_rotation_rate();
-        let wheelLinearSpeed = this.variableOfIntegration.get_rotation_rate() * this.diskPosition;
+        this.diskPosition += this.integrand!.get_rotation_rate();
+        let wheelLinearSpeed = this.variableOfIntegration!.get_rotation_rate() * this.diskPosition;
         let wheelAngularSpeed = wheelLinearSpeed / this.wheelRadius;
         if (this.reverse) {
             wheelAngularSpeed = -wheelAngularSpeed
         }
-        this.output.set_rotation_rate(wheelAngularSpeed);
+        this.output?.set_rotation_rate(wheelAngularSpeed);
     }
 
     getID(): number { return this.id; }
 
-    getVariableIntegrandShaft(): Shaft {
+    getVariableIntegrandShaft(): Shaft | undefined {
         return this.variableOfIntegration;
     }
 

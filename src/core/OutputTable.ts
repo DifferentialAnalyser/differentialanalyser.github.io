@@ -14,15 +14,15 @@ import { Device } from "./Device";
  */
 export class OutputTable implements Device {
   id: number;
-  x: Shaft;
-  y1: Shaft;
+  x: Shaft | undefined;
+  y1: Shaft | undefined;
   y2: Shaft | undefined;
   xHistory: number[];
   y1History: number[];
   y2History: number[] | undefined;
   swap: boolean;
-  constructor(id: number, x: Shaft, y1: Shaft, initialY1: number, y2: Shaft, initialY2: number);
-  constructor(id: number, x: Shaft, y1: Shaft, initialY1: number);
+  constructor(id: number, x: Shaft | undefined, y1: Shaft | undefined, initialY1: number, y2: Shaft | undefined, initialY2: number);
+  constructor(id: number, x: Shaft | undefined, y1: Shaft | undefined, initialY1: number);
 
   /**
    * @constructor
@@ -33,7 +33,7 @@ export class OutputTable implements Device {
    * @param y2 The shaft of the second y axis 
    * @param initialY2 The initial position of the second y axis
    */
-  constructor(id: number, x: Shaft, y1: Shaft, initialY1: number, y2?: Shaft, initialY2?: number) {
+  constructor(id: number, x: Shaft | undefined, y1: Shaft | undefined, initialY1: number, y2?: Shaft, initialY2?: number) {
     this.id = id;
     this.x = x;
     this.xHistory = [0];
@@ -44,6 +44,10 @@ export class OutputTable implements Device {
       this.y2 = y2;
       this.y2History = [initialY2];
     }
+  }
+
+  shafts_defined() {
+    return !(!this.x || !this.y1);
   }
 
   /**
@@ -60,11 +64,13 @@ export class OutputTable implements Device {
    * @description Add the current position to history array for UI
    */
   update(dt: number = 1): void {
+    if (!this.shafts_defined()) return;
+
     // push the new x value on
-    this.xHistory.push(this.x.rotation);
+    this.xHistory.push(this.x!.rotation);
 
     // push the new y value on
-    this.y1History.push(this.y1.rotation + this.y1History[0]);
+    this.y1History.push(this.y1!.rotation + this.y1History[0]);
 
     // check if y2 exists and push if needed
     if (this.y2 != undefined && this.y2History != undefined) {
@@ -72,5 +78,5 @@ export class OutputTable implements Device {
     }
   }
 
-  getID() : number { return this.id; }
+  getID(): number { return this.id; }
 }

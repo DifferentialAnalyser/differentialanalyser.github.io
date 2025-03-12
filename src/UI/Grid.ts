@@ -10,6 +10,7 @@ export let GRID_SIZE: number = 50;
 const HIGHLIGHT_CELL: string = "highlighted-cell";
 
 // String is json version of Vector2
+// Representation of the current locked cells and highlighted cells
 let lockedCells: Set<string> = new Set<string>;
 let currentCells: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>;
 
@@ -28,7 +29,12 @@ const draggingStartLimit: number = 10.;
 const sensitivity: number = 1.0;
 const scroll_sensitivity: number = 0.02;
 
-// Create a cell div at a given position in the world
+/**
+ * Create a cell at a given row and column in the world
+ *
+ * @param col The column in which the div should be created
+ * @param row The row in which the div should be created
+ */
 function createCell(col: number, row: number): HTMLDivElement {
   const comp = document.createElement("div");
 
@@ -49,13 +55,16 @@ function createCell(col: number, row: number): HTMLDivElement {
   return comp;
 }
 
-// Setup the event callbacks needed for screen dragging
+/**
+ * Setup the event callbacks that are needed for screen dragging
+ */
 export function setupScreenHooks(): void {
+  // Disable screen wide context menu
   document.addEventListener("contextmenu", e => {
-    // Disable screen wide context menu
     e.preventDefault();
   })
 
+  // If we are able to start dragging then set flags
   machine.addEventListener("mousedown", e => {
     if (!canStartScreenDragging && !startedDragging) {
       initialDragLocation = new Vector2(e.clientX, e.clientY);
@@ -66,6 +75,7 @@ export function setupScreenHooks(): void {
     }
   })
 
+  // If we are currently dragging then stop
   document.addEventListener("mouseup", e => {
     if (e.button == mouseButton) {
       canStartScreenDragging = false;
@@ -99,28 +109,32 @@ export function setupScreenHooks(): void {
     setScreenOffset(new Vector2(e.clientX - offset_x, e.clientY - offset_y));
   })
 
-  // Touchscreen has been started
+  // Touches on the touchscreen
   machine.addEventListener("touchstart", e => {
     switch (e.touches.length) {
       case 1:
+        // Only a single point so start screen dragging
         initialDragLocation = new Vector2(e.touches[0].clientX, e.touches[0].clientY);
         canStartScreenDragging = true;
         break;
       case 2:
+        // Two touch points so setup the initial positions
         touches[e.touches[0].identifier] = e.touches[0];
         touches[e.touches[1].identifier] = e.touches[1];
         break;
     }
   })
 
-  // The touchscreen points have moved, either drag or resize the screen
+  // The touchscreen points have moved
   machine.addEventListener("touchmove", e => {
     switch (e.touches.length) {
-      case 1: // Move
+      case 1:
+        // Touchpoint has moved so drag the screen
         dragScreen(e.touches[0].clientX, e.touches[0].clientY);
         e.preventDefault();
         break;
-      case 2: // Resize
+      case 2:
+        // Touchpoints have moved so calculate the difference and scale accordingly
         const prevTouch0 = touches[e.touches[0].identifier];
         const prevTouch1 = touches[e.touches[1].identifier];
         const touch0 = e.touches[0];
@@ -167,7 +181,7 @@ export function setupScreenHooks(): void {
     }
   }, { passive: false });
 
-  // Touchpoints ended
+  // Touchpoints ended so stop dragging
   machine.addEventListener("touchend", e => {
     switch (e.touches.length) {
       case 0:
@@ -178,21 +192,37 @@ export function setupScreenHooks(): void {
   })
 }
 
+/**
+ * @returns The current screen offset
+ */
 export function getScreenOffset(): Vector2 {
   return screenOffset;
 }
 
+/**
+ * Reset the screen offset and update all components
+ */
 export function resetScreenOffset(): void {
   screenOffset = new Vector2(0, 0);
   updateComponentPositions();
 }
 
+/**
+ * Set the screen offset and update all components
+ *
+ * @param v The new screen offset
+ */
 export function setScreenOffset(v: Vector2): void {
   screenOffset = v;
   updateComponentPositions();
 }
 
-// Convert from the screen coordinates (current visible area) to world coordinates (From 0,0 in the grid)
+/**
+ * Convert from a screen position to the world position
+ *
+ * @param pos The screen position that needs to be converted
+ * @returns The world position
+ */
 export function screenToWorldPosition(pos: Vector2): Vector2 {
   let ret = new Vector2(0, 0);
   ret.x = pos.x - screenOffset.x;
@@ -202,6 +232,12 @@ export function screenToWorldPosition(pos: Vector2): Vector2 {
 }
 
 // Convert from world coordinates (0,0 in the grid) to the screen coordinates.
+/**
+ * Convert from world coordinates to screen coordinates
+ *
+ * @param pos The world position that should be converted into screen position
+ * @returns The screen position
+ */
 export function worldToScreenPosition(pos: Vector2): Vector2 {
   let ret = new Vector2(0, 0);
   ret.x = pos.x + screenOffset.x;
@@ -210,13 +246,22 @@ export function worldToScreenPosition(pos: Vector2): Vector2 {
   return ret;
 }
 
-// Move all the components around based on the new x and y
+/**
+ * If permitted, change the screen offset to show dragging of the screen
+ *
+ * @param x The current mouse X
+ * @param y The current mouse Y
+ */
 function dragScreen(x: number, y: number): void {
+  // If we cannot start dragging then return
   if (!canStartScreenDragging) return;
 
+  // Close any popups that are open and update the position of shaft arrows
   updateArrows();
   closeAllPopups();
 
+  // If we are not currently dragging then check if we have moved sufficiently 
+  // far from the initial position to then start dragging
   if (!screenDragging) {
     let dragDistance = Math.pow(x - initialDragLocation.x, 2.) + Math.pow(y - initialDragLocation.y, 2.);
     if (dragDistance < Math.pow(draggingStartLimit, 2.)) return;
@@ -227,21 +272,24 @@ function dragScreen(x: number, y: number): void {
     previousY = y;
   }
 
-  if (screenDragging) {
-    let diffX = (x - previousX) * sensitivity;
-    let diffY = (y - previousY) * sensitivity;
+  // Calculate the difference between the current position and previous position
+  // and update the offset 
+  let diffX = (x - previousX) * sensitivity;
+  let diffY = (y - previousY) * sensitivity;
 
-    screenOffset.x += diffX
-    screenOffset.y += diffY;
+  screenOffset.x += diffX
+  screenOffset.y += diffY;
 
-    updateComponentPositions();
+  // Update all component positions
+  updateComponentPositions();
 
-    previousX = x;
-    previousY = y;
-  }
+  previousX = x;
+  previousY = y;
 }
 
-// Update the position of all placed components
+/**
+ * Update the position of all placed components
+ */
 function updateComponentPositions(): void {
   let components = document.getElementsByClassName("placed-component");
   for (let i = 0; i < components.length; i++) {
@@ -252,8 +300,18 @@ function updateComponentPositions(): void {
   }
 }
 
+/**
+ * @returns If we are currently dragging the screen
+ */
 export function currentlyDragging() { return screenDragging; }
 
+/**
+ * Apply a function to all cells located between topLeft and topLeft + size
+ *
+ * @param topLeft The top left cell of the range that should be checked
+ * @param size The size of the rectangle over all cells
+ * @param func The function that should be applied to each function
+ */
 // Perform a function all all cells between (topleft.x, topleft.y) -> (topleft.x + size.x, topleft.y + size.y)
 function mapCells(topLeft: Vector2, size: Vector2, func: (e: Vector2) => void): void {
   for (let y = 0; y < size.y; y++) {
@@ -265,7 +323,13 @@ function mapCells(topLeft: Vector2, size: Vector2, func: (e: Vector2) => void): 
   }
 }
 
-// Check if all cells in the range topleft->topleft+size are not locked
+/**
+ * Check if none of the cells located between topLeft and topLeft + size have been locked
+ * @param topLeft The top left cell of the range that should be checked
+ * @param size The size of the rectangle over the range of cells
+ *
+ * @returns Whether all the cells in the region are unlocked or not
+ */
 export function allValid(topLeft: Vector2, size: Vector2): boolean {
   let valid: boolean = true;
   const func = (pos: Vector2) => {
@@ -279,7 +343,13 @@ export function allValid(topLeft: Vector2, size: Vector2): boolean {
   return valid;
 }
 
-// Check if any shaft of the same type is already in a cell in a given range
+/**
+ * Check if any shaft of the same type (horizontal or vertical) is in the given range
+ *
+ * @param topLeft The top left cell of the region
+ * @param shaft The shaft that should be used to check against
+ * @returns If another shaft of the same type overlaps the provided shaft
+ */
 export function validShaft(topLeft: Vector2, shaft: DraggableComponentElement): boolean {
   const size = shaft.getSize();
   if (shaft.componentType == "vShaft") {
@@ -291,7 +361,13 @@ export function validShaft(topLeft: Vector2, shaft: DraggableComponentElement): 
   }
 }
 
-// Lock/unlock all the cells in a given range
+/**
+ * Set all the cells in a region to either be locked or unlocked
+ *
+ * @param topLeft The top left cell of the region
+ * @param size The size of the region
+ * @param fill Whether or not the cells should be locked or unlocked
+ */
 export function setCells(topLeft: Vector2, size: Vector2, fill: boolean): void {
   const func = (pos: Vector2) => {
     const posStr = JSON.stringify(pos);
@@ -310,6 +386,13 @@ export function setCells(topLeft: Vector2, size: Vector2, fill: boolean): void {
 }
 
 // Create/delete cells in a given range
+/**
+ * Create or delete highlight cells in a provided range
+ *
+ * @param topLeft The top left cell of the region
+ * @param size The size of the region
+ * @param highlight Whether or not the cells in the region should be created or deleted
+ */
 export function highlightHoveredCells(topLeft: Vector2, size: Vector2, highlight: boolean): void {
   mapCells(topLeft, size, (pos: Vector2) => {
     const posStr = JSON.stringify(pos);
@@ -327,7 +410,13 @@ export function highlightHoveredCells(topLeft: Vector2, size: Vector2, highlight
   });
 }
 
-// Check if any of the cells match a predicate
+/**
+ * Check if any cells located below shafts match a predicate
+ *
+ * @param shaftClass The type of the shaft (Horizontal or vertical)
+ * @param checkingShaft The shaft that is being used to see if it overlaps
+ * @param predicate The predicate used to check the overlap
+ */
 function rangeContainsShaft(shaftClass: string, checkingShaft: DraggableComponentElement, predicate: (pos: Vector2, size: Vector2) => boolean): boolean {
   const shafts = document.querySelectorAll(`.${shaftClass}`);
 
@@ -340,7 +429,13 @@ function rangeContainsShaft(shaftClass: string, checkingShaft: DraggableComponen
   return false;
 }
 
-// Check if a given range contains a horizontal shaft
+/**
+ * Check if a given range contains any cells below a different horizontal shaft
+ * 
+ * @param pos The top left cell of the region
+ * @param size The size of the region
+ * @param shaft The shaft that is being checked against overlap
+ */
 export function rangeContainsHShaft(pos: Vector2, size: Vector2, shaft: DraggableComponentElement): boolean {
   return rangeContainsShaft("hShaft", shaft, (sP, sS) => {
     return (sP.y == pos.y) && (
@@ -349,7 +444,13 @@ export function rangeContainsHShaft(pos: Vector2, size: Vector2, shaft: Draggabl
   });
 }
 
-// Check if a given range contains a vertical shaft
+/**
+ * Check if a given range contains any cells below a different vertical shaft
+ * 
+ * @param pos The top left cell of the region
+ * @param size The size of the region
+ * @param shaft The shaft that is being checked against overlap
+ */
 export function rangeContainsVShaft(pos: Vector2, size: Vector2, shaft: DraggableComponentElement): boolean {
   return rangeContainsShaft("vShaft", shaft, (sP, sS) => {
     return (sP.x == pos.x) && (

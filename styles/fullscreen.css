@@ -13,10 +13,13 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   opacity: 100%;
-  min-width: 50%;
-  width: 50%;
+  min-width: 70%;
+  width: 70%;
+
+  max-height: 80vh;
+
+  transform: translate(-50%, -50%);
 }
 
 #fullscreen .content-background {
@@ -42,11 +45,17 @@
   flex-direction: column;
   box-sizing: border-box;
   padding: var(--gap-size);
-  gap: calc(2.0 * var(--gap-size));
+  gap: calc(5.0 * var(--gap-size));
   background: var(--colour-accent2);
   border-radius: var(--border-radius);
   text-align: center;
   width: 100%;
   height: 100%;
   font-size: 1.5rem;
+
+  overflow-y: scroll;
+}
+
+#about .content span {
+  text-align: left;
 }

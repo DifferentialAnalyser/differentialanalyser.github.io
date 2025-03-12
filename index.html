@@ -23,25 +23,23 @@
                     <div class="content">
                         <label>About</label>
                         <span>
-                            This website was designed to be a simulation of a differential analyser,
-                            mechanical machines that were designed to solve differential equations
-                            through integration. The components implemented in this simulation are
-                            based on the original paper by Vannevar Bush, released in 1931. All components
-                            are implemented to be similar to how the physical machines would have functioned.
+                        Before modern computers, differential analysers used mechanical wheel-and-disk mechanisms to solve differential equations through integration. These analogue computers were used for a wide range of problems, such as projectile trajectories, fluid dynamics, and weather systems. Today, there are very few original and operational differential analysers, and only half of the "Manchester Machine" analyser (built in 1935) is on display at the Science and Industry Museum in Manchester.
                         </span>
 
                         <span>
-                            More information can be found  <a href="https://en.wikipedia.org/wiki/Differential_analyser" target="_blank">here</a>
+                        This website was designed to be a customisable simulation of an original differential analyser. The components we've provided are based on Vannevar Bush's 1931 Differential Analyzer paper, which showed that the differential analyser could be used for a wide range of practical purposes. All components are implemented to be similar to how the physical machines would have functioned, but having this simulation allows for more complex machines as seen in the examples we provide.
                         </span>
 
                         <span>
-                            This website was constructed over 7 weeks, between the dates of 23/01/25 and 13/03/25, by Aaron Danton,
-                            Andy Zhu, Hanzhang Shen, Joseph Hunt, Simon Solca, and Sophie Ring as part of Cambridge's
-                            Computer Science IB group project for the client, Richard Pawson.
+                        For more information, refer to the Wikipedia page for <a href="https://en.wikipedia.org/wiki/Differential_analyser" target="_blank">differential analysers</a> and Vannevar Bush's 1931 <a href="https://worrydream.com/refs/Bush_1931_-_The_Differential_Analyzer.pdf" target="_blank">paper</a>.
                         </span>
 
                         <span>
-                            The source code can be found <a href="https://github.com/DifferentialAnalyser/differentialanalyser.github.io" target="_blank">here</a>
+                        This website was developed over the course of seven weeks, between 23/01/25 - 13/03/25, by Aaron Danton, Andy Zhu, Hanzhang Shen, Joseph Hunt, Simon Solca, and Sophie Ring, as part of the University of Cambridge's Computer Science IB Group Project, for our client, Richard Pawson. Thank you Richard!
+                        </span>
+
+                        <span>
+                        Find the source code <a href="https://github.com/DifferentialAnalyser/differentialanalyser.github.io" target="_blank">here!</a>
                         </span>
                     </div>
                 </div>
@@ -54,28 +52,22 @@
                         <label>Help</label>
                         <div style="display:flex;flex-direction: column;gap:var(--gap-size)">
                             <p>Basic controls</p>
-                            <span>
-                                The machine can be zoomed by scrolling and panned by pressing and holding any mouse button
-                            </span>
-                            <span>
-                                Components can be dragged from the side panel into the "machine". While in the machine
-                                every component can be dragged.
-                            </span>
-
-                            <span>
-                                Some components feature a right click popup menu allowing the configuration to be changed.
-                            </span>
-
-                            <span>
-                                Shafts can be selected and resized using the arrows
-                            </span>
-
-                            <span>
-                                If a component is transparent/yellow, then it is not yet fully configured, and
-                                is missing atleast one of its required inputs.
-                                If the machine turns red, then there are some conflicting components that need to be resolved
-                            </span>
-
+                            <ul style="text-align: left;">
+                                <li>Pan by clicking and dragging on the blank canvas</li>
+                                <li>Zoom in and out by scrolling</li>
+                                <li>Press 'R' on your keyboard to recenter your differential analyser</li>
+                                <li>Drag components from the side panel into your differential analyser and move connected components around</li>
+                                <li>Delete components by dragging them back to the components sidebar</li>
+                                <li>Click and resize vertical and horizontal shafts using the arrows on both ends</li>
+                                <li>Right-click on certain components to change their configurations</li>
+                                <li>Open the drop-down menu in the components sidebar labelled "Examples" to experiment with the existing examples we have created!</li>
+                            </ul>
+                            
+                            <p>Errors and Warnings</p>
+                            <ul style="text-align: left;">
+                                <li>If a component is highlighted in yellow, then it is not fully configured and is missing at least one of its required inputs</li>
+                                <li>If your differential analyser turns red, then there are some conflicting components that need to be resolved</li>
+                            </ul>
                         </div>
                     </div>
                 </div>

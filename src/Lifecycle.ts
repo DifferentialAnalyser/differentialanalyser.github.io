@@ -16,18 +16,21 @@ import Expression from "./expr/Expression";
 import { DialComponentElement } from "./UI/DialComponentElement.ts";
 import { CustomVariablesElement } from "./UI/CustomVariablesElement.ts";
 import { ConfigError } from "./ConfigError.ts";
-import { resetIDs } from "./UI/Components.ts";
+import { regenerateIDs, resetIDs } from "./UI/Components.ts";
 import { IntegratorComponentElement } from "./UI/IntegratorComponent.ts";
 import { Integrator } from "./core/Integrator.ts";
 import { Multiplier } from "./core/Multiplier.ts";
 import { MultiplierComponentElement } from "./UI/MultiplierComponentElement.ts";
+import { ShaftElement } from "./UI/ShaftElement.ts";
 
+// The current running state
 enum State {
     Paused,
     Running,
     Stopped,
 }
 
+// Life of example names to the config
 const EXAMPLES_MAP: { [k: string]: Config } = {
     damped_oscillation: DAMPED_OSCILLATION_EXAMPLE,
     freefall: FREE_FALL_EXAMPLE,
@@ -40,6 +43,11 @@ const EXAMPLES_MAP: { [k: string]: Config } = {
     double_pendulum: DOUBLE_PENDULUM_EXAMPLE,
 };
 
+/**
+ * Get the global context for global variables
+ *
+ * @returns A mapping from variables to values
+ */
 export function get_global_ctx(): { [k: string]: number } {
     const custom_variables = document.querySelector("custom-variables") as CustomVariablesElement;
     if (!custom_variables) return {}
@@ -47,10 +55,11 @@ export function get_global_ctx(): { [k: string]: number } {
     return custom_variables.getValues();
 }
 
+// A Global constant representing if the simulation is actively running
 export let isRunning: Boolean = false;
 
 /**
- * represents the lifecycle of the application and when certain code should be called.
+ * Represents the lifecycle of the application and when certain code should be called.
  */
 export class Lifecycle {
     /**
@@ -172,6 +181,7 @@ export class Lifecycle {
             }
         });
 
+        // Setupp the file loader to only accept jsons
         this.config_file_input = document.createElement("input");
         this.config_file_input.accept = ".json";
         this.config_file_input.type = "file";
@@ -184,6 +194,7 @@ export class Lifecycle {
         this.export_button.addEventListener("click", _ => this._handle_export_file());
         this.clear_button.addEventListener("click", _ => this._clear_components());
 
+        // Clear all the output tables and reset the function tables
         this.clear_output_tables_button.addEventListener("click", _ => {
             (document.querySelectorAll(".outputTable > graph-table")! as NodeListOf<GraphElement>).forEach((x: GraphElement) => {
                 this.reset_output_table(x);
@@ -205,6 +216,7 @@ export class Lifecycle {
         this.pause_button.addEventListener("click", _ => this.pause());
         this.stop_button.addEventListener("click", _ => { this.loop_check.checked = false; this.stop() });
 
+        // Change the current fullscreen view depending on what button was pressed
         this.fullscreen.addEventListener("click", _ => {
             this.fullscreen.style.visibility = "hidden";
             this.about_screen.style.visibility = "hidden";
@@ -233,7 +245,7 @@ export class Lifecycle {
             this.constants_screen.style.visibility = "visible";
         })
 
-
+        // Minimize the side button
         this.minimize_button.addEventListener("click", _ => {
             let user_control = document.querySelector("#user-control")! as HTMLDivElement;
 
@@ -254,8 +266,10 @@ export class Lifecycle {
 
         });
 
+        // Prevent the fullscreen view from closing if clicking in the center view
         document.querySelectorAll("#fullscreen .center").forEach(x => x.addEventListener("click", e => e.stopImmediatePropagation()));
 
+        // Check the current DA when an update occurs
         document.addEventListener("placecomponent", () => this.check_da());
 
         window.addEventListener("keydown", e => {
@@ -281,6 +295,9 @@ export class Lifecycle {
         this.resolveSetupCompleted();
     }
 
+    /**
+     * Handle key presses
+     */
     private _handle_keydown(e: KeyboardEvent) {
         switch (e.key) {
             case 'Z':
@@ -344,6 +361,9 @@ export class Lifecycle {
         this.fitMachine();
     }
 
+    /**
+     * Place the center of the current configuration into the center of the screen
+     */
     fitMachine(): void {
         if (this.placedComponents.length > 0) {
             let top = Number.POSITIVE_INFINITY;
@@ -365,10 +385,17 @@ export class Lifecycle {
         }
     }
 
+    /**
+     * Export the current machine
+     */
     public exportState(): Config {
+        regenerateIDs();
         return toConfig()[0];
     }
 
+    /**
+     * Clear all the components from the screen
+     */
     private _clear_components(): void {
         UNDO_SINGLETON.push();
         resetIDs();
@@ -379,6 +406,9 @@ export class Lifecycle {
         }
     }
 
+    /**
+     * Handle the configuration file 
+     */
     private _handle_export_file(): void {
         let config = this.exportState();
 
@@ -392,6 +422,9 @@ export class Lifecycle {
         URL.revokeObjectURL(link.href);
     }
 
+    /**
+     * Handle importing a file
+     */
     private _handle_import_file(): void {
         let file = this.config_file_input.files?.[0];
         if (file === null || file === undefined) {
@@ -412,6 +445,9 @@ export class Lifecycle {
         }
     }
 
+    /**
+     * Change the selected example
+     */
     change_example(e: Event): void {
         const option = e.target as HTMLOptionElement;
         const config = EXAMPLES_MAP[option.value]!;
@@ -420,9 +456,13 @@ export class Lifecycle {
         this.stop();
     }
 
+    /**
+     * Stop the simulation
+     */
     stop(): void {
         this.state = State.Stopped;
 
+        // If the simulation is set to loop the rerun it
         if (this.loop_check.checked) {
             this.run();
             return;
@@ -441,6 +481,9 @@ export class Lifecycle {
         isRunning = false;
     }
 
+    /**
+     * Pause the simulation
+     */
     pause(): void {
         if (this.state !== State.Running) {
             console.warn(`Tried to pause application when it was not running.\nState was ${this.state}`);
@@ -455,6 +498,9 @@ export class Lifecycle {
         this.examples_select.disabled = false;
     }
 
+    /**
+     * Unpause the simulation
+     */
     unpause(): void {
         if (this.state !== State.Paused) {
             console.warn(`Tried to unpause application when it was not paused.\nState was ${this.state}`);
@@ -468,6 +514,9 @@ export class Lifecycle {
         this.examples_select.disabled = true;
     }
 
+    /**
+     * Start the simulation
+     */
     run(): void {
         if (this.state !== State.Stopped) {
             console.warn(`Tried to run application when it was not stopped.\nState was ${this.state}`);
@@ -498,6 +547,7 @@ export class Lifecycle {
         const step_period = Number(this.step_period_input.value);
         const get_motor_speed = () => Number(this.motor_speed_input.value);
 
+        // Reset all the function tables
         simulator.components.filter(x => x instanceof FunctionTable).forEach((x: FunctionTable) => {
             const function_table_element = document.querySelector(`#component-${x.id} > graph-table`) as GraphElement;
 
@@ -506,6 +556,7 @@ export class Lifecycle {
             x.x_position = 0;
         });
 
+        // Reset all the output tables
         simulator.outputTables.forEach(x => {
             const table = document.querySelector(`#component-${x.id} > graph-table`) as GraphElement;
             table.gantry_x = 0;
@@ -516,18 +567,20 @@ export class Lifecycle {
             }
         })
 
+        // Reset all the dials
         const dials = document.querySelectorAll(".dial") as NodeListOf<DraggableComponentElement>;
         dials.forEach(dial => {
             (dial.querySelector("dial-component")! as DialComponentElement).count = 0
         })
 
+        // Reset the animation values of the integrator
         for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
             const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
             const uicomp = integrator.querySelector("integrator-component")! as IntegratorComponentElement;
             uicomp.set_value(corecomp.getDiskPosition());
-            uicomp.renormalize();
         }
 
+        // Reset the animation values of the multiplier
         for (let corecomp of simulator.components.filter(x => x instanceof Multiplier)) {
             const multiplier = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
             const uicomp = multiplier.querySelector("multiplier-component")! as MultiplierComponentElement;
@@ -538,6 +591,7 @@ export class Lifecycle {
         let elapsed = 0;
         let steps_taken = 0;
 
+        // Run every frame
         this._on_frame = (delta: number) => {
             elapsed += delta;
 
@@ -549,6 +603,7 @@ export class Lifecycle {
                 simulator.step();
             }
 
+            // Update all output tables
             for (let out of simulator.outputTables) {
                 let x = out.xHistory;
                 let y1 = out.y1History;
@@ -579,7 +634,7 @@ export class Lifecycle {
                 }
             }
 
-            // TODO: Improve this code
+            // Find the shaft below a dial and set the dials rotation to that shafts
             const dials = document.querySelectorAll(".dial") as NodeListOf<DraggableComponentElement>;
             for (let dial of dials) {
                 const comp = dial.querySelector("dial-component")! as DialComponentElement;
@@ -591,23 +646,34 @@ export class Lifecycle {
                 if (shaft_id != null) {
                     comp.count = simulator.shafts.filter(p => { return p.id == shaft_id })[0].rotation;
                 }
+
+                simulator.shafts.forEach(x => { if (x.id == shaft_id) comp.rotation = x.rotation });
             }
 
+            // For every integrator update the animation values to those of the connected shafts
             for (let corecomp of simulator.components.filter(x => x instanceof Integrator)) {
                 const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
                 const uicomp = integrator.querySelector("integrator-component")! as IntegratorComponentElement;
-                let pointpos = corecomp.getVariableIntegrandShaft().rotation;
-                uicomp.theta = 2 * Math.PI * pointpos;
+                if (corecomp.getVariableIntegrandShaft() !== undefined) {
+                    let pointpos = corecomp.getVariableIntegrandShaft()!.rotation;
+                    uicomp.theta = 2 * Math.PI * pointpos;
+                }
                 uicomp.set_value(corecomp.getDiskPosition());
             }
 
+            // For every multiplier update the animation values to those of the connected shafts
             for (let corecomp of simulator.components.filter(x => x instanceof Multiplier)) {
                 const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
                 const uicomp = integrator.querySelector("multiplier-component")! as MultiplierComponentElement;
                 uicomp.factor = corecomp.getFactor();
-                uicomp.set_value(corecomp.getInputShaft().rotation);
+                if (corecomp.getInputShaft() !== undefined) {
+                    uicomp.set_value(corecomp.getInputShaft()!.rotation);
+                }
             }
 
+            // Update the current gantry position of the function tables
+            // End the simulation if they go off the left or right and are not set to be
+            // lookup tables
             for (let comp of simulator.components.filter(x => x instanceof FunctionTable)) {
                 const table = document.querySelector(`#component-${comp.id} > graph-table`)! as GraphElement;
                 table.gantry_x = comp.x_position;
@@ -620,11 +686,14 @@ export class Lifecycle {
         };
     }
 
+    /**
+     * Check the configuration of the differential analyser
+     */
     public check_da(): void {
         let [config, unfinished_components] = toConfig();
         let no_motor = false;
         let components = document.querySelectorAll(".placed-component") as NodeListOf<DraggableComponentElement>;
-        components.forEach(x => x.classList.remove("warning"));
+        components.forEach(x => x.classList.remove("warning", "unconnected", "error"));
         unfinished_components.forEach(x => {
             const component = document.querySelector(`#component-${x}`) as DraggableComponentElement;
             if (component.componentType === "motor") {
@@ -678,6 +747,9 @@ export class Lifecycle {
         }
     }
 
+    /**
+     * Reset an output table
+     */
     private reset_output_table(table: GraphElement): void {
         table.mutate_data_set("d1", points => { points.splice(0, points.length); }, true);
         table.mutate_data_set("d2", points => { points.splice(0, points.length); }, true);

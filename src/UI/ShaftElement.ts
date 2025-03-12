@@ -26,7 +26,6 @@ export class ShaftElement extends LitElement {
   render() {
     let parent = this.parentElement as DraggableComponentElement;
 
-
     let width = parent.width * (this.horizontal ? 50 : 25);
     let height = parent.height * (this.horizontal ? 25 : 50);
 
@@ -51,12 +50,6 @@ export class ShaftElement extends LitElement {
         />
       </svg>`;
   }
-  //   <path
-  //     d="
-  //       M${left} ${top}
-  //       ${this.horizontal ? "H" : "V"}${right} ${bottom}
-  //     "
-  // />
 }
 
 declare global {

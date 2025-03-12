@@ -78,47 +78,79 @@ export class DraggableComponentElement extends LitElement {
   @property({ type: Number })
   outputRatio: number = 1;
 
+  /**
+   * Store a function that can be called to export a relevant configuration for the component
+   */
   export_fn: (_this: DraggableComponentElement) => { _type: ComponentType, data: any } = () => ({ _type: ComponentType.HShaft, data: {} });
 
+  /**
+   * Store a function that can be called to import relevant configuration from a JSON object
+   */
   import_fn: (_this: DraggableComponentElement, obj: any) => void = (_obj) => { };
 
+  /**
+   * Called when the object is first created
+   */
   connectedCallback(): void {
     super.connectedCallback();
 
+    // Add a event handler to allow for the component to be dragged
     this.addEventListener("mousedown", pickup, { capture: true });
   }
 
+  /**
+   * @returns The size of the component in grid cells
+   */
   getSize(): Vector2 {
     return new Vector2(this.width, this.height);
   }
 
+  /**
+   * @returns The size of the component in screen space
+   */
   getScreenSize(): Vector2 {
     return new Vector2(this.width * GRID_SIZE, this.height * GRID_SIZE);
   }
 
+  /**
+   * @returns The grid position of the component
+   */
   getPosition(): Vector2 {
     return new Vector2(this.left, this.top);
   }
 
+  /**
+   * @returns The screen space position of the component
+   */
   getScreenPosition(): Vector2 {
     return new Vector2(this.renderLeft, this.renderTop);
   }
 
+  /**
+   * Called when any of the stored properties are modified
+   *
+   * @param changedProperties A list of the changed properties
+   */
   updated(changedProperties: PropertyValues) {
     if (changedProperties !== undefined) {
-      if ((changedProperties.has("top") || changedProperties.has("left")) && !(changedProperties.has("renderLeft") || changedProperties.has("renderRight"))) {
+      // If the changed properites are defined and the top/left has been changed but not renderLeft/renderTop
+      // then recalculate renderLeft and renderTop
+      if ((changedProperties.has("top") || changedProperties.has("left")) && !(changedProperties.has("renderRight") || changedProperties.has("renderLeft"))) {
         let pos = worldToScreenPosition(new Vector2(this.left * GRID_SIZE, this.top * GRID_SIZE));
         this.renderLeft = pos.x;
         this.renderTop = pos.y;
       }
     }
 
+    // Update the component size to represent the possibly new size
     this.style.width = `${this.width * GRID_SIZE}px`;
     this.style.height = `${this.height * GRID_SIZE}px`;
 
+    // Update the component render position to the possibly new render position
     this.style.top = `${this.renderTop}px`;
     this.style.left = `${this.renderLeft}px`;
 
+    // If an offset is defined then resize the underlying div
     const offset = lookupTable[this.componentType as string];
     if (offset) {
       this.style.left = `${this.renderLeft + offset[0] * GRID_SIZE}px`
@@ -128,10 +160,16 @@ export class DraggableComponentElement extends LitElement {
     }
   }
 
+  /**
+   * @returns The exported config
+   */
   export(): { _type: ComponentType, data: any } {
     return this.export_fn(this);
   }
 
+  /**
+   * @param obj The Obj that data should be taken from and then imported
+   */
   import(obj: any): void {
     this.import_fn(this, obj)
   }

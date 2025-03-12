@@ -13,10 +13,10 @@ import { Shaft } from "./Shaft";
  * @implements Device
  */
 export class Multiplier implements Device {
-    private output: Shaft;
+    private output?: Shaft;
     private factor: number;
     private multiplicand_shaft?: Shaft;
-    private input: Shaft;
+    private input?: Shaft;
     private previous_value: number;
     id: number;
 
@@ -28,7 +28,7 @@ export class Multiplier implements Device {
      * @param output The shaft which the output goes to
      * @param factor The factor of multiplication
      */
-    constructor(id: number, input: Shaft, output: Shaft, factor: number, multiplicand_shaft: Shaft | undefined = undefined) {
+    constructor(id: number, input: Shaft | undefined, output: Shaft | undefined, factor: number, multiplicand_shaft: Shaft | undefined = undefined) {
         this.id = id;
         this.factor = factor
         this.input = input;
@@ -37,12 +37,15 @@ export class Multiplier implements Device {
         this.previous_value = this.factor;
     }
 
+    shafts_defined(): boolean {
+        return !(!this.input || !this.output);
+    }
+
     /**
      * @method getOutput
      * @description This method calculates the nextRotation of output shaft
      * @returns The output shaft that represents the output of the Multiplier
     */
-
     determine_output(): Shaft | undefined {
         return this.output;
     }
@@ -53,12 +56,14 @@ export class Multiplier implements Device {
      * to be factor * (input's rotation rate)
     */
     update(dt: number = 1): void {
+        if (!this.shafts_defined()) return;
+
         if (!this.multiplicand_shaft) {
-            this.output.set_rotation_rate(this.input.get_rotation_rate() * this.factor);
+            this.output?.set_rotation_rate(this.input!.get_rotation_rate() * this.factor);
         } else {
-            let rotation_rate = this.input.rotation * this.multiplicand_shaft.get_rotation_rate()
-                + this.multiplicand_shaft.rotation * this.input.get_rotation_rate();
-            this.output.set_rotation_rate(rotation_rate);
+            let rotation_rate = this.input!.rotation * this.multiplicand_shaft!.get_rotation_rate()
+                + this.multiplicand_shaft!.rotation * this.input!.get_rotation_rate();
+            this.output!.set_rotation_rate(rotation_rate);
         }
 
     }
@@ -74,7 +79,7 @@ export class Multiplier implements Device {
         }
     }
 
-    getInputShaft(): Shaft {
+    getInputShaft(): Shaft | undefined {
         return this.input;
     }
 }

@@ -22,24 +22,18 @@ export class IntegratorComponentElement extends LitElement {
   @property({ type: Number })
   value: number = 0;
   @property({ type: Number })
-  max_value: number = 1;
-  @property({ type: Number })
   current_value: number = 0;
 
+  /**
+   * Set the current offset of the output wheel
+   */
   set_value(value: number): void {
-    this.max_value = Math.max(this.max_value, Math.abs(value));
     this.value = value;
   }
 
-  renormalize(): void {
-    if (Math.abs(this.value) <= 1) {
-      this.max_value = 1;
-    }
-    else {
-      this.max_value = Math.abs(2 * this.value);
-    }
-  }
-
+  /**
+   * Map from in_min<->in_max to out_min<->out_max
+   */
   map_range(number: number, in_min: number, in_max: number, out_min: number, out_max: number): number {
     return (number - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   }
