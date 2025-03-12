@@ -1,7 +1,7 @@
 import { query, queryAll } from "./decorators";
 import { ComponentType, createComponent } from "./UI/Components";
 import { DraggableComponentElement } from "./UI/DraggableElement";
-import { GRID_SIZE, screenToWorldPosition, setCells, worldToScreenPosition } from "./UI/Grid";
+import { GRID_SIZE, setCells, worldToScreenPosition } from "./UI/Grid";
 
 const MAX_HISTORY_LENGTH = 32;
 
@@ -22,6 +22,7 @@ export class UndoHistory {
     data: any,
   }[][] = [];
 
+  // Remove all components from the DOM
   private _clear_components(): void {
     for (let component of this.placedComponents) {
       let { top, left, width, height } = component;
@@ -30,10 +31,12 @@ export class UndoHistory {
     }
   }
 
+  // Remove the last state stored in history
   remove(): void {
     this.history.pop();
   }
 
+  // Remove the last state stored in history and restore it
   pop_history(): void {
     if (this.history.length < 1) {
       return;
@@ -69,6 +72,7 @@ export class UndoHistory {
     document.dispatchEvent(e);
   }
 
+  // Remove the last state stored in future and restore it
   pop_future(): void {
     if (this.future.length < 1) {
       return;
@@ -104,6 +108,7 @@ export class UndoHistory {
     document.dispatchEvent(e);
   }
 
+  // Push the current system setup into history
   push(): void {
     this.future.splice(0, this.future.length);
 

@@ -21,20 +21,30 @@ export class CustomVariablesElement extends LitElement {
   @query("#output-area")
   private _outputs!: HTMLTextAreaElement;
 
+  /**
+   * Return the lookup of values
+   */
   getValues(): { [k: string]: number } {
     return this.values;
   }
 
+  /**
+   * Return the direct text in the textarea
+   */
   getText(): string {
     return this._textarea.value;
   }
 
+  /**
+   * Set the text in textarea
+   */
   setText(text: string): void {
     this.values = {};
     this._textarea.value = text;
     this.change();
   }
 
+  // Set the height of the textarea and evaluate constants in the text area
   change() {
     this._textarea.style.height = `calc(min(${this._textarea.scrollHeight}px, 40vh))`;
 
@@ -76,12 +86,12 @@ export class CustomVariablesElement extends LitElement {
     document.querySelectorAll(".outputTable").forEach(x => x.dispatchEvent(e));
   }
 
+  // Display the evaluated values on hober
   hover(e: MouseEvent): void {
     const hover = (e.currentTarget! as HTMLDivElement).querySelector("span")! as HTMLSpanElement;
 
     hover.style.left = `${e.clientX}px`;
     hover.style.top = `${e.clientY}px`;
-
   }
 
   render() {

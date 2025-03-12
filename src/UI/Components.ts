@@ -366,7 +366,6 @@ function createIntegrator(div: DraggableComponentElement): void {
         // Evaluate the stored string for the integrator disk position
         const comp = _this.querySelector("integrator-component")! as IntegratorComponentElement;
         comp.set_value(Expression.eval(_this.dataset.initialValue, get_global_ctx()));
-        comp.renormalize();
     };
 }
 

@@ -578,7 +578,6 @@ export class Lifecycle {
             const integrator = document.querySelector(`#component-${corecomp.getID()}`) as DraggableComponentElement;
             const uicomp = integrator.querySelector("integrator-component")! as IntegratorComponentElement;
             uicomp.set_value(corecomp.getDiskPosition());
-            uicomp.renormalize();
         }
 
         // Reset the animation values of the multiplier

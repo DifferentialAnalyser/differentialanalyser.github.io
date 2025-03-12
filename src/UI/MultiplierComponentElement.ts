@@ -6,21 +6,26 @@ import styles from "../../styles/SVGElement.css?inline";
 export class MultiplierComponentElement extends LitElement {
   static styles = css`${unsafeCSS(styles)}`;
 
-  @property({ type: Number }) 
+  @property({ type: Number })
   factor: number = 0;
 
-  @property({ type: Number }) 
+  @property({ type: Number })
   value: number = 0;
 
-  @property({ type: Number }) 
+  @property({ type: Number })
   max_value: number = 1;
 
-
+  /**
+   * Set the current position of the multiplier
+   */
   set_value(value: number): void {
     this.max_value = Math.max(this.max_value, Math.abs(value));
     this.value = value;
   }
 
+  /**
+   * Renormalize the range of the position
+   */
   renormalize(): void {
     if (Math.abs(this.value) <= 1) {
       this.max_value = 1;
@@ -30,12 +35,12 @@ export class MultiplierComponentElement extends LitElement {
     }
   }
 
+  // Map a value from between one range to another
   map_range(number: number, in_min: number, in_max: number, out_min: number, out_max: number): number {
     return (number - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   }
 
   render() {
-
     const radius = 40;
     let angle = Math.atan(this.factor);
     let x_offset = Math.cos(angle) * radius;

@@ -2,9 +2,9 @@ import { CustomVariablesElement } from "./UI/CustomVariablesElement.ts";
 import { DraggableComponentElement } from "./UI/DraggableElement.ts";
 import { Config } from "./config";
 
-// Used to configure parameters and initial setings
-// Go from UI to config which can be saved and loaded 
-
+/**
+ * Find a shaft with a specific class name that matches the predicate
+ */
 function getShaft(className: string, predicate: (x: number, y: number, w: number, h: number) => boolean): number | null {
   const shafts = document.querySelectorAll(`.${className}`) as NodeListOf<DraggableComponentElement>;
   for (let i = 0; i < shafts.length; i++) {
@@ -18,43 +18,44 @@ function getShaft(className: string, predicate: (x: number, y: number, w: number
   return null;
 }
 
+/**
+ * Get the vertical shaft ID that goes through x, y if it exists
+ */
 export function getVShaftID(x: number, y: number): number | null {
   return getShaft("vShaft", (sX, sY, _, sH) => {
     return (sX == x) && (sY <= y && sY + sH - 1 >= y);
   });
 }
 
+/**
+ * Get the horizontal shaft ID that goes through x, y if it exists
+ */
 export function getHShaftID(x: number, y: number): number | null {
   return getShaft("hShaft", (sX, sY, sW) => {
     return (sY == y) && (sX <= x && sX + sW - 1 >= x);
   });
 }
 
-// take a component, get it's name, location/position, 
+
+/**
+ * Takes all placed-components in the dom and creates a JSON object representing the 
+ * current machine
+ */
 export function toConfig(): [Config, number[]] {
-  //  iterate through
   const elements = document.querySelectorAll(".placed-component:not(.dragged)") as NodeListOf<DraggableComponentElement>;
   const shaftElements = Array.from(elements).filter(element => element.componentType.endsWith("Shaft"));
+
+  // Generate the configuration for all the shafts
   const config1 = Array.from(shaftElements).map((thisComponent) => {
-    // for shafts
     if ((thisComponent.componentType === "vShaft") || (thisComponent.componentType === "hShaft")) {
-      // id
       const id = thisComponent.componentID;
-      // position
       const start = [Number(thisComponent.left), Number(thisComponent.top)];
 
       const shaft: any = { id, start };
 
-      // if vertical
       if (thisComponent.componentType === "vShaft") {
-        // height
-        // shaft.height = thisComponent.height;
         shaft.end = [Number(thisComponent.left), Number(thisComponent.top) + thisComponent.height - 1];
-      }
-      // if horizontal
-      else if (thisComponent.componentType === "hShaft") {
-        // width
-        // shaft.width = thisComponent.width;
+      } else if (thisComponent.componentType === "hShaft") {
         shaft.end = [Number(thisComponent.left) + thisComponent.width - 1, Number(thisComponent.top)];
       }
       return shaft;
@@ -62,13 +63,11 @@ export function toConfig(): [Config, number[]] {
   });
 
   const componentElements = Array.from(elements).filter(element => !element.componentType.endsWith("Shaft"));
-  // for all components
-  const config2 = Array.from(componentElements).map((thisComponent) => {
 
+  // Generate the config for every placed component using the export fn defined within the components
+  const config2 = Array.from(componentElements).map((thisComponent) => {
     const type = thisComponent.componentType;
-    // id
     const compID = thisComponent.componentID;
-    // position
     const position = [Number(thisComponent.left), Number(thisComponent.top)];
 
     let result = null;
@@ -82,7 +81,7 @@ export function toConfig(): [Config, number[]] {
           const horizontal = getHShaftID(position[0], position[1]);
 
           if (vertical === null || horizontal == null) {
-            break;;
+            break;
           }
 
           result = { type, compID, position, reversed, vertical, horizontal }
@@ -97,7 +96,7 @@ export function toConfig(): [Config, number[]] {
           const integrandShaft = getVShaftID(position[0] + 3, position[1] - 1);
 
           if (outputShaft === null || variableOfIntegrationShaft === null || integrandShaft === null) {
-            break;;
+            break;
           }
 
           result = { type, compID, position, outputShaft, variableOfIntegrationShaft, integrandShaft, initialPosition };
@@ -217,6 +216,7 @@ export function toConfig(): [Config, number[]] {
     return result;
   });
 
+  // Compose all the configs into one
   const shafts = config1;
   const components: any = config2;
   const constants = (document.querySelector("custom-variables")! as CustomVariablesElement).getText();
@@ -224,7 +224,6 @@ export function toConfig(): [Config, number[]] {
     "custom_variables": constants,
   };
 
-  // Should we remove unnconnected components?
   const config: Config = { shafts, components: components.filter((x: { type: string }) => x.type !== "unconnected"), settings };
   return [config, components.filter((x: { type: string }) => x.type === "unconnected").map((x: { compID: number }) => x.compID)];
 }
