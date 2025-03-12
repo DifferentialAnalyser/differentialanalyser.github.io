@@ -19,10 +19,6 @@ import "./UI/DialComponentElement";
 import "./UI/CustomVariablesElement";
 import "./expr/Expression.ts";
 
-import "./run.ts";
-
-// Give the example configuration a type
-
 /**
  * Generates n data points of a function in a specified range
  */
