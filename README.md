@@ -14,7 +14,7 @@ elegant operation of this device, and help students to gain an intuitive underst
 of mathematical principles through the visualised behaviour.
 
 ## Setup Instructions
-Download the Repo and run the following command to build and run the website
+Download the Repo and run the following commands to build the website and run a test server
 ```shell
 > npm ci
 > npm run dev
