@@ -1,5 +1,12 @@
+/**
+ * Map of variable identifiers to their functions for functions
+ * included in an expression environment by default
+ */
 export const BUITLIN_FUNCTIONS: { [ident: string]: (...params: number[]) => number } = {
-  // Binary operators
+  // Functions that represent the operation of expression
+  // binary operators.
+  //
+  // This is used to simplify the expression evaluation.
   "+": (lhs, rhs) => lhs + rhs,
   "-": (lhs, rhs) => lhs - rhs,
   "*": (lhs, rhs) => lhs * rhs,
@@ -13,6 +20,11 @@ export const BUITLIN_FUNCTIONS: { [ident: string]: (...params: number[]) => numb
   "==": (lhs, rhs) => Math.abs(lhs - rhs) < 1e-8 ? 1.0 : 0.0,
   "!=": (lhs, rhs) => Math.abs(lhs - rhs) > 1e-8 ? 1.0 : 0.0,
 
+  // Common mathematical functions
+  //
+  // Most are 1-1 maps to the JavaScript Math library,
+  // however this does not include a few common functions
+  // which are inculded here.
   "abs": Math.abs,
   "acos": Math.acos,
   "acosh": Math.acosh,
@@ -61,9 +73,13 @@ export const BUITLIN_FUNCTIONS: { [ident: string]: (...params: number[]) => numb
   "trunc": Math.trunc,
 };
 
+/**
+ * Map of variable identifiers to their values for constants
+ * included in an expression environment by default
+ */
 export const BUILTIN_VARIABLES: { [ident: string]: number } = {
   "e": Math.E,
   "pi": Math.PI,
   "tau": Math.PI * 2,
-  "phi": (1 + Math.sqrt(5)) / 2,
+  "phi": (1 + Math.sqrt(5)) / 2, // Golden ratio
 };
